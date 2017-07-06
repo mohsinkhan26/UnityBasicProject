@@ -16,7 +16,7 @@ Also, It is structured properly with the namespace that it would not conflict wi
 
 ### Editor Module/Feature list: ###
 * **TextExtension** - extended Text component with text Id field added
-* **ToggleExtension** - extended Toggle component with support for Text and TextExtension to edit text of toggle, animator 
+* **ToggleExtension** - extended Toggle component to add support for Text and TextExtension to edit text of toggle, animator 
 * Anchors selected UI to corners
 * Find gameObjects which have missing scripts
 * Find nested gameObjects which have missing scripts - recursively

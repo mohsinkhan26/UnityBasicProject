@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿/* 
+ * Author : Mohsin Khan
+ * Website : http://mohsinkhan.000webhostapp.com/
+*/
+using UnityEngine;
 using MK.Common.Utilities;
 
 #if UNITY_4_6 || UNITY_4_7 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2
@@ -12,7 +16,7 @@ using UnityEngine.SceneManagement;
 /// Reference Content: http://goo.gl/8WZGxn
 /// </summary>
 
-namespace Game.Managers
+namespace MK.Common.Managers
 {
     // it would be better, if you name scenes according to scenes listed in build settings
     public enum GameScene

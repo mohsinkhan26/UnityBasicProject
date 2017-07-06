@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿/* 
+ * Author : Mohsin Khan
+ * Website : http://mohsinkhan.000webhostapp.com/
+*/
+using UnityEngine;
 using System.Net.Mail;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;

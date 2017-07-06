@@ -1,10 +1,14 @@
-﻿using UnityEngine;
+﻿/* 
+ * Author : Mohsin Khan
+ * Website : http://mohsinkhan.000webhostapp.com/
+*/
+using UnityEngine;
 using System;
 using MK.Common.Utilities;
 
 /// <summary>
-/// Mono Direct - Gives your game speed as Unity calls these functions using reflection.
-/// So better to use reflection only in MonoDirect and implementing the callbacks in your monobehavious scripts
+/// Mono Direct - Gives your game speed as Unity calls these functions using Reflection.
+/// So better to use reflection only in MonoDirect and implementing the callbacks in your MonoBehaviour scripts
 /// Usage: Register the required action in Awake of your script and also Unregister in onDestroyCallback
 /// Remember: Use this class only to save recurring reflection calls like Update, FixedUpdate; not one time reflection calls like Start, OnEnable
 /// For more details:
@@ -24,7 +28,7 @@ namespace MK.Direct
         ///  GameObject with the script component is instantiated</para>
         /// </summary>
         public Action onEnableCallback;
-#if UNITY_4_6 || UNITY_4_7 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2
+        #if UNITY_4_6 || UNITY_4_7 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2
         /// <summary>
         /// <para>One time reflection call - Not recommended to use this.</para>
         /// <para>First Scene Load - This function is executed to inform the game that a new level has been loaded</para>
@@ -164,7 +168,7 @@ namespace MK.Direct
                 onEnableCallback();
         }
 
-#if UNITY_4_6 || UNITY_4_7 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2
+        #if UNITY_4_6 || UNITY_4_7 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2
         /// <summary>
         /// First Scene Load - This function is executed to inform the game that a new level has been loaded
         /// </summary>
