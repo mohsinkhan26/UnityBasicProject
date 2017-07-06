@@ -5,14 +5,14 @@ A boilerplate project that many games could take advantage of. As it is a basic 
 Also, It is structured properly with the namespace that it would not conflict with your code at any time.
 
 ### Module/Feature list: ###
-* Singleton - generic singleton which can be used to implement managers
-* MonoDirect - solution to Monobehavoiur function callbacks (called through reflections) which can be slow in most cases and could be the reason of lag
-* SceneController - which should be used to switch scenes
-* ReportEmail - email reporting module which allows you to mail console data to given email address
-* GameLogger - allows you to log with a lot of features like color, timestamp, italics, bold etc.
-* MonoExtension - includes a lot of extension methods like InvokeExtension, UpdateExtension, AlphaFade etc.
-* WebAudioClip - allows you to download audio file from given URL
-* WebData - allows you to download text data from given URL
+* **Singleton** - generic singleton which can be used to implement managers
+* **MonoDirect** - solution to Monobehaviour function callbacks (called through reflections) which can be slow in most cases and could be the reason of lag
+* **SceneController** - which should be used to switch scenes
+* **ReportEmail** - email reporting module which allows you to mail console data to given email address
+* **GameLogger** - allows you to log with a lot of features like color, timestamp, italics, bold etc.
+* **MonoExtension** - includes a lot of extension methods like InvokeExtension, UpdateExtension, AlphaFade etc.
+* **WebAudioClip** - allows you to download audio file from given URL
+* **WebData** - allows you to download text data from given URL
 
 ### Editor Module/Feature list: ###
 * Text component extension - text Id field added
