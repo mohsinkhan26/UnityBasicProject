@@ -1,4 +1,8 @@
-﻿namespace UnityEngine.UI
+﻿/* 
+ * Author : Mohsin Khan
+ * Website : http://mohsinkhan.000webhostapp.com/
+*/
+namespace UnityEngine.UI
 {
     /// <summary>
     /// It extends Toggle component makes accesible of its Text component

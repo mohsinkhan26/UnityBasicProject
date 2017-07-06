@@ -1,4 +1,8 @@
-﻿using System;
+﻿/* 
+ * Author : Mohsin Khan
+ * Website : http://mohsinkhan.000webhostapp.com/
+*/
+using System;
 using UnityEngine;
 
 namespace MK.Common.Utilities
