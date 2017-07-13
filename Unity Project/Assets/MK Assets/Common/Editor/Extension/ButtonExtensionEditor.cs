@@ -8,18 +8,18 @@ using UnityEngine.UI;
 
 namespace UnityEditor.UI
 {
-    [CustomEditor(typeof(TextExtension), true)]
+    [CustomEditor(typeof(ButtonExtension), true)]
     [CanEditMultipleObjects]
-    public class TextExtensionEditor : TextEditor
+    public class ButtonExtensionEditor : ButtonEditor
     {
-        SerializedProperty m_TextId;
+        SerializedProperty m_Text;
         SerializedProperty m_Animator;
 
         protected override void OnEnable()
         {
             base.OnEnable();
 
-            m_TextId = serializedObject.FindProperty("m_textId");
+            m_Text = serializedObject.FindProperty("m_textComponent");
             m_Animator = serializedObject.FindProperty("m_animator");
         }
 
@@ -30,7 +30,7 @@ namespace UnityEditor.UI
             EditorGUILayout.Space();
 
             serializedObject.Update();
-            EditorGUILayout.PropertyField(m_TextId);
+            EditorGUILayout.PropertyField(m_Text);
             EditorGUILayout.PropertyField(m_Animator);
 
             serializedObject.ApplyModifiedProperties();
