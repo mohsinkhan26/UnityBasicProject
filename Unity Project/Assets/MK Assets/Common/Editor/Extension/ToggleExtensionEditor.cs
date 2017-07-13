@@ -1,6 +1,8 @@
 ﻿/* 
  * Author : Mohsin Khan
- * Website : http://mohsinkhan.000webhostapp.com/
+ * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
+ * Github : https://github.com/mohsinkhan26/
+ * BitBucket : https://bitbucket.org/unbounded-eagle/ 
 */
 using UnityEngine.UI;
 
@@ -20,7 +22,7 @@ namespace UnityEditor.UI
 
             m_Text = serializedObject.FindProperty("m_textComponent");
             m_TextExtension = serializedObject.FindProperty("m_textExtensionComponent");
-            m_Animator = serializedObject.FindProperty("m_Animator");
+            m_Animator = serializedObject.FindProperty("m_animator");
         }
 
         public override void OnInspectorGUI()
