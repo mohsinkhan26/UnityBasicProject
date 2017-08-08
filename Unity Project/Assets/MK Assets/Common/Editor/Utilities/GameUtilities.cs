@@ -7,14 +7,26 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace MK.Common.Miscellaneous
+namespace MK.Common.Utilities
 {
     public static class GameUtilities
     {
         [MenuItem("Tools/MK Assets/Check All Plugins", false, 50)]
         public static void CheckAllPlugins()
         {
-            Application.OpenURL("https://www.assetstore.unity3d.com/en/#!/search/page=1/sortby=popularity/query=publisher:28971/");
+            Application.OpenURL("https://assetstore.unity.com/publishers/28971");
+        }
+        
+        [MenuItem("Tools/MK Assets/GitHub Profile", false, 50)]
+        public static void CheckGitHubProfile()
+        {
+            Application.OpenURL("https://github.com/mohsinkhan26/");
+        }
+
+        [MenuItem("Tools/MK Assets/BitBucket Profile", false, 50)]
+        public static void CheckBitBucketProfile()
+        {
+            Application.OpenURL("https://bitbucket.org/unbounded-eagle/");
         }
 
         [MenuItem("Tools/MK Assets/OpenScene/Sample Scene")]
