@@ -11,6 +11,7 @@ Also, It is structured properly with the namespace that it would not conflict wi
 * **ReportEmail** - email reporting module which allows you to mail console data to given email address
 * **GameLogger** - allows you to log with a lot of features like color, timestamp, italics, bold etc.
 * **MonoExtension** - includes a lot of extension methods like InvokeExtension, UpdateExtension, AlphaFade etc.
+* **ToggleBehaviour** - allows you to enable & disable components, specially use it in your UIs
 * **WebAudioClip** - allows you to download audio file from given URL
 * **WebData** - allows you to download text data from given URL
 
