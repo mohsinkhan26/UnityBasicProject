@@ -36,7 +36,7 @@ namespace MK.Common.Helpers
             UnityEngine.Networking.UnityWebRequest unityWebRequest = UnityEngine.Networking.UnityWebRequest.Get(_url);
             yield return unityWebRequest.Send();
 
-            if (unityWebRequest.isError)
+            if (unityWebRequest.isNetworkError)
             {
                 Debug.Log("GetTextFromURL-Error: <color=red>" + unityWebRequest.error + "</color>\n");
                 if (_callback != null)

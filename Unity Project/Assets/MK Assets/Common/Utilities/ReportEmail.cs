@@ -10,8 +10,8 @@ using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Net.Security;
 using UnityEngine.UI;
-
-//using System.Text;
+using System;
+using System.Text;
 
 /* NOTE: Make the FROM email less secure (Turn On) on 
  * https://www.google.com/settings/security/lesssecureapps
@@ -111,8 +111,7 @@ namespace MK.Common.Utilities
                 mail.To.Add(toEmail);
 
                 mail.Subject = _subject;
-                mail.Body = GetSystemInformation() + _messageBody + "\n" + logs;
-                //mail.Body = GetSystemInformation() + _messageBody + "\n" + sbLogs.ToString();
+                mail.Body = GetSystemInformation().Append(_messageBody).AppendLine().Append(logs).ToString();
 
                 ServicePointManager.ServerCertificateValidationCallback =
                 delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
@@ -145,51 +144,51 @@ namespace MK.Common.Utilities
             }
         }
 
-        string GetSystemInformation()
+        StringBuilder GetSystemInformation()
         {
-            string str = "*********************************************************";
-            str += "\nOperating System: " + SystemInfo.operatingSystem;
-            str += "\nDevice Model: " + SystemInfo.deviceModel;
-            str += "\nDevice Type: " + SystemInfo.deviceType.ToString();
-            str += "\nDevice Name: " + SystemInfo.deviceName;
-            str += "\nDevice Unique Identifier: " + SystemInfo.deviceUniqueIdentifier;
-            str += "\nProcessor Name: " + SystemInfo.processorType;
-            str += "\nProcessor Frequency: " + SystemInfo.processorFrequency.ToString() + " MHz";
-            str += "\nSystem Memory Size: " + SystemInfo.systemMemorySize.ToString() + " MB";
-            str += "\nLogical Processors (number of hardware threads): " + SystemInfo.processorCount.ToString();
-            str += "\nGraphics Device ID: " + SystemInfo.graphicsDeviceID.ToString();
-            str += "\nGraphics Device Name: " + SystemInfo.graphicsDeviceName;
-            str += "\nGraphics Device Type: " + SystemInfo.graphicsDeviceType.ToString();
-            str += "\nGraphics Device Vendor: " + SystemInfo.graphicsDeviceVendor;
-            str += "\nGraphics Device Vendor ID: " + SystemInfo.graphicsDeviceVendorID;
-            str += "\nGraphics Device Version: " + SystemInfo.graphicsDeviceVersion;
-            str += "\nGraphics Memory Size: " + SystemInfo.graphicsMemorySize.ToString();
-            str += "\nGraphics Multi-Threaded: " + SystemInfo.graphicsMultiThreaded.ToString();
-            str += "\nGraphics Shader Level: " + SystemInfo.graphicsShaderLevel.ToString();
-            str += "\nMax Texture Size: " + SystemInfo.maxTextureSize.ToString();
-            str += "\nNPOT (non-power of two size) texture support: " + SystemInfo.npotSupport.ToString();
-            str += "\nCopy Texture Support: " + SystemInfo.copyTextureSupport.ToString();
-            str += "\nSupported Render Target Count: " + SystemInfo.supportedRenderTargetCount.ToString() + " MRTs";
-            str += "\nSupports 2D Array Textures: " + SystemInfo.supports2DArrayTextures.ToString();
-            str += "\nSupports 3D Textures: " + SystemInfo.supports3DTextures.ToString();
-            str += "\nSupports Accelerometer: " + SystemInfo.supportsAccelerometer.ToString();
-            str += "\nSupports Audio: " + SystemInfo.supportsAudio.ToString();
-            str += "\nSupports Compute Shaders: " + SystemInfo.supportsComputeShaders.ToString();
-            str += "\nSupports Gyroscope: " + SystemInfo.supportsGyroscope.ToString();
-            str += "\nSupports Image Effects: " + SystemInfo.supportsImageEffects.ToString();
-            str += "\nSupports Instancing: " + SystemInfo.supportsInstancing.ToString();
-            str += "\nSupports Location Service: " + SystemInfo.supportsLocationService.ToString();
-            str += "\nSupports Motion Vectors: " + SystemInfo.supportsMotionVectors.ToString();
-            str += "\nSupports Raw Shadow Depth Sampling: " + SystemInfo.supportsRawShadowDepthSampling.ToString();
-            //str += "\nSupports Render Textures: " + SystemInfo.supportsRenderTextures.ToString();
-            str += "\nSupports Render To Cubemap: " + SystemInfo.supportsRenderToCubemap.ToString();
-            str += "\nSupports Shadows: " + SystemInfo.supportsShadows.ToString();
-            str += "\nSupports Sparse Textures: " + SystemInfo.supportsSparseTextures.ToString();
-            //str += "\nSupports Stencil: " + SystemInfo.supportsStencil.ToString();
-            str += "\nSupports Vibration: " + SystemInfo.supportsVibration.ToString();
-            str += "\nUnsupported Identifier: " + SystemInfo.unsupportedIdentifier;
-            str += "\n*********************************************************";
-            return (str + "\n\n\n\n");
+            StringBuilder str = new StringBuilder("*********************************************************");
+            str.Append("\nOperating System: ").Append(SystemInfo.operatingSystem);
+            str.Append("\nDevice Model: ").Append(SystemInfo.deviceModel);
+            str.Append("\nDevice Type: ").Append(SystemInfo.deviceType.ToString());
+            str.Append("\nDevice Name: ").Append(SystemInfo.deviceName);
+            str.Append("\nDevice Unique Identifier: ").Append(SystemInfo.deviceUniqueIdentifier);
+            str.Append("\nProcessor Name: ").Append(SystemInfo.processorType);
+            str.Append("\nProcessor Frequency: ").Append(SystemInfo.processorFrequency.ToString()).Append(" MHz");
+            str.Append("\nSystem Memory Size: ").Append(SystemInfo.systemMemorySize.ToString()).Append(" MB");
+            str.Append("\nLogical Processors (number of hardware threads): ").Append(SystemInfo.processorCount.ToString());
+            str.Append("\nGraphics Device ID: ").Append(SystemInfo.graphicsDeviceID.ToString());
+            str.Append("\nGraphics Device Name: ").Append(SystemInfo.graphicsDeviceName);
+            str.Append("\nGraphics Device Type: ").Append(SystemInfo.graphicsDeviceType.ToString());
+            str.Append("\nGraphics Device Vendor: ").Append(SystemInfo.graphicsDeviceVendor);
+            str.Append("\nGraphics Device Vendor ID: ").Append(SystemInfo.graphicsDeviceVendorID);
+            str.Append("\nGraphics Device Version: ").Append(SystemInfo.graphicsDeviceVersion);
+            str.Append("\nGraphics Memory Size: ").Append(SystemInfo.graphicsMemorySize.ToString());
+            str.Append("\nGraphics Multi-Threaded: ").Append(SystemInfo.graphicsMultiThreaded.ToString());
+            str.Append("\nGraphics Shader Level: ").Append(SystemInfo.graphicsShaderLevel.ToString());
+            str.Append("\nMax Texture Size: ").Append(SystemInfo.maxTextureSize.ToString());
+            str.Append("\nNPOT (non-power of two size) texture support: ").Append(SystemInfo.npotSupport.ToString());
+            str.Append("\nCopy Texture Support: ").Append(SystemInfo.copyTextureSupport.ToString());
+            str.Append("\nSupported Render Target Count: ").Append(SystemInfo.supportedRenderTargetCount.ToString()).Append(" MRTs");
+            str.Append("\nSupports 2D Array Textures: ").Append(SystemInfo.supports2DArrayTextures.ToString());
+            str.Append("\nSupports 3D Textures: ").Append(SystemInfo.supports3DTextures.ToString());
+            str.Append("\nSupports Accelerometer: ").Append(SystemInfo.supportsAccelerometer.ToString());
+            str.Append("\nSupports Audio: ").Append(SystemInfo.supportsAudio.ToString());
+            str.Append("\nSupports Compute Shaders: ").Append(SystemInfo.supportsComputeShaders.ToString());
+            str.Append("\nSupports Gyroscope: ").Append(SystemInfo.supportsGyroscope.ToString());
+            str.Append("\nSupports Image Effects: ").Append(SystemInfo.supportsImageEffects.ToString());
+            str.Append("\nSupports Instancing: ").Append(SystemInfo.supportsInstancing.ToString());
+            str.Append("\nSupports Location Service: ").Append(SystemInfo.supportsLocationService.ToString());
+            str.Append("\nSupports Motion Vectors: ").Append(SystemInfo.supportsMotionVectors.ToString());
+            str.Append("\nSupports Raw Shadow Depth Sampling: ").Append(SystemInfo.supportsRawShadowDepthSampling.ToString());
+            //str.Append("\nSupports Render Textures: ").Append(SystemInfo.supportsRenderTextures.ToString());
+            str.Append("\nSupports Render To Cubemap: ").Append(SystemInfo.supportsRenderToCubemap.ToString());
+            str.Append("\nSupports Shadows: ").Append(SystemInfo.supportsShadows.ToString());
+            str.Append("\nSupports Sparse Textures: ").Append(SystemInfo.supportsSparseTextures.ToString());
+            //str.Append("\nSupports Stencil: ").Append(SystemInfo.supportsStencil.ToString());
+            str.Append("\nSupports Vibration: ").Append(SystemInfo.supportsVibration.ToString());
+            str.Append("\nUnsupported Identifier: ").Append(SystemInfo.unsupportedIdentifier);
+            str.Append("\n*********************************************************");
+            return str.AppendLine().AppendLine().AppendLine().AppendLine();
         }
     }
 }
