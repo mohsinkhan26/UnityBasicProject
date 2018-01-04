@@ -2,11 +2,12 @@
  * Author : Mohsin Khan
  * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
  * Github : https://github.com/mohsinkhan26/
- * BitBucket : https://bitbucket.org/unbounded-eagle/ 
+ * BitBucket : https://bitbucket.org/mohsinkhan26/ 
 */
 using UnityEngine;
 using System;
 using System.Collections;
+using UnityEngine.Networking;
 
 namespace MK.Common.Helpers
 {
@@ -33,7 +34,7 @@ namespace MK.Common.Helpers
         private static IEnumerator GetTextFromURLCoroutine(this MonoBehaviour _mono, string _url, Action<bool, string> _callback)
         {
             Debug.Log("GetTextFromURL-URL: <color=blue>" + _url + "</color>\n");
-            UnityEngine.Networking.UnityWebRequest unityWebRequest = UnityEngine.Networking.UnityWebRequest.Get(_url);
+            UnityWebRequest unityWebRequest = UnityWebRequest.Get(_url);
             yield return unityWebRequest.Send();
 
             if (unityWebRequest.isNetworkError)
