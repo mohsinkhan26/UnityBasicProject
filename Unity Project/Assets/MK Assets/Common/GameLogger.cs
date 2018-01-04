@@ -1,11 +1,12 @@
-/* 
+﻿/* 
  * Author : Mohsin Khan
  * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
  * Github : https://github.com/mohsinkhan26/
- * BitBucket : https://bitbucket.org/unbounded-eagle/ 
+ * BitBucket : https://bitbucket.org/mohsinkhan26/ 
 */
 using System;
 using UnityEngine;
+using System.Text;
 
 namespace MK.Common
 {
@@ -59,7 +60,8 @@ namespace MK.Common
         /// <param name="args">Arguments.</param>
         public static void LogT<T>(this T sender, string message, params object[] args) where T : class
         {
-            sender.Log(DateTime.Now.ToString("[hh:mm:ss.fff] ") + string.Format(message, args));
+            sender.Log(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff] "))
+                       .Append(string.Format(message, args)).ToString());
         }
 
         /// <summary>
@@ -69,8 +71,10 @@ namespace MK.Common
         /// <param name="args">Arguments.</param>
         public static void LogTT<T>(this T sender, string message, params object[] args) where T : class
         {
-            sender.Log(DateTime.Now.ToString("[hh:mm:ss.fff] ") + string.Format(message, args) +
-                "\n<color=" + StackTraceColor + ">Stack Traces: " + StackTraceUtility.ExtractStackTrace() + "</color>\n");
+            sender.Log(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff] "))
+                       .Append(string.Format(message, args))
+                       .Append("\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
+                       .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
         /// <summary>
@@ -82,37 +86,52 @@ namespace MK.Common
         /// <typeparam name="T">The 1st type parameter.</typeparam>
         public static void LogSender<T>(this T sender, string message, params object[] args) where T : class
         {
-            sender.Log("[" + sender.ToString() + "]: " + string.Format(message, args));
+            sender.Log(new StringBuilder("[").Append(sender.ToString()).Append("]: ")
+                       .Append(string.Format(message, args)).ToString());
         }
 
         public static void LogAll<T>(this T sender, string message, params object[] args) where T : class
         {
-            sender.Log(DateTime.Now.ToString("[hh:mm:ss.fff]") + "[" + sender.ToString() + "]: " + string.Format(message, args) +
-                "\n<color=" + StackTraceColor + ">Stack Traces: " + StackTraceUtility.ExtractStackTrace() + "</color>\n");
+            sender.Log(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff]"))
+                       .Append("[").Append(sender.ToString()).Append("]: ")
+                       .Append(string.Format(message, args))
+                       .Append("\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
+                       .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
         public static void LogWithColor<T>(this T sender, Colors color, string message, params object[] args) where T : class
         {
-            sender.Log("[" + sender.ToString() + "]: <color=" + color.ToString() + ">" + string.Format(message, args) +
-                "</color>\n\n<color=" + StackTraceColor + ">Stack Traces: " + StackTraceUtility.ExtractStackTrace() + "</color>\n");
+            sender.Log(new StringBuilder("[").Append(sender.ToString()).Append("]: <color=").Append(color.ToString()).Append(">")
+                       .Append(string.Format(message, args))
+                       .Append("</color>\n\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
+                       .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
         public static void LogColorAll<T>(this T sender, Colors color, string message, params object[] args) where T : class
         {
-            sender.Log(DateTime.Now.ToString("[hh:mm:ss.fff]") + "[" + sender.ToString() + "]: <color=" + color.ToString() + ">" + string.Format(message, args) +
-                "</color>\n<color=" + StackTraceColor + ">Stack Traces: " + StackTraceUtility.ExtractStackTrace() + "</color>\n");
+            sender.Log(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff]")).Append("[").Append(sender.ToString())
+                       .Append("]: <color=").Append(color.ToString()).Append(">")
+                       .Append(string.Format(message, args))
+                       .Append("</color>\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
+                       .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
         public static void LogItalicsColorAll<T>(this T sender, Colors color, string message, params object[] args) where T : class
         {
-            sender.Log(DateTime.Now.ToString("[hh:mm:ss.fff]") + "[" + sender.ToString() + "]: <i><color=" + color.ToString() + ">" + string.Format(message, args) +
-                "</color></i>\n<color=" + StackTraceColor + ">Stack Traces: " + StackTraceUtility.ExtractStackTrace() + "</color>\n");
+            sender.Log(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff]")).Append("[")
+                       .Append(sender.ToString()).Append("]: <i><color=").Append(color.ToString()).Append(">")
+                       .Append(string.Format(message, args))
+                       .Append("</color></i>\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
+                       .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
         public static void LogBoldColorAll<T>(this T sender, Colors color, string message, params object[] args) where T : class
         {
-            sender.Log(DateTime.Now.ToString("[hh:mm:ss.fff]") + "[" + sender.ToString() + "]: <b><color=" + color.ToString() + ">" + string.Format(message, args) +
-                "</color></b>\n<color=" + StackTraceColor + ">Stack Traces: " + StackTraceUtility.ExtractStackTrace() + "</color>\n");
+            sender.Log(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff]")).Append("[")
+                       .Append(sender.ToString()).Append("]: <b><color=").Append(color.ToString()).Append(">")
+                       .Append(string.Format(message, args))
+                       .Append("</color></b>\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
+                       .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
         #endregion LOG
@@ -148,7 +167,8 @@ namespace MK.Common
         /// <param name="args">Arguments.</param>
         public static void LogErrorT<T>(this T sender, string message, params object[] args) where T : class
         {
-            sender.LogError(DateTime.Now.ToString("[hh:mm:ss.fff] ") + string.Format(message, args));
+            sender.LogError(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff] "))
+                            .Append(string.Format(message, args)).ToString());
         }
 
         /// <summary>
@@ -158,8 +178,10 @@ namespace MK.Common
         /// <param name="args">Arguments.</param>
         public static void LogErrorTT<T>(this T sender, string message, params object[] args) where T : class
         {
-            sender.LogError(DateTime.Now.ToString("[hh:mm:ss.fff] ") + string.Format(message, args) +
-                "\n<color=" + StackTraceColor + ">Stack Traces: " + StackTraceUtility.ExtractStackTrace() + "</color>\n");
+            sender.LogError(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff] "))
+                            .Append(string.Format(message, args))
+                            .Append("\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
+                            .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
         /// <summary>
@@ -171,37 +193,53 @@ namespace MK.Common
         /// <typeparam name="T">The 1st type parameter.</typeparam>
         public static void LogErrorSender<T>(this T sender, string message, params object[] args) where T : class
         {
-            sender.LogError("[" + sender.ToString() + "]: " + string.Format(message, args));
+            sender.LogError(new StringBuilder("[").Append(sender.ToString()).Append("]: ")
+                            .Append(string.Format(message, args)).ToString());
         }
 
         public static void LogErrorAll<T>(this T sender, string message, params object[] args) where T : class
         {
-            sender.LogError(DateTime.Now.ToString("[hh:mm:ss.fff]") + "[" + sender.ToString() + "]: " + string.Format(message, args) +
-                "\n<color=" + StackTraceColor + ">Stack Traces: " + StackTraceUtility.ExtractStackTrace() + "</color>\n");
+            sender.LogError(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff]")).Append("[")
+                            .Append(sender.ToString()).Append("]: ")
+                            .Append(string.Format(message, args))
+                            .Append("\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
+                            .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
         public static void LogErrorWithColor<T>(this T sender, Colors color, string message, params object[] args) where T : class
         {
-            sender.LogError("[" + sender.ToString() + "]: <color=" + color.ToString() + ">" + string.Format(message, args) +
-                "</color>\n<color=" + StackTraceColor + ">Stack Traces: " + StackTraceUtility.ExtractStackTrace() + "</color>\n");
+            sender.LogError(new StringBuilder("[").Append(sender.ToString())
+                            .Append("]: <color=").Append(color.ToString()).Append(">")
+                            .Append(string.Format(message, args))
+                            .Append("</color>\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
+                            .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
         public static void LogErrorColorAll<T>(this T sender, Colors color, string message, params object[] args) where T : class
         {
-            sender.LogError(DateTime.Now.ToString("[hh:mm:ss.fff]") + "[" + sender.ToString() + "]: <color=" + color.ToString() + ">" + string.Format(message, args) +
-                "</color>\n<color=" + StackTraceColor + ">Stack Traces: " + StackTraceUtility.ExtractStackTrace() + "</color>\n");
+            sender.LogError(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff]")).Append("[").Append(sender.ToString())
+                            .Append("]: <color=").Append(color.ToString()).Append(">")
+                            .Append(string.Format(message, args))
+                            .Append("</color>\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
+                            .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
         public static void LogErrorItalicsColorAll<T>(this T sender, Colors color, string message, params object[] args) where T : class
         {
-            sender.LogError(DateTime.Now.ToString("[hh:mm:ss.fff]") + "[" + sender.ToString() + "]: <i><color=" + color.ToString() + ">" + string.Format(message, args) +
-                "</color></i>\n<color=" + StackTraceColor + ">Stack Traces: " + StackTraceUtility.ExtractStackTrace() + "</color>\n");
+            sender.LogError(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff]")).Append("[")
+                            .Append(sender.ToString()).Append("]: <i><color=").Append(color.ToString()).Append(">")
+                            .Append(string.Format(message, args))
+                            .Append("</color></i>\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
+                            .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
         public static void LogErrorBoldColorAll<T>(this T sender, Colors color, string message, params object[] args) where T : class
         {
-            sender.LogError(DateTime.Now.ToString("[hh:mm:ss.fff]") + "[" + sender.ToString() + "]: <b><color=" + color.ToString() + ">" + string.Format(message, args) +
-                "</color></b>\n<color=" + StackTraceColor + ">Stack Traces: " + StackTraceUtility.ExtractStackTrace() + "</color>\n");
+            sender.LogError(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff]")).Append("[")
+                            .Append(sender.ToString()).Append("]: <b><color=").Append(color.ToString()).Append(">")
+                            .Append(string.Format(message, args))
+                            .Append("</color></b>\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
+                            .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
         #endregion LOG ERROR
@@ -233,7 +271,8 @@ namespace MK.Common
         /// <param name="args">Arguments.</param>
         public static void LogExceptionT<T>(this T sender, string message, params object[] args) where T : class
         {
-            sender.LogException(DateTime.Now.ToString("[hh:mm:ss.fff] ") + string.Format(message, args));
+            sender.LogException(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff] "))
+                                .Append(string.Format(message, args)).ToString());
         }
 
         /// <summary>
@@ -243,8 +282,10 @@ namespace MK.Common
         /// <param name="args">Arguments.</param>
         public static void LogExceptionTT<T>(this T sender, string message, params object[] args) where T : class
         {
-            sender.LogException(DateTime.Now.ToString("[hh:mm:ss.fff] ") + string.Format(message, args) +
-                "\n<color=" + StackTraceColor + ">Stack Traces: " + StackTraceUtility.ExtractStackTrace() + "</color>\n");
+            sender.LogException(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff] "))
+                                .Append(string.Format(message, args))
+                                .Append("\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
+                                .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
         /// <summary>
@@ -256,37 +297,53 @@ namespace MK.Common
         /// <typeparam name="T">The 1st type parameter.</typeparam>
         public static void LogExceptionSender<T>(this T sender, string message, params object[] args) where T : class
         {
-            sender.LogException("[" + sender.ToString() + "]: " + string.Format(message, args));
+            sender.LogException(new StringBuilder("[").Append(sender.ToString()).Append("]: ")
+                                .Append(string.Format(message, args)).ToString());
         }
 
         public static void LogExceptionAll<T>(this T sender, string message, params object[] args) where T : class
         {
-            sender.LogException(DateTime.Now.ToString("[hh:mm:ss.fff]") + "[" + sender.ToString() + "]: " + string.Format(message, args) +
-                "\n<color=" + StackTraceColor + ">Stack Traces: " + StackTraceUtility.ExtractStackTrace() + "</color>\n");
+            sender.LogException(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff]"))
+                                .Append("[").Append(sender.ToString()).Append("]: ")
+                                .Append(string.Format(message, args))
+                                .Append("\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
+                                .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
         public static void LogExceptionWithColor<T>(this T sender, Colors color, string message, params object[] args) where T : class
         {
-            sender.LogException("[" + sender.ToString() + "]: <color=" + color.ToString() + ">" + string.Format(message, args) +
-                "</color>\n<color=" + StackTraceColor + ">Stack Traces: " + StackTraceUtility.ExtractStackTrace() + "</color>\n");
+            sender.LogException(new StringBuilder("[").Append(sender.ToString())
+                                .Append("]: <color=").Append(color.ToString()).Append(">")
+                                .Append(string.Format(message, args))
+                                .Append("</color>\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
+                                .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
         public static void LogExceptionColorAll<T>(this T sender, Colors color, string message, params object[] args) where T : class
         {
-            sender.LogException(DateTime.Now.ToString("[hh:mm:ss.fff]") + "[" + sender.ToString() + "]: <color=" + color.ToString() + ">" + string.Format(message, args) +
-                "</color>\n<color=" + StackTraceColor + ">Stack Traces: " + StackTraceUtility.ExtractStackTrace() + "</color>\n");
+            sender.LogException(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff]")).Append("[")
+                                .Append(sender.ToString()).Append("]: <color=").Append(color.ToString()).Append(">")
+                                .Append(string.Format(message, args))
+                                .Append("</color>\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
+                                .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
         public static void LogExceptionItalicsColorAll<T>(this T sender, Colors color, string message, params object[] args) where T : class
         {
-            sender.LogException(DateTime.Now.ToString("[hh:mm:ss.fff]") + "[" + sender.ToString() + "]: <i><color=" + color.ToString() + ">" + string.Format(message, args) +
-                "</color></i>\n<color=" + StackTraceColor + ">Stack Traces: " + StackTraceUtility.ExtractStackTrace() + "</color>\n");
+            sender.LogException(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff]")).Append("[")
+                                .Append(sender.ToString()).Append("]: <i><color=").Append(color.ToString()).Append(">")
+                                .Append(string.Format(message, args))
+                                .Append("</color></i>\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
+                                .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
         public static void LogExceptionBoldColorAll<T>(this T sender, Colors color, string message, params object[] args) where T : class
         {
-            sender.LogException(DateTime.Now.ToString("[hh:mm:ss.fff]") + "[" + sender.ToString() + "]: <b><color=" + color.ToString() + ">" + string.Format(message, args) +
-                "</color></b>\n<color=" + StackTraceColor + ">Stack Traces: " + StackTraceUtility.ExtractStackTrace() + "</color>\n");
+            sender.LogException(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff]"))
+                                .Append("[").Append(sender.ToString()).Append("]: <b><color=").Append(color.ToString()).Append(">")
+                                .Append(string.Format(message, args))
+                                .Append("</color></b>\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
+                                .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
         #endregion LOG EXCEPTION
@@ -313,7 +370,8 @@ namespace MK.Common
         /// <param name="args">Arguments.</param>
         public static void LogWarningT<T>(this T sender, string message, params object[] args) where T : class
         {
-            sender.LogWarning(DateTime.Now.ToString("[hh:mm:ss.fff] ") + string.Format(message, args));
+            sender.LogWarning(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff] "))
+                              .Append(string.Format(message, args)).ToString());
         }
 
         /// <summary>
@@ -323,8 +381,10 @@ namespace MK.Common
         /// <param name="args">Arguments.</param>
         public static void LogWarningTT<T>(this T sender, string message, params object[] args) where T : class
         {
-            sender.LogWarning(DateTime.Now.ToString("[hh:mm:ss.fff] ") + string.Format(message, args) +
-                "\n<color=" + StackTraceColor + ">Stack Traces: " + StackTraceUtility.ExtractStackTrace() + "</color>\n");
+            sender.LogWarning(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff] "))
+                              .Append(string.Format(message, args))
+                              .Append("\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
+                              .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
         /// <summary>
@@ -336,37 +396,53 @@ namespace MK.Common
         /// <typeparam name="T">The 1st type parameter.</typeparam>
         public static void LogWarningSender<T>(this T sender, string message, params object[] args) where T : class
         {
-            sender.LogWarning("[" + sender.ToString() + "]: " + string.Format(message, args));
+            sender.LogWarning(new StringBuilder("[").Append(sender.ToString()).Append("]: ")
+                              .Append(string.Format(message, args)).ToString());
         }
 
         public static void LogWarningAll<T>(this T sender, string message, params object[] args) where T : class
         {
-            sender.LogWarning(DateTime.Now.ToString("[hh:mm:ss.fff]") + "[" + sender.ToString() + "]: " + string.Format(message, args) +
-                "\n<color=" + StackTraceColor + ">Stack Traces: " + StackTraceUtility.ExtractStackTrace() + "</color>\n");
+            sender.LogWarning(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff]"))
+                              .Append("[").Append(sender.ToString()).Append("]: ")
+                              .Append(string.Format(message, args))
+                              .Append("\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
+                              .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
         public static void LogWarningWithColor<T>(this T sender, Colors color, string message, params object[] args) where T : class
         {
-            sender.LogWarning("[" + sender.ToString() + "]: <color=" + color.ToString() + ">" + string.Format(message, args) +
-                "</color>\n<color=" + StackTraceColor + ">Stack Traces: " + StackTraceUtility.ExtractStackTrace() + "</color>\n");
+            sender.LogWarning(new StringBuilder("[").Append(sender.ToString())
+                              .Append("]: <color=").Append(color.ToString()).Append(">")
+                              .Append(string.Format(message, args))
+                              .Append("</color>\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
+                              .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
         public static void LogWarningColorAll<T>(this T sender, Colors color, string message, params object[] args) where T : class
         {
-            sender.LogWarning(DateTime.Now.ToString("[hh:mm:ss.fff]") + "[" + sender.ToString() + "]: <color=" + color.ToString() + ">" + string.Format(message, args) +
-                "</color>\n<color=" + StackTraceColor + ">Stack Traces: " + StackTraceUtility.ExtractStackTrace() + "</color>\n");
+            sender.LogWarning(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff]"))
+                              .Append("[").Append(sender.ToString()).Append("]: <color=").Append(color.ToString()).Append(">")
+                              .Append(string.Format(message, args))
+                              .Append("</color>\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
+                              .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
         public static void LogWarningItalicsColorAll<T>(this T sender, Colors color, string message, params object[] args) where T : class
         {
-            sender.LogWarning(DateTime.Now.ToString("[hh:mm:ss.fff]") + "[" + sender.ToString() + "]: <i><color=" + color.ToString() + ">" + string.Format(message, args) +
-                "</color></i>\n<color=" + StackTraceColor + ">Stack Traces: " + StackTraceUtility.ExtractStackTrace() + "</color>\n");
+            sender.LogWarning(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff]")).Append("[")
+                              .Append(sender.ToString()).Append("]: <i><color=").Append(color.ToString()).Append(">")
+                              .Append(string.Format(message, args))
+                              .Append("</color></i>\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
+                              .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
         public static void LogWarningBoldColorAll<T>(this T sender, Colors color, string message, params object[] args) where T : class
         {
-            sender.LogWarning(DateTime.Now.ToString("[hh:mm:ss.fff]") + "[" + sender.ToString() + "]: <b><color=" + color.ToString() + ">" + string.Format(message, args) +
-                "</color></b>\n<color=" + StackTraceColor + ">Stack Traces: " + StackTraceUtility.ExtractStackTrace() + "</color>\n");
+            sender.LogWarning(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff]"))
+                              .Append("[").Append(sender.ToString()).Append("]: <b><color=").Append(color.ToString()).Append(">")
+                              .Append(string.Format(message, args))
+                              .Append("</color></b>\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
+                              .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
         #endregion LOG WARNING
