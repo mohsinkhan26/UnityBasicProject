@@ -99,7 +99,7 @@ namespace MK.Common
                        .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
-        public static void LogWithColor<T>(this T sender, Colors color, string message, params object[] args) where T : class
+        public static void LogColor<T>(this T sender, Colors color, string message, params object[] args) where T : class
         {
             sender.Log(new StringBuilder("[").Append(sender.ToString()).Append("]: <color=").Append(color.ToString()).Append(">")
                        .Append(string.Format(message, args))
@@ -206,7 +206,7 @@ namespace MK.Common
                             .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
-        public static void LogErrorWithColor<T>(this T sender, Colors color, string message, params object[] args) where T : class
+        public static void LogErrorColor<T>(this T sender, Colors color, string message, params object[] args) where T : class
         {
             sender.LogError(new StringBuilder("[").Append(sender.ToString())
                             .Append("]: <color=").Append(color.ToString()).Append(">")
@@ -310,7 +310,7 @@ namespace MK.Common
                                 .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
-        public static void LogExceptionWithColor<T>(this T sender, Colors color, string message, params object[] args) where T : class
+        public static void LogExceptionColor<T>(this T sender, Colors color, string message, params object[] args) where T : class
         {
             sender.LogException(new StringBuilder("[").Append(sender.ToString())
                                 .Append("]: <color=").Append(color.ToString()).Append(">")
@@ -409,7 +409,7 @@ namespace MK.Common
                               .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }
 
-        public static void LogWarningWithColor<T>(this T sender, Colors color, string message, params object[] args) where T : class
+        public static void LogWarningColor<T>(this T sender, Colors color, string message, params object[] args) where T : class
         {
             sender.LogWarning(new StringBuilder("[").Append(sender.ToString())
                               .Append("]: <color=").Append(color.ToString()).Append(">")
