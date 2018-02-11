@@ -6,11 +6,18 @@
 */
 using System;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MK.Common.Utilities
 {
-    public class GameUtilities : MonoBehaviour
+    public static class GameUtilities
     {
+        public static List<string> ParseEnum<T>()
+        {
+            return Enum.GetNames(typeof(T)).ToList();
+        }
+        
         public static T ParseEnum<T>(int _value)
         {
             return ParseEnum<T>(_value.ToString());
@@ -25,7 +32,7 @@ namespace MK.Common.Utilities
         {
             for (int i = _transform.childCount - 1; i >= 0; --i)
             {
-                Destroy(_transform.GetChild(i).gameObject);
+                MonoBehaviour.Destroy(_transform.GetChild(i).gameObject);
             }
         }
 
