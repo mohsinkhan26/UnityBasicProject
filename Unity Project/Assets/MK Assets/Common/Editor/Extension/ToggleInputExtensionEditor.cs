@@ -8,20 +8,18 @@ using UnityEngine.UI;
 
 namespace UnityEditor.UI
 {
-    [CustomEditor(typeof(ToggleExtension), true)]
+    [CustomEditor(typeof(ToggleInputExtension), true)]
     [CanEditMultipleObjects]
-    public class ToggleExtensionEditor : ToggleEditor
+    public class ToggleInputExtensionEditor : ToggleEditor
     {
-        SerializedProperty m_Text;
-        SerializedProperty m_TextExtension;
+        SerializedProperty m_InputFieldComponent;
         SerializedProperty m_Animator;
 
         protected override void OnEnable()
         {
             base.OnEnable();
 
-            m_Text = serializedObject.FindProperty("m_textComponent");
-            m_TextExtension = serializedObject.FindProperty("m_textExtensionComponent");
+            m_InputFieldComponent = serializedObject.FindProperty("m_inputFieldComponent");
             m_Animator = serializedObject.FindProperty("m_animator");
         }
 
@@ -32,8 +30,7 @@ namespace UnityEditor.UI
             EditorGUILayout.Space();
 
             serializedObject.Update();
-            EditorGUILayout.PropertyField(m_Text);
-            EditorGUILayout.PropertyField(m_TextExtension);
+            EditorGUILayout.PropertyField(m_InputFieldComponent);
             EditorGUILayout.PropertyField(m_Animator);
 
             serializedObject.ApplyModifiedProperties();

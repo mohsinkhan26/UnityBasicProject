@@ -35,7 +35,7 @@ namespace MK.Common.Helpers
         {
             Debug.Log("GetTextFromURL-URL: <color=blue>" + _url + "</color>\n");
             UnityWebRequest unityWebRequest = UnityWebRequest.Get(_url);
-            yield return unityWebRequest.Send();
+            yield return unityWebRequest.SendWebRequest();
 
             if (unityWebRequest.isNetworkError)
             {
@@ -53,6 +53,56 @@ namespace MK.Common.Helpers
 
                 if (_callback != null)
                     _callback(true, unityWebRequest.downloadHandler.text);
+            }
+        }
+
+        /// <summary>
+        /// Gets the text from URL.
+        /// </summary>
+        /// <param name="mono">Monobehavior</param>
+        /// <param name="unityWebRequest">UnityWebRequest.</param>
+        /// <param name="callback">Callback.</param>
+        public static void GetTextFromPostRequest(this MonoBehaviour _mono, UnityWebRequest _unityWebRequest, Action<bool, string> _callback = null)
+        {
+            _mono.StartCoroutine(_mono.GetTextFromPostRequestCoroutine(_unityWebRequest, _callback));
+        }
+
+        /// <summary>
+        /// Gets the text from URL coroutine.
+        /// </summary>
+        /// <returns>The text from URL coroutine.</returns>
+        /// <param name="mono">Mono.</param>
+        /// <param name="unityWebRequest">UnityWebRequest.</param>
+        /// <param name="callback">Callback.</param>
+        private static IEnumerator GetTextFromPostRequestCoroutine(this MonoBehaviour _mono, UnityWebRequest _unityWebRequest, Action<bool, string> _callback)
+        {
+            Debug.Log("GetTextFromPostRequest-URL: <color=blue>" + _unityWebRequest.url + "</color>\n");
+            yield return _unityWebRequest.SendWebRequest();
+
+            if (_unityWebRequest.isNetworkError)
+            {
+                Debug.Log("GetTextFromPostRequest-Error: <color=red>" + _unityWebRequest.error + "</color>\n");
+                if (_callback != null)
+                    _callback(false, _unityWebRequest.error);
+            }
+            else if (_unityWebRequest.downloadHandler.text.Contains("403 Forbidden")
+                     || _unityWebRequest.downloadHandler.text.Contains("\"data\":{\"status\":403}"))
+            {
+                Debug.Log("GetTextFromPostRequest-Access Error: <color=red>" + _unityWebRequest.downloadHandler.text + "</color>\n");
+                if (_callback != null) // handle this data carefully
+                    _callback(false, _unityWebRequest.downloadHandler.text);
+                //_callback(false, _unityWebRequest.error);
+            }
+            else
+            {
+                // Show results as text
+                Debug.Log("GetTextFromPostRequest-Result: " + _unityWebRequest.downloadHandler.text + "\n");
+
+                // Or retrieve results as binary data
+                //byte[] results = www.downloadHandler.data;
+
+                if (_callback != null)
+                    _callback(true, _unityWebRequest.downloadHandler.text);
             }
         }
     }

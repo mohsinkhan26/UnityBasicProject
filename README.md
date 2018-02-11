@@ -16,9 +16,11 @@ Also, It is structured properly with the namespace that it would not conflict wi
 * **WebData** - allows you to download text data from given URL
 
 ### Editor Module/Feature list: ###
-* **ButtonExtension** - extended Button component with text and animator field added
-* **TextExtension** - extended Text component with text Id and animator field added
-* **ToggleExtension** - extended Toggle component to add support for Text and TextExtension to edit text of toggle, animator 
+* **ButtonExtension** - extended Button component with Text and Animator field added
+* **TextExtension** - extended Text component with text Id and Animator field added
+* **ToggleExtension** - extended Toggle component to add support for Text and TextExtension to edit text of Toggle, Animator 
+* **ToggleInputExtension** - extended Toggle component to add support for InputField, Animator 
+* **SliderExtension** - extended Slider component to add support for Label to edit text of Slider, Value and Animator 
 * Anchors selected UI to corners
 * Find gameObjects which have missing scripts
 * Find nested gameObjects which have missing scripts - recursively

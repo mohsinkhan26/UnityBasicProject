@@ -8,20 +8,20 @@ using UnityEngine.UI;
 
 namespace UnityEditor.UI
 {
-    [CustomEditor(typeof(ToggleExtension), true)]
+    [CustomEditor(typeof(SliderExtension), true)]
     [CanEditMultipleObjects]
-    public class ToggleExtensionEditor : ToggleEditor
+    public class SliderExtensionEditor : SliderEditor
     {
-        SerializedProperty m_Text;
-        SerializedProperty m_TextExtension;
+        SerializedProperty m_Label;
+        SerializedProperty m_Value;
         SerializedProperty m_Animator;
 
         protected override void OnEnable()
         {
             base.OnEnable();
 
-            m_Text = serializedObject.FindProperty("m_textComponent");
-            m_TextExtension = serializedObject.FindProperty("m_textExtensionComponent");
+            m_Label = serializedObject.FindProperty("m_labelComponent");
+            m_Value = serializedObject.FindProperty("m_valueComponent");
             m_Animator = serializedObject.FindProperty("m_animator");
         }
 
@@ -32,8 +32,8 @@ namespace UnityEditor.UI
             EditorGUILayout.Space();
 
             serializedObject.Update();
-            EditorGUILayout.PropertyField(m_Text);
-            EditorGUILayout.PropertyField(m_TextExtension);
+            EditorGUILayout.PropertyField(m_Label);
+            EditorGUILayout.PropertyField(m_Value);
             EditorGUILayout.PropertyField(m_Animator);
 
             serializedObject.ApplyModifiedProperties();

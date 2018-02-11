@@ -19,7 +19,7 @@ namespace UnityEngine.UI
         [SerializeField]
         Text
             m_textComponent;
-        
+
         [SerializeField]
         Animator
             m_animator;
@@ -39,7 +39,7 @@ namespace UnityEngine.UI
             }
         }
 
-        public string text
+        public string Text
         { // to get Text or TextExtension component, you must have to assign one at a time
             get
             {

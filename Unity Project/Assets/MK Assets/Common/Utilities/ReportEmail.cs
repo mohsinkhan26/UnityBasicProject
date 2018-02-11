@@ -9,9 +9,8 @@ using System.Net.Mail;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Net.Security;
-using UnityEngine.UI;
-using System;
 using System.Text;
+using System;
 
 /* NOTE: Make the FROM email less secure (Turn On) on 
  * https://www.google.com/settings/security/lesssecureapps
@@ -22,44 +21,18 @@ namespace MK.Common.Utilities
 {
     public class ReportEmail : MonoBehaviour
     {
-        //[SerializeField]
-        //Text status;
-
         string fromEmail = "crash.report@gmail.com";
         string toEmail = "project.report@gmail.com";
         string password = "12345678";
-        string logs = "";
-        //StringBuilder sbLogs = new StringBuilder(); // TODO: better to use it after testing
+        StringBuilder logs = new StringBuilder();
 
         public string Log
         {
             get
             {
-                return logs;
+                return logs.ToString();
             }
         }
-
-        //void Start()
-        //{
-        //    #if UNITY_EDITOR || UNITY_EDITOR_WIN || UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX || UNITY_STANDALONE_WIN
-        //    fromEmail = fromEmail.Trim();
-        //    toEmail = toEmail.Trim();
-        //    password = password.Trim();
-        //    if (string.IsNullOrEmpty(fromEmail) || string.IsNullOrEmpty(toEmail) || string.IsNullOrEmpty(password))
-        //    {
-        //        Debug.LogError("From/To email or password is NULL");
-        //        Debug.Log("System Information:\n" + GetSystemInformation());
-        //    }
-        //    else if (!IsValidEmail(fromEmail) || !IsValidEmail(toEmail))
-        //    {
-        //        Debug.LogError("From/To email is not valid");
-        //        Debug.Log("System Information:\n" + GetSystemInformation());
-        //    }
-        //    else
-        //        EmailToDevs("[PROJECT_NAME] - Report Email", "[PROJECT_NAME]\nSMTP mail from GMAIL");
-        //    Debug.LogWarning("Mail-From: " + fromEmail + "   To: " + toEmail + "   Password: " + password);
-        //    #endif
-        //}
 
         void OnEnable()
         {
@@ -73,16 +46,26 @@ namespace MK.Common.Utilities
 
         void HandleLog(string logString, string stackTrace, LogType type)
         {
-            logs += logString + "\n" + stackTrace + "\n";
-            //sbLogs.AppendLine(logString).AppendLine(stackTrace);
-            //if (type == LogType.Error)
-            //    Report();
+            try
+            {
+                logs.AppendLine(logString).AppendLine(stackTrace);
+            }
+            catch (Exception _ex)
+            {
+                Debug.LogException(_ex, this);
+                ClearLogs();
+                HandleLog(logString, stackTrace, type);
+            }
+        }
+
+        void ClearLogs()
+        {
+            logs.Remove(0, logs.Length);
         }
 
         public void Report()
         {
             EmailToDevs("[PROJECT_NAME] - Report Email", "[PROJECT_NAME]\nSMTP mail from GMAIL");
-            //status.text = "Reported!";
         }
 
         public void EmailToDevs(string _subject, string _messageBody)
@@ -111,7 +94,7 @@ namespace MK.Common.Utilities
                 mail.To.Add(toEmail);
 
                 mail.Subject = _subject;
-                mail.Body = GetSystemInformation().Append(_messageBody).AppendLine().Append(logs).ToString();
+                mail.Body = GetSystemInformation().Append(_messageBody).AppendLine().Append(logs.ToString()).ToString();
 
                 ServicePointManager.ServerCertificateValidationCallback =
                 delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
@@ -120,8 +103,7 @@ namespace MK.Common.Utilities
                 };
                 smtpServer.Send(mail);
                 Debug.Log("Success - Mail sent!");
-                logs = "";
-                //sbLogs = new StringBuilder();
+                ClearLogs();
             }
             catch (System.Exception ex)
             {
@@ -147,7 +129,12 @@ namespace MK.Common.Utilities
         StringBuilder GetSystemInformation()
         {
             StringBuilder str = new StringBuilder("*********************************************************");
-            str.Append("\nOperating System: ").Append(SystemInfo.operatingSystem);
+            str.Append("\nProduct Name: ").Append(Application.productName);
+            str.Append("\nIdentifier: ").Append(Application.identifier);
+            str.Append("\nPlatform: ").Append(Application.platform.ToString());
+            str.Append("\nVersion: ").Append(Application.version);
+            str.Append("\nTarget Frame Rate: ").Append(Application.targetFrameRate);
+            str.Append("\n\nOperating System: ").Append(SystemInfo.operatingSystem);
             str.Append("\nDevice Model: ").Append(SystemInfo.deviceModel);
             str.Append("\nDevice Type: ").Append(SystemInfo.deviceType.ToString());
             str.Append("\nDevice Name: ").Append(SystemInfo.deviceName);

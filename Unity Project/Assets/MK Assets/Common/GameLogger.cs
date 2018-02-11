@@ -22,6 +22,10 @@ namespace MK.Common
             {
                 return isLogging;
             }
+            set
+            { // to set on runtime, via-firebase 
+                isLogging = value;
+            }
         }
 
         /// <summary>

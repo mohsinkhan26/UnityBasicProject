@@ -23,7 +23,7 @@ namespace UnityEngine.UI
         Animator
             m_animator;
 
-        public string textId
+        public string TextId
         {
             get
             {
