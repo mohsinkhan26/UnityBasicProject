@@ -36,6 +36,8 @@ namespace UnityEngine.UI
             {
                 if (m_inputFieldComponent != null)
                     m_inputFieldComponent.text = value;
+                else
+                    throw new NullReferenceException("InputField component is not set in Inspector on " + name);
             }
         }
 
@@ -52,6 +54,8 @@ namespace UnityEngine.UI
             {
                 if (m_inputFieldComponent != null)
                     m_inputFieldComponent.interactable = value;
+                else
+                    throw new NullReferenceException("InputField component is not set in Inspector on " + name);
             }
         }
 
@@ -66,7 +70,10 @@ namespace UnityEngine.UI
             }
             set
             {
-                m_animator = value;
+                if (m_animator == null)
+                    throw new NullReferenceException("Animator component is not set in Inspector on " + name);
+                else
+                    m_animator = value;
             }
         }
     }
