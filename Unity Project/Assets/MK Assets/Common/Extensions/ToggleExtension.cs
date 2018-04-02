@@ -37,7 +37,10 @@ namespace UnityEngine.UI
             }
             set
             {
-                m_textComponent = value;
+                if (m_textComponent == null)
+                    throw new NullReferenceException("Text component is not set in Inspector on " + name);
+                else
+                    m_textComponent = value;
             }
         }
 
@@ -52,7 +55,10 @@ namespace UnityEngine.UI
             }
             set
             {
-                m_textExtensionComponent = value;
+                if (m_textExtensionComponent == null)
+                    throw new NullReferenceException("TextExtension component is not set in Inspector on " + name);
+                else
+                    m_textExtensionComponent = value;
             }
         }
 
@@ -73,6 +79,8 @@ namespace UnityEngine.UI
                     m_textComponent.text = value;
                 else if (m_textExtensionComponent != null)
                     m_textExtensionComponent.text = value;
+                else
+                    throw new NullReferenceException("TextExtension or Text component is not set in Inspector on " + name);
             }
         }
 
@@ -87,7 +95,10 @@ namespace UnityEngine.UI
             }
             set
             {
-                m_animator = value;
+                if (m_animator == null)
+                    throw new NullReferenceException("Animator component is not set in Inspector on " + name);
+                else
+                    m_animator = value;
             }
         }
     }

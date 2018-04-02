@@ -44,6 +44,16 @@ namespace MK.Common.Utilities
             }
         }
 
+        public static void DisableGameObjectsInList<T>(ref List<T> _list) where T : MonoBehaviour
+        {
+            if (_list == null || _list.Count == 0)
+                return;
+            for (int i = _list.Count - 1; i >= 0; --i)
+            {
+                _list[i].gameObject.SetActive(false);
+            }
+        }
+
         public static Vector3 FindMidPoint(Vector3 v1, Vector3 v2)
         { // midpoint between v1 and v2
             return new Vector3((v1.x + v2.x) / 2.0f, (v1.y + v2.y) / 2.0f, (v1.z + v2.z) / 2.0f);

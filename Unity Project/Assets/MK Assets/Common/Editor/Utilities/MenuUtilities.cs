@@ -9,14 +9,14 @@ using UnityEngine;
 
 namespace MK.Common.Utilities
 {
-    public static class GameUtilities
+    public static class MenuUtilities
     {
         [MenuItem("Tools/MK Assets/Check All Plugins", false, 50)]
         public static void CheckAllPlugins()
         {
             Application.OpenURL("https://assetstore.unity.com/publishers/28971");
         }
-        
+
         [MenuItem("Tools/MK Assets/GitHub Profile", false, 50)]
         public static void CheckGitHubProfile()
         {

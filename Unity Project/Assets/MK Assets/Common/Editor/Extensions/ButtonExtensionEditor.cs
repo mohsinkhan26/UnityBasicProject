@@ -13,6 +13,7 @@ namespace UnityEditor.UI
     public class ButtonExtensionEditor : ButtonEditor
     {
         SerializedProperty m_Text;
+        SerializedProperty m_TextExtension;
         SerializedProperty m_Animator;
 
         protected override void OnEnable()
@@ -20,6 +21,7 @@ namespace UnityEditor.UI
             base.OnEnable();
 
             m_Text = serializedObject.FindProperty("m_textComponent");
+            m_TextExtension = serializedObject.FindProperty("m_textExtensionComponent");
             m_Animator = serializedObject.FindProperty("m_animator");
         }
 
@@ -31,6 +33,7 @@ namespace UnityEditor.UI
 
             serializedObject.Update();
             EditorGUILayout.PropertyField(m_Text);
+            EditorGUILayout.PropertyField(m_TextExtension);
             EditorGUILayout.PropertyField(m_Animator);
 
             serializedObject.ApplyModifiedProperties();

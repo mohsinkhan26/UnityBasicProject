@@ -46,7 +46,10 @@ namespace UnityEngine.UI
             }
             set
             {
-                m_animator = value;
+                if (m_animator == null)
+                    throw new NullReferenceException("Animator component is not set in Inspector on " + name);
+                else
+                    m_animator = value;
             }
         }
     }
