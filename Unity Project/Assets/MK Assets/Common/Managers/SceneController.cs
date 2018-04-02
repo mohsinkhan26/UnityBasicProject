@@ -31,6 +31,8 @@ namespace MK.Common.Managers
     {
         //static MainController mainController; // Singleton class does this
 
+        [SerializeField]
+        GameScene firstScene;
         int currentSceneName;
         int nextSceneName;
         AsyncOperation resourceUnloadTask;
@@ -101,9 +103,9 @@ namespace MK.Common.Managers
             updateDelegates[(int)SceneState.Ready] = UpdateSceneReady;
             updateDelegates[(int)SceneState.Run] = UpdateSceneRun;
 
-            // TODO: name of first scene of your game
-            nextSceneName = (int)GameScene.MenuScene;
-            sceneState = SceneState.Reset;
+            // TODO: name of first scene of your game, scene at 0 index in BuildSettings
+            nextSceneName = (int)firstScene;
+            sceneState = SceneState.Run;
 
             // if this script is attached to the camera
             //camera.orthographicSize = Screen.height / 2;

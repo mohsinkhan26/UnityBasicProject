@@ -46,6 +46,8 @@ namespace MK.Common.Utilities
 
         public static void DisableGameObjectsInList<T>(ref List<T> _list) where T : MonoBehaviour
         {
+            if (_list == null || _list.Count == 0)
+                return;
             for (int i = _list.Count - 1; i >= 0; --i)
             {
                 _list[i].gameObject.SetActive(false);
