@@ -1,7 +1,7 @@
 Which of the following examples will run faster?
 
-*   1. 1000 GameObjects, each with a ```MonoBehaviour``` implementing the ```Update``` callback.
-*   2. One GameObject with one ```MonoBehaviour``` with an Array of 1000 classes, each implementing a custom ```Update()``` callback.
+1. 1000 GameObjects, each with a ```MonoBehaviour``` implementing the ```Update``` callback.
+2. One GameObject with one ```MonoBehaviour``` with an Array of 1000 classes, each implementing a custom ```Update()``` callback.
 
 
 ### The correct answer is 2. ###
