@@ -58,7 +58,8 @@ namespace MK.Common.Managers
 
         UpdateDelegate[] updateDelegates;
 
-        #region public static methods
+        #region public API
+        public string CurrentSceneName { get { return SceneManager.GetActiveScene().name; } }
 
         [System.Obsolete("Better to use with enum value")]
         public void SwitchScene(int _nextScene)
@@ -76,11 +77,9 @@ namespace MK.Common.Managers
                 }
             }
         }
-
-        #endregion public static methods
+        #endregion public API
 
         #region protected mono methods
-
         protected override void Awake()
         {
             base.Awake();
@@ -122,7 +121,7 @@ namespace MK.Common.Managers
 
         void Update()
         {
-            if (updateDelegates[(int)sceneState] != null)
+            if (updateDelegates != null && updateDelegates[(int)sceneState] != null)
             {
                 updateDelegates[(int)sceneState]();
             }
@@ -148,11 +147,9 @@ namespace MK.Common.Managers
         void OnDisable()
         {
         }
-
         #endregion protected mono methods
 
         #region private delegate methods
-
         // attach the new scene controller to start cascade of loading
         void UpdateSceneReset()
         {
@@ -238,7 +235,6 @@ namespace MK.Common.Managers
                 sceneState = SceneState.Reset;
             }
         }
-
         #endregion private delegate methods
     }
 }
