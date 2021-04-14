@@ -1,12 +1,13 @@
 ﻿/* 
  * Author : Mohsin Khan
+ * Portfolio : http://mohsinkhan26.github.io/ 
  * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
  * Github : https://github.com/mohsinkhan26/
- * BitBucket : https://bitbucket.org/mohsinkhan26/ 
 */
-using UnityEngine;
+
 using System;
 using System.Collections;
+using UnityEngine;
 
 namespace MK.Common.Helpers
 {
@@ -22,9 +23,12 @@ namespace MK.Common.Helpers
         /// <param name="_saveFile">If set to <c>true</c> _save file.</param>
         /// <param name="_filePathWithName">_file path with name.</param>
         /// <param name="_progressMessage">_progress message.</param>
-        public static void GetAudioClipFromURL(this MonoBehaviour _mono, string _url, Action<AudioClip> _callback, Action<string> _error, bool _saveFile = false, string _filePathWithName = "", Action<string> _progressMessage = null)
+        public static void GetAudioClipFromURL(this MonoBehaviour _mono, string _url, Action<AudioClip> _callback,
+            Action<string> _error, bool _saveFile = false, string _filePathWithName = "",
+            Action<string> _progressMessage = null)
         {
-            _mono.StartCoroutine(_mono.GetAudioClipFromURLCoroutine(_url, _callback, _error, _saveFile, _filePathWithName, _progressMessage));
+            _mono.StartCoroutine(_mono.GetAudioClipFromURLCoroutine(_url, _callback, _error, _saveFile,
+                _filePathWithName, _progressMessage));
         }
 
         /// <summary>
@@ -38,14 +42,17 @@ namespace MK.Common.Helpers
         /// <param name="_saveFile">If set to <c>true</c> _save file.</param>
         /// <param name="_filePathWithName">_file path with name.</param>
         /// <param name="_progressMessage">_progress message.</param>
-        private static IEnumerator GetAudioClipFromURLCoroutine(this MonoBehaviour _mono, string _url, Action<AudioClip> _callback, Action<string> _error, bool _saveFile, string _filePathWithName, Action<string> _progressMessage = null)
+        private static IEnumerator GetAudioClipFromURLCoroutine(this MonoBehaviour _mono, string _url,
+            Action<AudioClip> _callback, Action<string> _error, bool _saveFile, string _filePathWithName,
+            Action<string> _progressMessage = null)
         {
             Debug.Log("GetAudioClipFromURLCoroutine-URL: <color=green>" + _url + "</color>\n");
             WWW www = new WWW(_url);
             while (!www.isDone)
             {
                 if (_progressMessage != null)
-                    _progressMessage("Status: Downloading Audio file... " + String.Format("{0:N}%", (www.progress * 100)));
+                    _progressMessage("Status: Downloading Audio file... " +
+                                     String.Format("{0:N}%", (www.progress * 100)));
                 yield return null;
             }
 
@@ -53,11 +60,14 @@ namespace MK.Common.Helpers
             {
                 if (_callback != null)
                     _callback(www.GetAudioClip());
-                if (_saveFile && !string.IsNullOrEmpty(_filePathWithName) && (_filePathWithName.Contains("\\") || _filePathWithName.Contains("/")))
+                if (_saveFile && !string.IsNullOrEmpty(_filePathWithName) &&
+                    (_filePathWithName.Contains("\\") || _filePathWithName.Contains("/")))
                 {
-                    Debug.Log("WebAudioClip-GetAudioClipFromURLCoroutine-THREAD----START-FilePath: <color=cyan>" + _filePathWithName + "\nBytesLength: " + www.bytes.Length + "</color>");
+                    Debug.Log("WebAudioClip-GetAudioClipFromURLCoroutine-THREAD----START-FilePath: <color=cyan>" +
+                              _filePathWithName + "\nBytesLength: " + www.bytes.Length + "</color>");
                     System.IO.File.WriteAllBytes(_filePathWithName, www.bytes);
-                    Debug.Log("WebAudioClip-GetAudioClipFromURLCoroutine-THREAD----DONE-FilePath: <color=cyan>" + _filePathWithName + "\nBytesLength: " + www.bytes.Length + "</color>");
+                    Debug.Log("WebAudioClip-GetAudioClipFromURLCoroutine-THREAD----DONE-FilePath: <color=cyan>" +
+                              _filePathWithName + "\nBytesLength: " + www.bytes.Length + "</color>");
                     //System.Threading.Thread timer = new System.Threading.Thread (() =>
                     //{
                     //	System.IO.File.WriteAllBytes (_filePathWithName, www.bytes);
@@ -67,12 +77,14 @@ namespace MK.Common.Helpers
                     //timer.IsBackground = true;
                     //timer.Start ();
                 }
+
                 //System.IO.File.WriteAllBytes (pathToAudioData + "/" + "xy.ogg", www.bytes);
                 //_callback (www.GetAudioClip (true));
             }
             else
             {
-                Debug.Log("GetAudioClipFromURLCoroutine-Error: <color=red>" + www.error + "</color>\nSaveFile: " + _saveFile);
+                Debug.Log("GetAudioClipFromURLCoroutine-Error: <color=red>" + www.error + "</color>\nSaveFile: " +
+                          _saveFile);
                 if (_error != null)
                     _error(www.error);
             }

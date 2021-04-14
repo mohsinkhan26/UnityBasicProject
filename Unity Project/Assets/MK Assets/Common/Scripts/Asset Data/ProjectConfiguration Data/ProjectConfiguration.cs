@@ -1,5 +1,12 @@
-using UnityEngine;
+/* 
+ * Author : Mohsin Khan
+ * Portfolio : http://mohsinkhan26.github.io/ 
+ * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
+ * Github : https://github.com/mohsinkhan26/
+*/
+
 using System.Text;
+using UnityEngine;
 
 namespace MK.AssetData
 {
@@ -7,10 +14,10 @@ namespace MK.AssetData
     public class ProjectConfiguration : ScriptableObject
     {
         #region Firebase
+
         // Reference: https://firebase.google.com/docs/database/unity/start 
 
-        [Header("Firebase Specific")]
-        [Tooltip("Editor Database URL and StorageBucket link will be created with this")]
+        [Header("Firebase Specific")] [Tooltip("Editor Database URL and StorageBucket link will be created with this")]
         /// <summary>
         /// The firebase project identifier.
         /// access it from https://console.firebase.google.com/project/[YOUR_OWN_PROJECT_ID]/settings/general/[YOUR_PROJECT_PLATFORM]:[YOUR_PROJECT_IDENTIFIER/YOUR_PROJECT_PACKAGE_NAME(com.google.firebase.test)]
@@ -25,7 +32,8 @@ namespace MK.AssetData
         {
             get
             {
-                return new StringBuilder("https://").Append(firebaseProjectID).Append("-default-rtdb.firebaseio.com/").ToString();
+                return new StringBuilder("https://").Append(firebaseProjectID).Append("-default-rtdb.firebaseio.com/")
+                    .ToString();
             }
         }
 
@@ -57,6 +65,7 @@ namespace MK.AssetData
         /// OR Copy this value from the google-service.json file, oauth_client with type == 3
         /// </summary>
         public string firebaseWebClientID;
+
         public string firebaseWebClientSecret;
 
         /// <summary>
@@ -66,42 +75,51 @@ namespace MK.AssetData
         /// <value>The firebase storage bucket.</value>
         public string FirebaseStorageBucket
         {
-            get
-            {
-                return new StringBuilder("gs://").Append(firebaseProjectID).Append(".appspot.com/").ToString();
-            }
+            get { return new StringBuilder("gs://").Append(firebaseProjectID).Append(".appspot.com/").ToString(); }
         }
+
         #endregion Firebase
 
         #region Error Messages
+
         [Header("Firebase Error Messages")] // just add main message from Inspector
         public string firebaseError_OnLogin_NoUserFound;
+
         public string firebaseError_OnCreateUser_AlreadyUserExist;
+
         #endregion Error Messages
 
         #region General
-        [Header("General")]
-        public bool isProductionBuild;
+
+        [Header("General")] public bool isProductionBuild;
+
         /// <summary>
         /// The enable logging.
         /// </summary>
         public bool enableLogging;
+
         #endregion General
 
         #region Game Settings
-        [Header("Game Settings")]
-        public string language;
+
+        [Header("Game Settings")] public string language;
+
         #endregion Game Settings
 
 #if UNITY_EDITOR
+
         #region testing
+
         // the UserIDs given in Firebase Authentication are one next to the given number, means yxvkuxxu1@mdx.ip correspond to testUser0@hku.hk
         [Header("For Testing Purpose in Editor")]
         public string testFirebaseUserID_ForEditor;
+
         public string testEmail_ForEditor;
         public string testPassword_ForEditor;
         public string testDisplayName;
+
         #endregion Testing
+
 #endif
     }
 }

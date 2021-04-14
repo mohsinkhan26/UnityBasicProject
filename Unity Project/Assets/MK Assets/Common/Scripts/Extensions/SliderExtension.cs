@@ -1,11 +1,11 @@
 ﻿/* 
  * Author : Mohsin Khan
+ * Portfolio : http://mohsinkhan26.github.io/ 
  * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
  * Github : https://github.com/mohsinkhan26/
- * BitBucket : https://bitbucket.org/mohsinkhan26/ 
 */
-using System;
 
+using System;
 
 namespace UnityEngine.UI
 {
@@ -15,17 +15,11 @@ namespace UnityEngine.UI
     [AddComponentMenu("UI/Extensions/Slider Extended"), RequireComponent(typeof(RectTransform))]
     public class SliderExtension : Slider
     {
-        [Header("Extended Properties")]
-        [SerializeField]
-        Text
-            m_labelComponent;
-        [SerializeField]
-        Text
-            m_valueComponent;
+        [Header("Extended Properties")] [SerializeField]
+        Text m_labelComponent;
 
-        [SerializeField]
-        Animator
-            m_animator;
+        [SerializeField] Text m_valueComponent;
+        [SerializeField] Animator m_animator;
 
         public Text LabelComponent
         {
@@ -67,7 +61,7 @@ namespace UnityEngine.UI
 #if UNITY_EDITOR
         public
 #endif
-        void SetValueComponent()
+            void SetValueComponent()
         {
             m_valueComponent.text = m_Value.ToString("##0.##");
         }
@@ -103,5 +97,3 @@ namespace UnityEngine.UI
         }
     }
 }
-
-

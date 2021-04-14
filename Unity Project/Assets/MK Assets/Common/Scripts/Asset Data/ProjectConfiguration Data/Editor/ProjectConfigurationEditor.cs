@@ -1,4 +1,11 @@
-﻿using System.Linq;
+﻿/* 
+ * Author : Mohsin Khan
+ * Portfolio : http://mohsinkhan26.github.io/ 
+ * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
+ * Github : https://github.com/mohsinkhan26/
+*/
+
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using MK.Common;
@@ -13,7 +20,8 @@ namespace MK.AssetData
         static void LoadConfiguration()
         {
             projectConfiguration = AssetDataHelper.GetProjectConfigurationData();
-            Selection.activeObject = AssetDatabase.LoadMainAssetAtPath(AssetDataHelper.DATABASE_PATH_PROJECT_CONFIGURATIONS);
+            Selection.activeObject =
+                AssetDatabase.LoadMainAssetAtPath(AssetDataHelper.DATABASE_PATH_PROJECT_CONFIGURATIONS);
 
             if (projectConfiguration == null)
                 CreateConfiguration();
@@ -33,6 +41,7 @@ namespace MK.AssetData
         }
 
         #region Logging
+
         [MenuItem("Tools/Game/Toggle Logging", false, 40)]
         public static void ToggleLogging()
         {
@@ -68,9 +77,11 @@ namespace MK.AssetData
             // TODO: copy paste the following line in GameManager to make it effect in build
             GameLogger.IsLogging = projectConfiguration.enableLogging;
         }
+
         #endregion Logging
 
         #region Build
+
         [MenuItem("Tools/Game/Make Production Build", false, 40)]
         public static void MakeProductionBuild()
         {
@@ -99,7 +110,8 @@ namespace MK.AssetData
         {
             BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
             buildPlayerOptions.scenes = GetAllScenes();
-            buildPlayerOptions.locationPathName = EditorUserBuildSettings.GetBuildLocation(EditorUserBuildSettings.activeBuildTarget);
+            buildPlayerOptions.locationPathName =
+                EditorUserBuildSettings.GetBuildLocation(EditorUserBuildSettings.activeBuildTarget);
             buildPlayerOptions.target = EditorUserBuildSettings.activeBuildTarget;
             buildPlayerOptions.options = BuildOptions.None;
             BuildPipeline.BuildPlayer(buildPlayerOptions);
@@ -121,8 +133,10 @@ namespace MK.AssetData
                     ++index;
                 }
             }
+
             return scenePaths;
         }
+
         #endregion Build
     }
 }

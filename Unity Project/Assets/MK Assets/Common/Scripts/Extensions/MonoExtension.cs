@@ -1,14 +1,16 @@
 ﻿/* 
  * Author : Mohsin Khan
+ * Portfolio : http://mohsinkhan26.github.io/ 
  * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
  * Github : https://github.com/mohsinkhan26/
- * BitBucket : https://bitbucket.org/mohsinkhan26/ 
 */
+
 using System;
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace MK.Common.Extensions
 {
@@ -21,6 +23,7 @@ namespace MK.Common.Extensions
             {
                 finalArray[i] = original[i];
             }
+
             finalArray[finalArray.Length - 1] = itemToAdd;
             Debug.Log("Original: " + original.Length + "   New: " + finalArray.Length);
             return finalArray;
@@ -47,7 +50,7 @@ namespace MK.Common.Extensions
         /// <see cref="http://www.extensionmethod.net/csharp/object/ifis-t"/>
         /// </summary>
         public static void IfIs<T>(this object target, Action<T> method)
-        where T : class
+            where T : class
         {
             var cast = target as T;
             if (cast != null)
@@ -62,7 +65,7 @@ namespace MK.Common.Extensions
         /// <see cref="http://www.extensionmethod.net/csharp/object/ifis-t"/>
         /// </summary>
         public static TResult IfIs<T, TResult>(this object target, Func<T, TResult> method)
-        where T : class
+            where T : class
         {
             var cast = target as T;
             if (cast != null)
@@ -119,6 +122,7 @@ namespace MK.Common.Extensions
                 list[indexA] = list[indexB];
                 list[indexB] = tmp;
             }
+
             return list;
         }
 
@@ -144,7 +148,8 @@ namespace MK.Common.Extensions
             mono.StartCoroutine(mono.InvokeExtensionCoroutine(delay, action, callBack));
         }
 
-        private static IEnumerator InvokeExtensionCoroutine(this MonoBehaviour mono, float delay, Action action, Action callBack = null)
+        private static IEnumerator InvokeExtensionCoroutine(this MonoBehaviour mono, float delay, Action action,
+            Action callBack = null)
         {
             yield return new WaitForSeconds(delay);
 
@@ -180,12 +185,14 @@ namespace MK.Common.Extensions
         /// <param name="actionParameter">Action parameter.</param>
         /// <param name="callBack">Call back.</param>
         /// <typeparam name="T">The 1st type parameter.</typeparam>
-        public static void InvokeExtension<T>(this MonoBehaviour mono, float delay, Action<T> action, T actionParameter, Action callBack = null)
+        public static void InvokeExtension<T>(this MonoBehaviour mono, float delay, Action<T> action, T actionParameter,
+            Action callBack = null)
         {
             mono.StartCoroutine(mono.InvokeExtensionCoroutine(delay, action, actionParameter, callBack));
         }
 
-        private static IEnumerator InvokeExtensionCoroutine<T>(this MonoBehaviour mono, float delay, Action<T> action, T actionParameter, Action callBack = null)
+        private static IEnumerator InvokeExtensionCoroutine<T>(this MonoBehaviour mono, float delay, Action<T> action,
+            T actionParameter, Action callBack = null)
         {
             yield return new WaitForSeconds(delay);
 
@@ -220,12 +227,15 @@ namespace MK.Common.Extensions
         /// <param name="callBack">Call back.</param>
         /// <param name="callBackParameter">Call back parameter.</param>
         /// <typeparam name="T">The 1st type parameter.</typeparam>
-        public static void InvokeExtension<T>(this MonoBehaviour mono, float delay, Action<T> action, T actionParameter, Action<T> callBack, T callBackParameter)
+        public static void InvokeExtension<T>(this MonoBehaviour mono, float delay, Action<T> action, T actionParameter,
+            Action<T> callBack, T callBackParameter)
         {
-            mono.StartCoroutine(mono.InvokeExtensionCoroutine(delay, action, actionParameter, callBack, callBackParameter));
+            mono.StartCoroutine(mono.InvokeExtensionCoroutine(delay, action, actionParameter, callBack,
+                callBackParameter));
         }
 
-        private static IEnumerator InvokeExtensionCoroutine<T>(this MonoBehaviour mono, float delay, Action<T> action, T actionParameter, Action<T> callBack, T callBackParameter)
+        private static IEnumerator InvokeExtensionCoroutine<T>(this MonoBehaviour mono, float delay, Action<T> action,
+            T actionParameter, Action<T> callBack, T callBackParameter)
         {
             yield return new WaitForSeconds(delay);
 
@@ -239,12 +249,14 @@ namespace MK.Common.Extensions
 
         #region UPDATE EXTENSION
 
-        public static void UpdateExtension(this MonoBehaviour mono, Action updateTask, float startDelay = 0f, float updateDelay = 0)
+        public static void UpdateExtension(this MonoBehaviour mono, Action updateTask, float startDelay = 0f,
+            float updateDelay = 0)
         {
             mono.StartCoroutine(mono.UpdateExtensionRoutine(updateTask, startDelay, updateDelay));
         }
 
-        private static IEnumerator UpdateExtensionRoutine(this MonoBehaviour ienum, Action updateTask, float startDelay = 0f, float updateDelay = 0)
+        private static IEnumerator UpdateExtensionRoutine(this MonoBehaviour ienum, Action updateTask,
+            float startDelay = 0f, float updateDelay = 0)
         {
             if (startDelay > 0f)
             {
@@ -270,6 +282,38 @@ namespace MK.Common.Extensions
         }
 
         #endregion UPDATE EXTENSION
+
+        #region Flash
+
+        public static void CrossFadeAlphaWithCallBack(this MonoBehaviour _mono, ref Image _image, float _alpha,
+            float _duration, Action _action)
+        {
+            _mono.StartCoroutine(CrossFadeAlphaCoroutine(_image, _alpha, _duration, _action));
+        }
+
+        static IEnumerator CrossFadeAlphaCoroutine(Image _image, float _alpha, float _duration, Action _action)
+        {
+            _image.gameObject.SetActive(true);
+            _image.color = new Color(1, 1, 1, 1);
+            Color currentColor = _image.color;
+
+            Color visibleColor = _image.color;
+            visibleColor.a = _alpha;
+
+            float counter = 0;
+
+            while (counter < _duration)
+            {
+                counter += Time.deltaTime;
+                _image.color = Color.Lerp(currentColor, visibleColor, counter / _duration);
+                yield return null;
+            }
+
+            _image.gameObject.SetActive(false);
+            if (_action != null) _action.Invoke();
+        }
+
+        #endregion Flash
 
         #region ACTIVE ALPHA ANIMATION
 
@@ -318,6 +362,7 @@ namespace MK.Common.Extensions
                     meshMaterial.color = meshColor;
                     yield return new WaitForSeconds(0.05f);
                 }
+
                 mono.gameObject.SetActive(false);
             }
         }

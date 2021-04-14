@@ -1,11 +1,11 @@
 ﻿/* 
  * Author : Mohsin Khan
+ * Portfolio : http://mohsinkhan26.github.io/ 
  * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
  * Github : https://github.com/mohsinkhan26/
- * BitBucket : https://bitbucket.org/mohsinkhan26/ 
 */
-using System;
 
+using System;
 
 namespace UnityEngine.UI
 {
@@ -15,17 +15,11 @@ namespace UnityEngine.UI
     [AddComponentMenu("UI/Extensions/Button Extended"), RequireComponent(typeof(RectTransform))]
     public class ButtonExtension : Button
     {
-        [Header("Extended Properties")]
-        [SerializeField]
-        Text
-        m_textComponent;
-        [SerializeField]
-        TextExtension
-            m_textExtensionComponent;
+        [Header("Extended Properties")] [SerializeField]
+        Text m_textComponent;
 
-        [SerializeField]
-        Animator
-            m_animator;
+        [SerializeField] TextExtension m_textExtensionComponent;
+        [SerializeField] Animator m_animator;
 
         public Text TextComponent
         {
@@ -64,7 +58,8 @@ namespace UnityEngine.UI
         }
 
         public string Text
-        { // to get Text or TextExtension component, you must have to assign one at a time
+        {
+            // to get Text or TextExtension component, you must have to assign one at a time
             get
             {
                 if (m_textComponent != null)
@@ -72,7 +67,8 @@ namespace UnityEngine.UI
                 else if (m_textExtensionComponent != null)
                     return m_textExtensionComponent.text;
                 else
-                    throw new NullReferenceException("TextExtension or Text component is not set in Inspector on " + name);
+                    throw new NullReferenceException("TextExtension or Text component is not set in Inspector on " +
+                                                     name);
             }
             set
             {
@@ -81,7 +77,8 @@ namespace UnityEngine.UI
                 else if (m_textExtensionComponent != null)
                     m_textExtensionComponent.text = value;
                 else
-                    throw new NullReferenceException("TextExtension or Text component is not set in Inspector on " + name);
+                    throw new NullReferenceException("TextExtension or Text component is not set in Inspector on " +
+                                                     name);
             }
         }
 
@@ -104,5 +101,3 @@ namespace UnityEngine.UI
         }
     }
 }
-
-

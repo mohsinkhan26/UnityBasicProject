@@ -1,9 +1,10 @@
 /* 
  * Author : Mohsin Khan
+ * Portfolio : http://mohsinkhan26.github.io/ 
  * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
  * Github : https://github.com/mohsinkhan26/
- * BitBucket : https://bitbucket.org/mohsinkhan26/ 
 */
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace MK.Common.Utilities
     public static class GameUtilities
     {
         #region Enum
+
         public static List<string> ParseEnum<T>()
         {
             return Enum.GetNames(typeof(T)).ToList();
@@ -26,12 +28,14 @@ namespace MK.Common.Utilities
 
         public static T ParseEnum<T>(string _value)
         {
-            return (T)Enum.Parse(typeof(T), _value, true);
+            return (T) Enum.Parse(typeof(T), _value, true);
         }
+
         #endregion Enum
 
         public static Vector3 FindMidPoint(Vector3 v1, Vector3 v2)
-        { // midpoint between v1 and v2
+        {
+            // midpoint between v1 and v2
             return new Vector3((v1.x + v2.x) / 2.0f, (v1.y + v2.y) / 2.0f, (v1.z + v2.z) / 2.0f);
         }
 
@@ -49,6 +53,7 @@ namespace MK.Common.Utilities
         }
 
         #region Render Texture Format
+
         public static List<string> SupportedRenderTextures()
         {
             List<string> supportedRenderTextureFormats = new List<string>();
@@ -57,10 +62,13 @@ namespace MK.Common.Utilities
             {
                 if (SystemInfo.SupportsRenderTextureFormat(ParseEnum<RenderTextureFormat>(renderTextureFormats[i])))
                 {
-                    Debug.Log("SupportedRenderTextures-i: " + i + "   " + renderTextureFormats[i] + ": " + SystemInfo.SupportsRenderTextureFormat(ParseEnum<RenderTextureFormat>(renderTextureFormats[i])));
+                    Debug.Log("SupportedRenderTextures-i: " + i + "   " + renderTextureFormats[i] + ": " +
+                              SystemInfo.SupportsRenderTextureFormat(
+                                  ParseEnum<RenderTextureFormat>(renderTextureFormats[i])));
                     supportedRenderTextureFormats.Add(renderTextureFormats[i]);
                 }
             }
+
             return supportedRenderTextureFormats;
         }
 
@@ -71,14 +79,16 @@ namespace MK.Common.Utilities
             for (int i = renderTextureFormats.Count - 1; i >= 0; --i)
             {
                 if (renderTextureFormats[i].IndexOf('A') >= 0)
-                { // found
+                {
+                    // found
                     Debug.Log("SupportedAlphaRenderTexturesWith-i: " + i + "   " + renderTextureFormats[i]);
                     supportedAlphaRenderTextureFormats.Add(ParseEnum<RenderTextureFormat>(renderTextureFormats[i]));
                 }
             }
+
             return supportedAlphaRenderTextureFormats;
         }
-        #endregion Render Texture Format
 
+        #endregion Render Texture Format
     }
 }

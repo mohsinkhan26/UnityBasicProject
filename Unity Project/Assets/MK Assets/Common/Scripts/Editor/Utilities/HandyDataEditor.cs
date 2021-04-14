@@ -1,7 +1,13 @@
-﻿using UnityEditor;
+﻿/* 
+ * Author : Mohsin Khan
+ * Portfolio : http://mohsinkhan26.github.io/ 
+ * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
+ * Github : https://github.com/mohsinkhan26/
+*/
+
+using UnityEditor;
 using UnityEngine;
 using MK.Common.Helpers;
-using MK.Common;
 using MK.AssetData;
 
 namespace MK.Common.Utilities

@@ -1,12 +1,13 @@
 ﻿/* 
  * Author : Mohsin Khan
+ * Portfolio : http://mohsinkhan26.github.io/ 
  * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
  * Github : https://github.com/mohsinkhan26/
- * BitBucket : https://bitbucket.org/mohsinkhan26/ 
 */
-using UnityEngine;
+
 using System;
 using System.Collections;
+using UnityEngine;
 using UnityEngine.Networking;
 
 namespace MK.Common.Helpers
@@ -31,7 +32,8 @@ namespace MK.Common.Helpers
         /// <param name="mono">Mono.</param>
         /// <param name="url">URL.</param>
         /// <param name="callback">Callback.</param>
-        private static IEnumerator GetTextFromURLCoroutine(this MonoBehaviour _mono, string _url, Action<bool, string> _callback)
+        private static IEnumerator GetTextFromURLCoroutine(this MonoBehaviour _mono, string _url,
+            Action<bool, string> _callback)
         {
             Debug.Log("GetTextFromURL-URL: <color=blue>" + _url + "</color>\n");
             UnityWebRequest unityWebRequest = UnityWebRequest.Get(_url);
@@ -62,7 +64,8 @@ namespace MK.Common.Helpers
         /// <param name="mono">Monobehavior</param>
         /// <param name="unityWebRequest">UnityWebRequest.</param>
         /// <param name="callback">Callback.</param>
-        public static void GetTextFromPostRequest(this MonoBehaviour _mono, UnityWebRequest _unityWebRequest, Action<bool, string> _callback = null)
+        public static void GetTextFromPostRequest(this MonoBehaviour _mono, UnityWebRequest _unityWebRequest,
+            Action<bool, string> _callback = null)
         {
             _mono.StartCoroutine(_mono.GetTextFromPostRequestCoroutine(_unityWebRequest, _callback));
         }
@@ -74,7 +77,8 @@ namespace MK.Common.Helpers
         /// <param name="mono">Mono.</param>
         /// <param name="unityWebRequest">UnityWebRequest.</param>
         /// <param name="callback">Callback.</param>
-        private static IEnumerator GetTextFromPostRequestCoroutine(this MonoBehaviour _mono, UnityWebRequest _unityWebRequest, Action<bool, string> _callback)
+        private static IEnumerator GetTextFromPostRequestCoroutine(this MonoBehaviour _mono,
+            UnityWebRequest _unityWebRequest, Action<bool, string> _callback)
         {
             Debug.Log("GetTextFromPostRequest-URL: <color=blue>" + _unityWebRequest.url + "</color>\n");
             yield return _unityWebRequest.SendWebRequest();
@@ -88,7 +92,8 @@ namespace MK.Common.Helpers
             else if (_unityWebRequest.downloadHandler.text.Contains("403 Forbidden")
                      || _unityWebRequest.downloadHandler.text.Contains("\"data\":{\"status\":403}"))
             {
-                Debug.Log("GetTextFromPostRequest-Access Error: <color=red>" + _unityWebRequest.downloadHandler.text + "</color>\n");
+                Debug.Log("GetTextFromPostRequest-Access Error: <color=red>" + _unityWebRequest.downloadHandler.text +
+                          "</color>\n");
                 if (_callback != null) // handle this data carefully
                     _callback(false, _unityWebRequest.downloadHandler.text);
                 //_callback(false, _unityWebRequest.error);

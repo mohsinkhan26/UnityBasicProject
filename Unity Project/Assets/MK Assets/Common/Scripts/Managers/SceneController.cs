@@ -1,16 +1,17 @@
 /* 
  * Author : Mohsin Khan
+ * Portfolio : http://mohsinkhan26.github.io/ 
  * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
  * Github : https://github.com/mohsinkhan26/
- * BitBucket : https://bitbucket.org/mohsinkhan26/ 
 */
+
 using System;
 using UnityEngine;
 using MK.Common.Utilities;
-
 #if UNITY_4_6 || UNITY_4_7 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2
 #else
 using UnityEngine.SceneManagement;
+
 #endif
 
 /// <summary>
@@ -25,16 +26,14 @@ namespace MK.Common.Managers
     public enum GameScene
     {
         Main = 0,
-        Game,
-        ARGame
+        Game
     }
 
     public sealed class SceneController : Singleton<SceneController>
     {
         //static MainController mainController; // Singleton class does this
 
-        [SerializeField]
-        GameScene firstScene;
+        [SerializeField] GameScene firstScene;
         int currentSceneName;
         int nextSceneName;
         AsyncOperation resourceUnloadTask;
@@ -62,7 +61,11 @@ namespace MK.Common.Managers
         Action onSceneReady;
 
         #region public API
-        public string CurrentSceneName { get { return SceneManager.GetActiveScene().name; } }
+
+        public string CurrentSceneName
+        {
+            get { return SceneManager.GetActiveScene().name; }
+        }
 
         [System.Obsolete("Better to use with enum value")]
         public void SwitchScene(int _nextScene, Action _onSceneReady = null)
@@ -75,15 +78,17 @@ namespace MK.Common.Managers
             if (HasInstance)
             {
                 onSceneReady = _onSceneReady;
-                if (currentSceneName != ((int)_nextScene))
+                if (currentSceneName != ((int) _nextScene))
                 {
-                    nextSceneName = ((int)_nextScene);
+                    nextSceneName = ((int) _nextScene);
                 }
             }
         }
+
         #endregion public API
 
         #region protected mono methods
+
         protected override void Awake()
         {
             base.Awake();
@@ -95,19 +100,19 @@ namespace MK.Common.Managers
             //mainController = this; // Singleton class does this
 
             //Setup the array of updateDelegates
-            updateDelegates = new UpdateDelegate[(int)SceneState.Count];
+            updateDelegates = new UpdateDelegate[(int) SceneState.Count];
 
             //Set each updateDelegate
-            updateDelegates[(int)SceneState.Reset] = UpdateSceneReset;
-            updateDelegates[(int)SceneState.Preload] = UpdateScenePreload;
-            updateDelegates[(int)SceneState.Load] = UpdateSceneLoad;
-            updateDelegates[(int)SceneState.Unload] = UpdateSceneUnload;
-            updateDelegates[(int)SceneState.Postload] = UpdateScenePostload;
-            updateDelegates[(int)SceneState.Ready] = UpdateSceneReady;
-            updateDelegates[(int)SceneState.Run] = UpdateSceneRun;
+            updateDelegates[(int) SceneState.Reset] = UpdateSceneReset;
+            updateDelegates[(int) SceneState.Preload] = UpdateScenePreload;
+            updateDelegates[(int) SceneState.Load] = UpdateSceneLoad;
+            updateDelegates[(int) SceneState.Unload] = UpdateSceneUnload;
+            updateDelegates[(int) SceneState.Postload] = UpdateScenePostload;
+            updateDelegates[(int) SceneState.Ready] = UpdateSceneReady;
+            updateDelegates[(int) SceneState.Run] = UpdateSceneRun;
 
             // TODO: name of first scene of your game, scene at 0 index in BuildSettings
-            nextSceneName = (int)firstScene;
+            nextSceneName = (int) firstScene;
             sceneState = SceneState.Run;
 
             // if this script is attached to the camera
@@ -125,9 +130,9 @@ namespace MK.Common.Managers
 
         void Update()
         {
-            if (updateDelegates != null && updateDelegates[(int)sceneState] != null)
+            if (updateDelegates != null && updateDelegates[(int) sceneState] != null)
             {
-                updateDelegates[(int)sceneState]();
+                updateDelegates[(int) sceneState]();
             }
         }
 
@@ -136,10 +141,11 @@ namespace MK.Common.Managers
             //Clean up all the updateDelegates
             if (updateDelegates != null)
             {
-                for (int i = 0; i < (int)SceneState.Count; i++)
+                for (int i = 0; i < (int) SceneState.Count; i++)
                 {
                     updateDelegates[i] = null;
                 }
+
                 updateDelegates = null;
             }
 
@@ -151,9 +157,11 @@ namespace MK.Common.Managers
         void OnDisable()
         {
         }
+
         #endregion protected mono methods
 
         #region private delegate methods
+
         // attach the new scene controller to start cascade of loading
         void UpdateSceneReset()
         {
@@ -166,7 +174,7 @@ namespace MK.Common.Managers
         // handle anything that needs to happen before loading
         void UpdateScenePreload()
         {
-            string _nextSceneName = ((GameScene)nextSceneName).ToString();
+            string _nextSceneName = ((GameScene) nextSceneName).ToString();
             Debug.Log("SceneController-UpdateScenePreload-Current: " + SceneManager.GetActiveScene().name);
 #if UNITY_4_6 || UNITY_4_7 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2
             sceneLoadTask = Application.LoadLevelAsync(_nextSceneName);
@@ -186,7 +194,8 @@ namespace MK.Common.Managers
                 sceneState = SceneState.Unload;
             }
             else
-            { // TODO: update scene loading progress - show loading slider/image
+            {
+                // TODO: update scene loading progress - show loading slider/image
             }
         }
 
@@ -240,6 +249,7 @@ namespace MK.Common.Managers
                 sceneState = SceneState.Reset;
             }
         }
+
         #endregion private delegate methods
     }
 }

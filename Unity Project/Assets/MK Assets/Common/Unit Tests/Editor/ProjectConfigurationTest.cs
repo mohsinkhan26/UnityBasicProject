@@ -1,10 +1,15 @@
 ﻿using NUnit.Framework;
+/* 
+ * Author : Mohsin Khan
+ * Portfolio : http://mohsinkhan26.github.io/ 
+ * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
+ * Github : https://github.com/mohsinkhan26/
+*/
 using UnityEngine;
 using MK.Common.Helpers;
 using MK.Common.Extensions;
-using MK.AssetData;
 
-namespace Game.Common
+namespace MK.AssetData
 {
     public class ProjectConfigurationTest
     {
@@ -22,7 +27,8 @@ namespace Game.Common
             Assert.True(Application.platform.ToString().CaseSensitiveEquals(RuntimePlatform.Android.ToString()) ||
                         Application.platform.ToString().CaseSensitiveEquals(RuntimePlatform.IPhonePlayer.ToString()) ||
                         Application.platform.ToString().CaseSensitiveEquals(RuntimePlatform.WindowsEditor.ToString()) ||
-                        Application.platform.ToString().CaseSensitiveEquals(RuntimePlatform.OSXEditor.ToString()), "Current runtime platform is not supported");
+                        Application.platform.ToString().CaseSensitiveEquals(RuntimePlatform.OSXEditor.ToString()),
+                "Current runtime platform is not supported");
         }
 
         [Test]
@@ -34,7 +40,8 @@ namespace Game.Common
         [Test]
         public void ProjectConfiguration_FirebaseEditorServiceAccountEmail_IsNotEmpty()
         {
-            Assert.IsNotEmpty(projectConfiguration.firebaseEditorServiceAccountEmail, "Firebase EditorServiceAccountEmail field is empty");
+            Assert.IsNotEmpty(projectConfiguration.firebaseEditorServiceAccountEmail,
+                "Firebase EditorServiceAccountEmail field is empty");
         }
 
         [Test]
@@ -53,10 +60,12 @@ namespace Game.Common
         public void ProjectConfiguration_IsProductionBuild()
         {
             //Assert.IsTrue(projectConfiguration.isProductionBuild, "Production Build is unchecked, so Development Build settings are set");
-            Assert.True(projectConfiguration.isProductionBuild, "Production Build is unchecked, so Development Build settings are set");
+            Assert.True(projectConfiguration.isProductionBuild,
+                "Production Build is unchecked, so Development Build settings are set");
 
             //Assert.IsFalse(projectConfiguration.enableLogging, "Logging is unchecked, so Development Build settings are set");
-            Assert.False(projectConfiguration.enableLogging, "Logging is unchecked, so Development Build settings are set");
+            Assert.False(projectConfiguration.enableLogging,
+                "Logging is unchecked, so Development Build settings are set");
         }
 
         [Test]

@@ -1,9 +1,10 @@
 ﻿/* 
  * Author : Mohsin Khan
+ * Portfolio : http://mohsinkhan26.github.io/ 
  * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
  * Github : https://github.com/mohsinkhan26/
- * BitBucket : https://bitbucket.org/mohsinkhan26/ 
 */
+
 using System;
 
 namespace UnityEngine.UI
@@ -14,25 +15,17 @@ namespace UnityEngine.UI
     [AddComponentMenu("UI/Extensions/Text Extended"), RequireComponent(typeof(RectTransform))]
     public class TextExtension : Text
     {
-        [Header("Extended Properties")]
-        [SerializeField]
+        [Header("Extended Properties")] [SerializeField]
         string
             m_textId;
 
-        [SerializeField]
-        Animator
+        [SerializeField] Animator
             m_animator;
 
         public string TextId
         {
-            get
-            {
-                return m_textId;
-            }
-            set
-            {
-                m_textId = value;
-            }
+            get { return m_textId; }
+            set { m_textId = value; }
         }
 
         public Animator AnimatorController
@@ -54,5 +47,3 @@ namespace UnityEngine.UI
         }
     }
 }
-
-

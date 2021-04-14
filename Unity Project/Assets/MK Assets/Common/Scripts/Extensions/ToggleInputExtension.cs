@@ -1,9 +1,10 @@
 ﻿/* 
  * Author : Mohsin Khan
+ * Portfolio : http://mohsinkhan26.github.io/ 
  * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
  * Github : https://github.com/mohsinkhan26/
- * BitBucket : https://bitbucket.org/mohsinkhan26/ 
 */
+
 using System;
 
 namespace UnityEngine.UI
@@ -14,17 +15,16 @@ namespace UnityEngine.UI
     [AddComponentMenu("UI/Extensions/Toggle Extended"), RequireComponent(typeof(RectTransform))]
     public class ToggleInputExtension : Toggle
     {
-        [Header("Extended Properties")]
-        [SerializeField]
+        [Header("Extended Properties")] [SerializeField]
         InputField
-        m_inputFieldComponent;
+            m_inputFieldComponent;
 
-        [SerializeField]
-        Animator
+        [SerializeField] Animator
             m_animator;
 
         public string Text
-        { // to get InputField component, you must have to assign
+        {
+            // to get InputField component, you must have to assign
             get
             {
                 if (m_inputFieldComponent != null)
@@ -42,7 +42,8 @@ namespace UnityEngine.UI
         }
 
         public bool InputFieldInteractable
-        { // to get InputField component, you must have to assign
+        {
+            // to get InputField component, you must have to assign
             get
             {
                 if (m_inputFieldComponent != null)
@@ -78,5 +79,3 @@ namespace UnityEngine.UI
         }
     }
 }
-
-

@@ -1,9 +1,10 @@
 ﻿/* 
  * Author : Mohsin Khan
+ * Portfolio : http://mohsinkhan26.github.io/ 
  * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
  * Github : https://github.com/mohsinkhan26/
- * BitBucket : https://bitbucket.org/mohsinkhan26/ 
 */
+
 using System;
 using System.Net.Mail;
 using System.Net;
@@ -32,10 +33,7 @@ namespace MK.Common.Utilities
 
         public string Log
         {
-            get
-            {
-                return logs.ToString();
-            }
+            get { return logs.ToString(); }
         }
 
         void OnEnable()
@@ -82,14 +80,15 @@ namespace MK.Common.Utilities
         public void Report(string _query)
         {
             EmailToDevs("[" + PROJECT_NAME + "] - Report Email", "Query: " + _query
-                        + "\n\n[" + PROJECT_NAME + "] SMTP mail from GMAIL\n\n");
+                                                                           + "\n\n[" + PROJECT_NAME +
+                                                                           "] SMTP mail from GMAIL\n\n");
         }
 
         public void Report(string _userName, string _password, string _email, string _query)
         {
             EmailToDevs("[" + PROJECT_NAME + "] - Report Email",
-                        GetUserInformation(_userName, _password, _email).Append("Query: ").AppendLine(_query).ToString()
-                        + "\n\n[" + PROJECT_NAME + "] SMTP mail from GMAIL\n\n");
+                GetUserInformation(_userName, _password, _email).Append("Query: ").AppendLine(_query).ToString()
+                + "\n\n[" + PROJECT_NAME + "] SMTP mail from GMAIL\n\n");
         }
 
         public void EmailToDevs(string _subject, string _messageBody)
@@ -115,7 +114,7 @@ namespace MK.Common.Utilities
                         Port = 587,
                         EnableSsl = true,
                         UseDefaultCredentials = false,
-                        Credentials = (System.Net.ICredentialsByHost)new NetworkCredential(fromEmail, password)
+                        Credentials = (System.Net.ICredentialsByHost) new NetworkCredential(fromEmail, password)
                     };
 
                     //smtpServer.Port = 587;
@@ -138,15 +137,16 @@ namespace MK.Common.Utilities
 
                     mail.Subject = _subject;
                     mail.Body = GetSystemInformation()
-                                .Append("Logs of Game Time, till now: ").Append(gameElapsedTime.ToString()).AppendLine(" sec")
-                                .Append(_messageBody).AppendLine()
-                                .Append(logs.ToString()).ToString();
+                        .Append("Logs of Game Time, till now: ").Append(gameElapsedTime.ToString()).AppendLine(" sec")
+                        .Append(_messageBody).AppendLine()
+                        .Append(logs.ToString()).ToString();
 
                     ServicePointManager.ServerCertificateValidationCallback =
-                    delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
-                    {
-                        return true;
-                    };
+                        delegate(object s, X509Certificate certificate, X509Chain chain,
+                            SslPolicyErrors sslPolicyErrors)
+                        {
+                            return true;
+                        };
                     smtpServer.Send(mail);
                 }
 
@@ -159,11 +159,13 @@ namespace MK.Common.Utilities
             {
                 Debug.LogError("Mail Sending Error: " + ex.Message + "\n\nStack: " + ex.StackTrace);
             }
+
             //#endif
         }
 
         bool IsValidEmail(string _emailaddress)
-        { // http://stackoverflow.com/questions/5342375/regex-email-validation
+        {
+            // http://stackoverflow.com/questions/5342375/regex-email-validation
             try
             {
                 MailAddress m = new MailAddress(_emailaddress);
@@ -210,7 +212,8 @@ namespace MK.Common.Utilities
             str.Append("\nProcessor Name: ").Append(SystemInfo.processorType);
             str.Append("\nProcessor Frequency: ").Append(SystemInfo.processorFrequency.ToString()).Append(" MHz");
             str.Append("\nSystem Memory Size: ").Append(SystemInfo.systemMemorySize.ToString()).Append(" MB");
-            str.Append("\nLogical Processors (number of hardware threads): ").Append(SystemInfo.processorCount.ToString());
+            str.Append("\nLogical Processors (number of hardware threads): ")
+                .Append(SystemInfo.processorCount.ToString());
             str.Append("\nGraphics Device ID: ").Append(SystemInfo.graphicsDeviceID.ToString());
             str.Append("\nGraphics Device Name: ").Append(SystemInfo.graphicsDeviceName);
             str.Append("\nGraphics Device Type: ").Append(SystemInfo.graphicsDeviceType.ToString());
@@ -223,7 +226,8 @@ namespace MK.Common.Utilities
             str.Append("\nMax Texture Size: ").Append(SystemInfo.maxTextureSize.ToString());
             str.Append("\nNPOT (non-power of two size) texture support: ").Append(SystemInfo.npotSupport.ToString());
             str.Append("\nCopy Texture Support: ").Append(SystemInfo.copyTextureSupport.ToString());
-            str.Append("\nSupported Render Target Count: ").Append(SystemInfo.supportedRenderTargetCount.ToString()).Append(" MRTs");
+            str.Append("\nSupported Render Target Count: ").Append(SystemInfo.supportedRenderTargetCount.ToString())
+                .Append(" MRTs");
             str.Append("\nSupports 2D Array Textures: ").Append(SystemInfo.supports2DArrayTextures.ToString());
             str.Append("\nSupports 3D Textures: ").Append(SystemInfo.supports3DTextures.ToString());
             str.Append("\nSupports Accelerometer: ").Append(SystemInfo.supportsAccelerometer.ToString());
@@ -234,7 +238,8 @@ namespace MK.Common.Utilities
             str.Append("\nSupports Instancing: ").Append(SystemInfo.supportsInstancing.ToString());
             str.Append("\nSupports Location Service: ").Append(SystemInfo.supportsLocationService.ToString());
             str.Append("\nSupports Motion Vectors: ").Append(SystemInfo.supportsMotionVectors.ToString());
-            str.Append("\nSupports Raw Shadow Depth Sampling: ").Append(SystemInfo.supportsRawShadowDepthSampling.ToString());
+            str.Append("\nSupports Raw Shadow Depth Sampling: ")
+                .Append(SystemInfo.supportsRawShadowDepthSampling.ToString());
             str.Append("\nSupports Render Textures: ").Append(SystemInfo.supportsRenderTextures.ToString());
             str.Append("\nSupports Render To Cubemap: ").Append(SystemInfo.supportsRenderToCubemap.ToString());
             str.Append("\nSupports Shadows: ").Append(SystemInfo.supportsShadows.ToString());

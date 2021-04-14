@@ -1,7 +1,14 @@
-﻿using NUnit.Framework;
+﻿/* 
+ * Author : Mohsin Khan
+ * Portfolio : http://mohsinkhan26.github.io/ 
+ * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
+ * Github : https://github.com/mohsinkhan26/
+*/
+
+using NUnit.Framework;
 using MK.Common.Extensions;
 
-namespace Game.Common
+namespace MK.Common
 {
     public class GenericTest
     {
@@ -15,7 +22,7 @@ namespace Game.Common
             Assert.IsTrue(("!@#$%^&*").CaseSensitiveEquals("!@#$%^&*"), "String comparison is NOT correct");
             Assert.IsTrue(("新增身體訊號").CaseSensitiveEquals("新增身體訊號"), "String comparison is NOT correct");
         }
-        
+
         [Test]
         public void StringComparison_IsFalse()
         {

@@ -1,9 +1,10 @@
 ﻿/* 
  * Author : Mohsin Khan
+ * Portfolio : http://mohsinkhan26.github.io/ 
  * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
  * Github : https://github.com/mohsinkhan26/
- * BitBucket : https://bitbucket.org/mohsinkhan26/ 
 */
+
 using UnityEngine;
 
 /* Reference: https://blogs.unity3d.com/2016/07/26/il2cpp-optimizations-devirtualization/
@@ -16,6 +17,7 @@ namespace MK.Common.Utilities
     public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         private static T _instance;
+
         // use it for testing
         public string InstanceID;
 
@@ -27,30 +29,31 @@ namespace MK.Common.Utilities
 
         protected virtual void Awake()
         {
-            if (ReferenceEquals(_instance, null))
+            if (ReferenceEquals(_instance, null) || this.GetInstanceID() == _instance.GetInstanceID())
             {
                 //If I am the first instance, make me the Singleton
-                bool has = ReferenceEquals(Instance, null); // to access Instance, so it won't create new instance of same class. Important point: Don't comment this line
+                bool
+                    has = ReferenceEquals(Instance,
+                        null); // to access Instance, so it won't create new instance of same class. Important point: Don't comment this line
                 DontDestroyOnLoad(this);
                 InstanceID = this.GetInstanceID().ToString();
-                //Debug.LogWarning(typeof(T) + " - " + has + "   ID: " + InstanceID);
+                Debug.LogWarning("[Singelton]NewInstance: " + this.gameObject.name + " - " + typeof(T) + " - " + has +
+                                 "   ID: " + InstanceID);
             }
             else
             {
                 //If a Singleton already exists and you find
                 //another reference in scene, destroy it!
                 //if (!ReferenceEquals(_instance, null))
-                //    Debug.LogError("[Singelton]Destroying: " + this.gameObject.name + "   New InstanceID: " + this.GetInstanceID() + "   ->Old: " + _instance.GetInstanceID());
+                Debug.LogError("[Singelton]Destroying: " + this.gameObject.name + "   New InstanceID: " +
+                               this.GetInstanceID() + "   ->Old: " + _instance.GetInstanceID());
                 Destroy(this.gameObject);
             }
         }
 
         public static bool HasInstance
         {
-            get
-            {
-                return (!ReferenceEquals(_instance, null));
-            }
+            get { return (!ReferenceEquals(_instance, null)); }
         }
 
         public static T Instance
@@ -61,13 +64,13 @@ namespace MK.Common.Utilities
                 {
                     if (ReferenceEquals(_instance, null))
                     {
-                        _instance = (T)FindObjectOfType(typeof(T));
+                        _instance = (T) FindObjectOfType(typeof(T));
 
                         if (FindObjectsOfType(typeof(T)).Length > 1)
                         {
                             Debug.LogError("[Singleton] Something went really wrong " + typeof(T) +
-                                " - there should never be more than 1 singleton!" +
-                                " Reopenning the scene might fix it.");
+                                           " - there should never be more than 1 singleton!" +
+                                           " Reopenning the scene might fix it.");
                             return _instance;
                         }
 
@@ -78,15 +81,16 @@ namespace MK.Common.Utilities
                             singleton.name = "(Singleton) " + typeof(T).ToString();
 
                             Debug.LogWarning("[Singleton] An instance of " + typeof(T) +
-                                " is needed in the scene, so '" + singleton.name +
-                                "' was created.");
+                                             " is needed in the scene, so '" + singleton.name +
+                                             "' was created.");
                         }
                         else
                         {
                             Debug.LogWarning("[Singleton] " + typeof(T) + " - Using instance already created: " +
-                                _instance.gameObject.name);
+                                             _instance.gameObject.name);
                         }
                     }
+
                     return _instance;
                 }
             }

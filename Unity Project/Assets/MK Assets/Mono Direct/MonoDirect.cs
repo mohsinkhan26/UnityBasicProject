@@ -1,11 +1,12 @@
 ﻿/* 
  * Author : Mohsin Khan
+ * Portfolio : http://mohsinkhan26.github.io/ 
  * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
  * Github : https://github.com/mohsinkhan26/
- * BitBucket : https://bitbucket.org/mohsinkhan26/ 
 */
-using UnityEngine;
+
 using System;
+using UnityEngine;
 using MK.Common.Utilities;
 
 /// <summary>
@@ -30,7 +31,7 @@ namespace MK.Direct
         ///  GameObject with the script component is instantiated</para>
         /// </summary>
         public Action onEnableCallback;
-        #if UNITY_4_6 || UNITY_4_7 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2
+#if UNITY_4_6 || UNITY_4_7 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2
         /// <summary>
         /// <para>One time reflection call - Not recommended to use this.</para>
         /// <para>First Scene Load - This function is executed to inform the game that a new level has been loaded</para>
@@ -51,6 +52,7 @@ namespace MK.Direct
         ///  to show graphics that indicate the paused state</para>
         /// </summary>
         public Action<bool> onApplicationPauseCallback;
+
         /// <summary>
         /// <para>Recurring reflection call - recommended to use this.</para>
         /// <para>In between frames - called when the application loses or gains focus. Alt-tabbing or Cmd-tabbing can take focus away
@@ -67,11 +69,13 @@ namespace MK.Direct
         ///  independent of the frame rate.</para>
         /// </summary>
         public Action fixedUpdateCallback;
+
         /// <summary>
         /// <para>Recurring reflection call - recommended to use this.</para>
         /// <para>Update Order - Update is called once per frame. It is the main workhorse function for frame updates.</para>
         /// </summary>
         public Action updateCallback;
+
         /// <summary>
         /// <para>Recurring reflection call - recommended to use this.</para>
         /// <para>Update Order - LateUpdate is called once per frame, after Update has finished. Any calculations that are performed
@@ -88,48 +92,57 @@ namespace MK.Direct
         ///  OnPreCull is called just before culling takes place.</para>
         /// </summary>
         public Action onPreCullCallback;
+
         /// <summary>
         /// <para>Recurring reflection call - recommended to use this.</para>
         /// <para>Rendering - Called when an object becomes visible to any camera</para>
         /// </summary>
         public Action onBecameVisibleCallback;
+
         /// <summary>
         /// <para>Recurring reflection call - recommended to use this.</para>
         /// <para>Rendering - Called when an object becomes invisible to any camera</para>
         /// </summary>
         public Action onBecameInvisibleCallback;
+
         /// <summary>
         /// <para>Recurring reflection call - recommended to use this.</para>
         /// <para>Rendering - Called once for each camera if the object is visible</para>
         /// </summary>
         public Action onWillRenderObjectCallback;
+
         /// <summary>
         /// <para>Recurring reflection call - recommended to use this.</para>
         /// <para>Rendering - Called before the camera starts rendering the scene</para>
         /// </summary>
         public Action onPreRenderCallback;
+
         /// <summary>
         /// <para>Recurring reflection call - recommended to use this.</para>
         /// <para>Rendering - Called after all regular scene rendering is done. You can use GL class or Graphics. 
         ///  DrawMeshNow to draw custom geometry at this point</para>
         /// </summary>
         public Action onRenderObjectCallback;
+
         /// <summary>
         /// <para>Recurring reflection call - recommended to use this.</para>
         /// <para>Rendering - Called after a camera finishes rendering the scene</para>
         /// </summary>
         public Action onPostRenderCallback;
+
         /// <summary>
         /// <para>Recurring reflection call - recommended to use this.</para>
         /// <para>Rendering - Called after scene rendering is complete to allow postprocessing of the image</para>
         /// </summary>
         public Action<RenderTexture, RenderTexture> onRenderImageCallback;
+
         /// <summary>
         /// <para>Recurring reflection call - recommended to use this.</para>
         /// <para>Rendering - Called multiple times per frame in response to GUI events. The Layout and Repaint events
         ///  are processed first, followed by a Layout and keyboard/mouse event for each input event</para>
         /// </summary>
         public Action onGUICallback;
+
         /// <summary>
         /// <para>Recurring reflection call - recommended to use this.</para>
         /// <para>Rendering - Used for drawing Gizmos in the scene view for visualisation purposes</para>
@@ -149,6 +162,7 @@ namespace MK.Direct
         ///  In the editor it is called when the user stops playmode</para>
         /// </summary>
         public Action onApplicationQuitCallback;
+
         /// <summary>
         /// <para>One time reflection call - Not recommended to use this.</para>
         /// <para>When Quitting - This function is called when the behaviour becomes disabled or inactive</para>
@@ -170,7 +184,7 @@ namespace MK.Direct
                 onEnableCallback();
         }
 
-        #if UNITY_4_6 || UNITY_4_7 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2
+#if UNITY_4_6 || UNITY_4_7 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2
         /// <summary>
         /// First Scene Load - This function is executed to inform the game that a new level has been loaded
         /// </summary>

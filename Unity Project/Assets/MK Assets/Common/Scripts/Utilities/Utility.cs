@@ -1,8 +1,8 @@
 /* 
  * Author : Mohsin Khan
+ * Portfolio : http://mohsinkhan26.github.io/ 
  * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
  * Github : https://github.com/mohsinkhan26/
- * BitBucket : https://bitbucket.org/mohsinkhan26/ 
 */
 
 using System;
@@ -14,14 +14,16 @@ using System.Text.RegularExpressions;
 using System.Net.Mail;
 using System.Net;
 using UnityEngine;
-//using Newtonsoft.Json;
+using Newtonsoft.Json; // Git: com.unity.nuget.newtonsoft-json
 
 namespace MK.Common.Utilities
 {
     public static class Utility
     {
-        /*#region JSON conversions
+        #region JSON conversions
+
         static JsonSerializerSettings jsonSerializerSettings;
+
         static JsonSerializerSettings JsonSerializerSettings
         {
             get
@@ -66,6 +68,7 @@ namespace MK.Common.Utilities
             {
                 return dict[_objectID];
             }
+
             return default(T);
         }
 
@@ -88,9 +91,18 @@ namespace MK.Common.Utilities
         {
             return JsonConvert.DeserializeObject<T>(_json, JsonSerializerSettings);
         }
+
         #endregion JSON conversions
-*/
+
         #region Unix Millisecond Timer
+
+        public static ulong TimeInTicks(this ulong _timeInMilliseconds)
+        {
+            // 1 milliseconds == 10,000 ticks
+            return _timeInMilliseconds / TimeSpan.TicksPerMillisecond;
+            //return _timeInMilliseconds / 10000;
+        }
+
         public static ulong TimeInSeconds(this ulong _timeInMilliseconds)
         {
             return _timeInMilliseconds / 1000;
@@ -101,17 +113,28 @@ namespace MK.Common.Utilities
 
         public static ulong GetCurrentUnixTimestampMilliseconds()
         {
-            return (ulong)(DateTime.UtcNow - UnixEpoch).TotalMilliseconds;
+            return (ulong) (DateTime.UtcNow - UnixEpoch).TotalMilliseconds;
         }
 
         public static ulong GetUnixTimestampMilliseconds(DateTime? _dateTime)
         {
-            return (ulong)((DateTime)_dateTime - UnixEpoch).TotalMilliseconds;
+            // for current/local time pass DateTime.Now
+            return (ulong) ((DateTime) _dateTime - UnixEpoch).TotalMilliseconds;
         }
 
         public static DateTime DateTimeFromUnixTimestampMilliseconds(ulong _milliseconds)
         {
             return UnixEpoch.AddMilliseconds(_milliseconds);
+        }
+
+        public static string DateTimeInFormat(ulong _milliseconds, string _format = "yyyy-MM-dd HH:mm:ss")
+        {
+            return DateTimeFromUnixTimestampMilliseconds(_milliseconds).ToString(_format);
+        }
+
+        public static string DateTimeCurrentInFormat(string _format = "yyyy-MM-dd HH:mm:ss")
+        {
+            return DateTimeFromUnixTimestampMilliseconds(GetCurrentUnixTimestampMilliseconds()).ToString(_format);
         }
 
         //public static ulong GetCurrentUnixTimestampSeconds()
@@ -139,24 +162,29 @@ namespace MK.Common.Utilities
         public static ulong GetTimeDifferenceInSeconds(ulong _fromTime, ulong _toTime)
         {
             ulong _diff = _fromTime - _toTime;
-            return (_diff / 1000);  // converting milliseconds to seconds
+            return (_diff / 1000); // converting milliseconds to seconds
         }
 
-        public static string ConvertTime(double _seconds, bool _showMinSecWhenDays = false, bool _showMinutes = true, bool _showSeconds = true)
-        { // this overload method don't care about the time whether it is in future or past
+        public static string ConvertTime(double _seconds, bool _showMinSecWhenDays = false, bool _showMinutes = true,
+            bool _showSeconds = true)
+        {
+            // this overload method don't care about the time whether it is in future or past
             bool timeFromPast = false;
             return ConvertTime(_seconds, ref timeFromPast, _showMinSecWhenDays, _showMinutes, _showSeconds);
         }
 
-        public static string ConvertTime(double _seconds, ref bool _timeFromPast, bool _showMinSecWhenDays = false, bool _showMinutes = true, bool _showSeconds = true)
+        public static string ConvertTime(double _seconds, ref bool _timeFromPast, bool _showMinSecWhenDays = false,
+            bool _showMinutes = true, bool _showSeconds = true)
         {
             if (_seconds > 0) // past time
                 _timeFromPast = true;
             else
-            { // future time
+            {
+                // future time
                 _timeFromPast = false;
                 _seconds *= -1;
             }
+
             // if seconds are visible, then minutes should also be visible
             _showMinutes = _showSeconds ? _showSeconds : _showMinutes;
 
@@ -186,28 +214,44 @@ namespace MK.Common.Utilities
             {
                 ToReturn += string.Format((t.Seconds < 10) ? "{0}s" : "{0:D2}s", t.Seconds);
             }
+
             return ToReturn = ToReturn == string.Empty ? "0s" : ToReturn;
         }
 
+        public static TimeSpan DateTimeInTimeSpanFromNow(DateTime _futureDateTime)
+        {
+            // if the time is in past, then negative value is return as Ticks
+            DateTime dateTimeNow = DateTime.Now;
+            DateTime dateTime = new DateTime(dateTimeNow.Year, dateTimeNow.Month, dateTimeNow.Day)
+                .AddHours(dateTimeNow.Hour)
+                .AddMinutes(dateTimeNow.Minute);
+            return _futureDateTime.Subtract(dateTime);
+        }
+
         public static double AddDays(double _milliseconds, int _daysToAdd)
-        { // multiply with milliseconds in a day
+        {
+            // multiply with milliseconds in a day
             return (_milliseconds + (_daysToAdd * 86400000.0));
         }
 
         public static double AddHours(double _milliseconds, int _hoursToAdd)
-        { // multiply with milliseconds in a hour
+        {
+            // multiply with milliseconds in a hour
             return (_milliseconds + (_hoursToAdd * 3600000.0));
         }
 
         public static double AddMinutes(double _milliseconds, int _minutesToAdd)
-        { // multiply with milliseconds in a minute
+        {
+            // multiply with milliseconds in a minute
             return (_milliseconds + (_minutesToAdd * 60000.0));
         }
 
         public static double AddSeconds(double _milliseconds, int _secondsToAdd)
-        { // multiply with milliseconds in a second
+        {
+            // multiply with milliseconds in a second
             return (_milliseconds + (_secondsToAdd * 1000.0));
         }
+
         #endregion Unix Millisecond Timer
 
         #region UnixTime
@@ -224,27 +268,28 @@ namespace MK.Common.Utilities
 
         public static string FromUnixTimeInWords(long unixTime)
         {
-            return UnixEpoch.AddMilliseconds(unixTime).ToString("ddd, MMM dd, yyyy hh:mm tt"); // Wed, Jun 19, 2019 08:27 AM
+            return UnixEpoch.AddMilliseconds(unixTime)
+                .ToString("ddd, MMM dd, yyyy hh:mm tt"); // Wed, Jun 19, 2019 08:27 AM
         }
 
         public static ulong GetMillisecondsFromDateTime(string _dateTime)
         {
             DateTime dateTime;
             DateTime.TryParse(_dateTime, out dateTime);
-            return (ulong)(dateTime - UnixEpoch).TotalMilliseconds;
+            return (ulong) (dateTime - UnixEpoch).TotalMilliseconds;
         }
 
         public static long GetTimeFromNow(long _timeFromPast)
         {
             //Debug.Log("GetTimeFromNow: " + _timeFromPast + "\nUnixTime: " + GameUtils.FromUnixTime(_timeFromPast)
             //          + "\nNow: " + DateTime.Now.ToUniversalTime() + "\nReturn: " + ((long) (DateTime.Now.ToUniversalTime() - FromUnixTime(_timeFromPast)).TotalSeconds) );
-            return ((long)(DateTime.Now.ToUniversalTime() - FromUnixTime(_timeFromPast)).TotalSeconds);
+            return ((long) (DateTime.Now.ToUniversalTime() - FromUnixTime(_timeFromPast)).TotalSeconds);
         }
 
         public static long GetTimeDifferenceInSeconds(long _fromTime, long _toTime)
         {
             long _diff = _fromTime - _toTime;
-            return (_diff / 1000);  // converting milliseconds to seconds
+            return (_diff / 1000); // converting milliseconds to seconds
         }
 
         /// <summary>
@@ -257,16 +302,28 @@ namespace MK.Common.Utilities
             //string timeStampNow = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
             string timeStampNow = DateTime.Now.ToString("yyyyMMddHHmmss"); // makes the string of length 14
             if (flag)
-            { // adds 4 random digits to the end and total length becomes 18
+            {
+                // adds 4 random digits to the end and total length becomes 18
                 timeStampNow += UnityEngine.Random.Range(1000, 10000).ToString();
                 //timeStampNow += SystemInfo.deviceUniqueIdentifier;
             }
+
             return timeStampNow;
+        }
+
+        public static bool DateIsAlreadyPassed(DateTime? _dateTime = null)
+        {
+            DateTime temp = _dateTime.Value;
+            if (GetUnixTimestampMilliseconds(temp) <= GetCurrentUnixTimestampMilliseconds())
+                return true; // past
+            //Debug.LogError("Date selected is in Future!");
+            return false; // future
         }
 
         #endregion UnixTime
 
         #region Data Path
+
         public static bool FileExistsAtPersistentDataPath(string _fileName)
         {
             return File.Exists(GetPersistentDataPath(_fileName));
@@ -281,15 +338,15 @@ namespace MK.Common.Utilities
 #elif UNITY_ANDROID
             Debug.Log("Unity Android: " + (Path.Combine(Application.persistentDataPath, _file)));
             return Path.Combine(Application.persistentDataPath, _file);
-            
+
 #elif UNITY_IPHONE
             Debug.Log("Unity iPhone: " + Application.persistentDataPath);
             return Path.Combine(Application.persistentDataPath, _file);
-        
+
 #else
             Debug.Log("Any other platform: " + Path.Combine(Application.persistentDataPath, _file));
             return Path.Combine(Application.persistentDataPath, _file);
-        
+
 #endif
         }
 
@@ -304,19 +361,21 @@ namespace MK.Common.Utilities
 #elif UNITY_IPHONE
             Debug.Log("Unity iPhone: " + (Application.dataPath + "/Raw"));
             return Path.Combine(Application.dataPath + "/Raw", _file);
-        
+
 #elif UNITY_ANDROID
             Debug.Log("Unity Android: " + ("jar:file://" + Application.dataPath + "!/assets/"));
             return Path.Combine("jar:file://" + Application.dataPath + "!/assets/", _file);
-        
+
 #else
             Debug.Log("Any other platform: " + Application.streamingAssetsPath);
             return Path.Combine (Application.streamingAssetsPath, _file);
 #endif
         }
+
         #endregion Data Path
 
         #region Text Highlight
+
         public static string HighlightTextGreen(string _highlightedText, string _data)
         {
             return HighlightText("green", _highlightedText, _data);
@@ -329,8 +388,10 @@ namespace MK.Common.Utilities
 
         public static string HighlightText(string _color, string _highlightedText, string _data)
         {
-            return (new StringBuilder("<color=").Append(_color).Append(">").Append(_highlightedText).Append(":</color> ").Append(_data).ToString());
+            return (new StringBuilder("<color=").Append(_color).Append(">").Append(_highlightedText)
+                .Append(":</color> ").Append(_data).ToString());
         }
+
         #endregion Text Highlight
 
         #region Children GameObjects
@@ -360,12 +421,15 @@ namespace MK.Common.Utilities
                 _list[i].gameObject.SetActive(false);
             }
         }
+
         #endregion Children GameObjects
 
         #region Get Active Object
+
         public static T GetActiveObject<T>(ref T[] _maintainingArray) where T : MonoBehaviour
         {
-            if (_maintainingArray.Length == 0 || _maintainingArray.Where(ti => !ti.gameObject.activeInHierarchy).ToArray<T>().Length == 0)
+            if (_maintainingArray.Length == 0 ||
+                _maintainingArray.Where(ti => !ti.gameObject.activeInHierarchy).ToArray<T>().Length == 0)
                 return null;
 
             T _item;
@@ -374,8 +438,9 @@ namespace MK.Common.Utilities
             return _item;
         }
 
-        public static T GetActiveObjectCreateIfNone<T>(ref List<T> _maintainingLst, Transform _parentObject = null, GameObject _prefabToInstantiate = null,
-                                           string prefabPath = "", bool setParent = true) where T : MonoBehaviour
+        public static T GetActiveObjectCreateIfNone<T>(ref List<T> _maintainingLst, Transform _parentObject = null,
+            GameObject _prefabToInstantiate = null,
+            string prefabPath = "", bool setParent = true) where T : MonoBehaviour
         {
             T _item;
             if (_maintainingLst == null)
@@ -383,10 +448,18 @@ namespace MK.Common.Utilities
                 Debug.LogError("Utility-GetActiveObjectCreateIfNone-Passed list is NULL: instantiating...");
                 _maintainingLst = new List<T>();
             }
-            if (_maintainingLst.Count == 0 || _maintainingLst.Where(ti => !ti.gameObject.activeInHierarchy).ToList().Count == 0 ||
-            _maintainingLst.Where(tItem => !tItem.gameObject.activeInHierarchy && tItem.name.Equals((_prefabToInstantiate.name + "(Clone)"))).ToList().Count == 0)
+
+            if (_maintainingLst.Count == 0 ||
+                _maintainingLst.Where(ti => !ti.gameObject.activeInHierarchy).ToList().Count == 0 ||
+                _maintainingLst.Where(tItem =>
+                        !tItem.gameObject.activeInHierarchy &&
+                        tItem.name.Equals((_prefabToInstantiate.name + "(Clone)")))
+                    .ToList().Count == 0)
             {
-                GameObject itemClone = (string.IsNullOrEmpty(prefabPath) ? UnityEngine.Object.Instantiate(_prefabToInstantiate) : Resources.Load(prefabPath)) as GameObject;
+                GameObject itemClone =
+                    (string.IsNullOrEmpty(prefabPath)
+                        ? UnityEngine.Object.Instantiate(_prefabToInstantiate)
+                        : Resources.Load(prefabPath)) as GameObject;
                 if (setParent && _parentObject != null)
                     itemClone.transform.SetParent(_parentObject, false);
                 _item = itemClone.GetComponent<T>();
@@ -394,23 +467,28 @@ namespace MK.Common.Utilities
             }
             else if (_prefabToInstantiate != null)
             {
-                _item = _maintainingLst.First(tItem => !tItem.gameObject.activeInHierarchy && tItem.name.Equals((_prefabToInstantiate.name + "(Clone)")));
+                _item = _maintainingLst.First(tItem =>
+                    !tItem.gameObject.activeInHierarchy && tItem.name.Equals((_prefabToInstantiate.name + "(Clone)")));
                 if (setParent && _parentObject != null)
                     _item.transform.SetParent(_parentObject, false);
             }
             else
             {
-                Debug.LogError("Utility-GetActiveObjectCreateIfNone: " + _prefabToInstantiate.name + "   Path: " + prefabPath + "\nSomething wierd happened");
+                Debug.LogError("Utility-GetActiveObjectCreateIfNone: " + _prefabToInstantiate.name + "   Path: " +
+                               prefabPath + "\nSomething wierd happened");
                 _item = _maintainingLst.First(ti => !ti.gameObject.activeInHierarchy);
                 if (setParent && _parentObject != null)
                     _item.transform.SetParent(_parentObject, false);
             }
+
             _item.gameObject.SetActive(true);
             return _item;
         }
+
         #endregion Get Active Object
 
         #region String Functions
+
         public static string Reverse(string s)
         {
             char[] charArray = s.ToCharArray();
@@ -432,11 +510,13 @@ namespace MK.Common.Utilities
                 temp.Add(_prefixToAdd + _stringList[i]);
             return temp;
         }
+
         #endregion String Functions
 
         public static Sprite GetSpriteFromTexture2D(Texture2D _texture)
         {
-            return Sprite.Create(_texture, new Rect(0.0f, 0.0f, _texture.width, _texture.height), new Vector2(0.5f, 0.5f), 100.0f);
+            return Sprite.Create(_texture, new Rect(0.0f, 0.0f, _texture.width, _texture.height),
+                new Vector2(0.5f, 0.5f), 100.0f);
         }
 
         /// <summary>
@@ -459,9 +539,9 @@ namespace MK.Common.Utilities
                 //string expresion = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
                 //string expresion = @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
                 string expresion = @"^([0-9a-zA-Z]" + //Start with a digit or alphabetical
-   @"([\+\-_\.][0-9a-zA-Z]+)*" + // No continuous or ending +-_. chars in email
-   @")+" +
-   @"@(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]*\.)+[a-zA-Z0-9]{2,17})$";
+                                   @"([\+\-_\.][0-9a-zA-Z]+)*" + // No continuous or ending +-_. chars in email
+                                   @")+" +
+                                   @"@(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]*\.)+[a-zA-Z0-9]{2,17})$";
                 if (Regex.IsMatch(_email, expresion))
                 {
                     var addr = new MailAddress(_email);
@@ -472,6 +552,7 @@ namespace MK.Common.Utilities
             {
                 return false;
             }
+
             return false;
         }
 

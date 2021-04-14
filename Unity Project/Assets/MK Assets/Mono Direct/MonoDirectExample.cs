@@ -1,11 +1,11 @@
 ﻿/* 
  * Author : Mohsin Khan
+ * Portfolio : http://mohsinkhan26.github.io/ 
  * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
  * Github : https://github.com/mohsinkhan26/
- * BitBucket : https://bitbucket.org/mohsinkhan26/ 
 */
+
 using UnityEngine;
-using MK.Direct;
 
 namespace MK.Direct
 {
@@ -14,9 +14,9 @@ namespace MK.Direct
         void Awake()
         {
             MonoDirect.Instance.onEnableCallback += OnEnableCalled;
-    #if UNITY_4_6 || UNITY_4_7 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2
+#if UNITY_4_6 || UNITY_4_7 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2
             MonoDirect.Instance.onLevelWasLoadedCallback += OnLevelWasLoadedCalled;
-    #endif
+#endif
 
             MonoDirect.Instance.startCallback += StartCalled;
 
@@ -50,9 +50,9 @@ namespace MK.Direct
         {
             Debug.Log("MonoDirectExample-OnEnableCalled");
         }
-        #if UNITY_4_6 || UNITY_4_7 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2
+#if UNITY_4_6 || UNITY_4_7 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2
         void OnLevelWasLoadedCalled() { }
-    #endif
+#endif
 
         void StartCalled()
         {
@@ -139,10 +139,10 @@ namespace MK.Direct
             Debug.Log("MonoDirectExample-OnDestroyCalled");
             if (MonoDirect.HasInstance && MonoDirect.Instance.onEnableCallback != null)
                 MonoDirect.Instance.onEnableCallback -= OnEnableCalled;
-    #if UNITY_4_6 || UNITY_4_7 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2
+#if UNITY_4_6 || UNITY_4_7 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2
             if (MonoDirect.HasInstance && MonoDirect.Instance.onLevelWasLoadedCallback != null)
                 MonoDirect.Instance.onLevelWasLoadedCallback -= OnLevelWasLoadedCalled;
-    #endif
+#endif
 
             if (MonoDirect.HasInstance && MonoDirect.Instance.startCallback != null)
                 MonoDirect.Instance.startCallback -= StartCalled;
