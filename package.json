@@ -1,0 +1,22 @@
+{
+  "name": "com.mk.assets",
+  "version": "0.0.1",
+  "displayName": "MK Assets",
+  "description": "Some common scripts package",
+  "unity": "2021.1",
+  "unityRelease": "18f1",
+  "documentationUrl": "https://github.com/mohsinkhan26/UnityBasicProject/blob/master/README.md",
+  "changelogUrl": "https://github.com/mohsinkhan26/UnityBasicProject/blob/master/CHANGELOG.md",
+  "licensesUrl": "https://github.com/mohsinkhan26/UnityBasicProject/blob/master/LICENSE.md",
+  "keywords": [
+    "mk",
+    "assets",
+    "mkassets"
+  ],
+  "author": {
+    "name": "Mohsin Khan",
+    "email": "mohsinkhan.se@gmail.com",
+    "url": "http://mohsinkhan26.github.io/"
+  },
+  "type": "tool"
+}
