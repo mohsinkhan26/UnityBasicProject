@@ -30,6 +30,8 @@ Also, It is structured properly with the namespace that it would not conflict wi
 * Just download project or released plugin version
 * put/import it in your project
 * And start using the basic listed features
+* ***OR*** You can use this project as the starting point of your project
+* ***OR*** You can import from Package Manager by selecting the git option with URL using `master-upm` branch [https://github.com/mohsinkhan26/UnityBasicProject.git#master-upm](https://github.com/mohsinkhan26/UnityBasicProject.git#master-upm)
 
 ### TODO ###
 * A lot to come, stay tuned
