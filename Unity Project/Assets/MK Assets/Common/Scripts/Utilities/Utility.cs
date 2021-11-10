@@ -116,10 +116,10 @@ namespace MK.Common.Utilities
             return (ulong) (DateTime.UtcNow - UnixEpoch).TotalMilliseconds;
         }
 
-        public static ulong GetUnixTimestampMilliseconds(DateTime? _dateTime)
+        public static ulong GetUnixTimestampMilliseconds(DateTime _dateTime)
         {
             // for current/local time pass DateTime.Now
-            return (ulong) ((DateTime) _dateTime - UnixEpoch).TotalMilliseconds;
+            return (ulong) (_dateTime - UnixEpoch).TotalMilliseconds;
         }
 
         public static DateTime DateTimeFromUnixTimestampMilliseconds(ulong _milliseconds)
@@ -311,13 +311,73 @@ namespace MK.Common.Utilities
             return timeStampNow;
         }
 
-        public static bool DateIsAlreadyPassed(DateTime? _dateTime = null)
+        public static bool DateIsAlreadyPassed(DateTime _dateTime)
         {
-            DateTime temp = _dateTime.Value;
-            if (GetUnixTimestampMilliseconds(temp) <= GetCurrentUnixTimestampMilliseconds())
+            if (GetUnixTimestampMilliseconds(_dateTime) <= GetUnixTimestampMilliseconds(DateTime.Now))
                 return true; // past
             //Debug.LogError("Date selected is in Future!");
             return false; // future
+        }
+
+        public static void SetDateTime(DateTime _showDate, bool _isDateSelected, bool _isTimeSelected,
+            ref DateTime _selectedDateTime, Action<DateTime> _onDateSelected, Action _onDateNOTSelected,
+            Action<DateTime> _onTimeSelected, Action _onComplete)
+        {
+            if (!DateIsAlreadyPassed(_showDate))
+                _showDate = DateTime.Now; // selected date is in future
+
+            _selectedDateTime = _showDate;
+            if (_isDateSelected)
+            {
+                _onDateSelected?.Invoke(_showDate);
+            }
+            else
+            {
+                _onDateNOTSelected?.Invoke();
+            }
+
+            if (_isTimeSelected)
+            {
+                _onTimeSelected?.Invoke(_showDate);
+            }
+
+            Debug.Log("SetDateTime: " + _showDate.ToString());
+            _onComplete?.Invoke();
+        }
+
+        public static void FixDateTime(bool _isDateSelected, bool _isTimeSelected, ref DateTime _selectedDateTime,
+            ref DateTime _selectedDate, ref DateTime _selectedTime)
+        {
+            if (_isDateSelected && !_isTimeSelected)
+            {
+                _selectedDateTime = new DateTime(_selectedDate.Year, _selectedDate.Month, _selectedDate.Day);
+            }
+            else if (!_isDateSelected && _isTimeSelected)
+            {
+                DateTime selectedTemp = DateTime.Now;
+                selectedTemp =
+                    selectedTemp.AddDays(-1); // so any time can be selected, otherwise may be future time get selected
+                _selectedDateTime = new DateTime(selectedTemp.Year, selectedTemp.Month, selectedTemp.Day,
+                    _selectedTime.Hour, _selectedTime.Minute, _selectedTime.Second);
+            }
+            else if (_isDateSelected && _isTimeSelected)
+            {
+                DateTime selectedTemp = new DateTime(_selectedDate.Year, _selectedDate.Month, _selectedDate.Day);
+                TimeSpan timeTemp = new TimeSpan(_selectedTime.Hour, _selectedTime.Minute, _selectedTime.Second);
+                _selectedDateTime = selectedTemp.Add(timeTemp);
+            }
+
+            Debug.Log("FixDateTime: " + _selectedDateTime);
+            if (!DateIsAlreadyPassed(_selectedDateTime))
+            {
+                // time is in future, so make it to NOW
+                _selectedDateTime = DateTime.Now;
+                _selectedTime = new DateTime(_selectedDateTime.Year, _selectedDateTime.Month, _selectedDateTime.Day,
+                    _selectedDateTime.Hour, _selectedDateTime.Minute, _selectedDateTime.Second);
+                Debug.Log("ChangedTo-FixDateTime: " + _selectedDateTime);
+            }
+
+            // Debug.Log("Final-FixDateTime: " + _selectedDateTime);
         }
 
         #endregion UnixTime
