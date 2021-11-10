@@ -34,26 +34,26 @@ namespace MK.AssetData
         [Test]
         public void ProjectConfiguration_FirebaseProjectID_IsNotEmpty()
         {
-            Assert.IsNotEmpty(projectConfiguration.firebaseProjectID, "Firebase ProjectID field is empty");
+            Assert.IsNotEmpty(projectConfiguration.FirebaseProjectID, "Firebase ProjectID field is empty");
         }
 
         [Test]
         public void ProjectConfiguration_FirebaseEditorServiceAccountEmail_IsNotEmpty()
         {
-            Assert.IsNotEmpty(projectConfiguration.firebaseEditorServiceAccountEmail,
+            Assert.IsNotEmpty(projectConfiguration.FirebaseEditorServiceAccountEmail,
                 "Firebase EditorServiceAccountEmail field is empty");
         }
 
         [Test]
         public void ProjectConfiguration_FirebaseEditorP12FileName_IsNotEmpty()
         {
-            Assert.IsNotEmpty(projectConfiguration.firebaseEditorP12FileName, "Firebase P12 FileName field is empty");
+            Assert.IsNotEmpty(projectConfiguration.FirebaseEditorP12FileName, "Firebase P12 FileName field is empty");
         }
 
         [Test]
         public void ProjectConfiguration_FirebaseEditorP12Password_IsNotEmpty()
         {
-            Assert.IsNotEmpty(projectConfiguration.firebaseEditorP12Password, "Firebase P12 Password field is empty");
+            Assert.IsNotEmpty(projectConfiguration.FirebaseEditorP12Password, "Firebase P12 Password field is empty");
         }
 
         [Test]
