@@ -1,5 +1,5 @@
 {
-    "name": "com.mk.assets.editor",
+    "name": "mkassets.basics.editor",
     "rootNamespace": "",
     "references": [
         "GUID:595da25d2928d428e87fe7b8b3be7393"

@@ -17,12 +17,19 @@ namespace MK.AssetData
 
         // Reference: https://firebase.google.com/docs/database/unity/start 
 
-        [Header("Firebase Specific")] [Tooltip("Editor Database URL and StorageBucket link will be created with this")]
+        [Header("Firebase Specific")]
+        [Tooltip("Editor Database URL and StorageBucket link will be created with this")]
         /// <summary>
         /// The firebase project identifier.
         /// access it from https://console.firebase.google.com/project/[YOUR_OWN_PROJECT_ID]/settings/general/[YOUR_PROJECT_PLATFORM]:[YOUR_PROJECT_IDENTIFIER/YOUR_PROJECT_PACKAGE_NAME(com.google.firebase.test)]
         /// </summary>
-        public string firebaseProjectID;
+        [SerializeField]
+        string firebaseProjectID;
+
+        public string FirebaseProjectID
+        {
+            get { return firebaseProjectID; } // to be sure it can't be modified from the code
+        }
 
         /// <summary>
         /// Gets the firebase editor database URL.
@@ -32,7 +39,9 @@ namespace MK.AssetData
         {
             get
             {
-                return new StringBuilder("https://").Append(firebaseProjectID).Append("-default-rtdb.firebaseio.com/")
+                return new StringBuilder("https://").Append(firebaseProjectID)
+                    .Append(".firebaseio.com/")
+                    // .Append("-default-rtdb.firebaseio.com/")     // one of these works
                     .ToString();
             }
         }
@@ -44,29 +53,55 @@ namespace MK.AssetData
         /// OR https://console.firebase.google.com/project/[YOUR_OWN_PROJECT_ID]/settings/serviceaccounts/adminsdk
         /// OR https://console.firebase.google.com/project/[YOUR_OWN_PROJECT_ID]/settings/cloudmessaging/[YOUR_PROJECT_PLATFORM]:[YOUR_PROJECT_IDENTIFIER/YOUR_PROJECT_PACKAGE_NAME(com.google.firebase.test)]
         /// </summary>
-        public string firebaseEditorServiceAccountEmail;
+        [SerializeField] string firebaseEditorServiceAccountEmail;
+
+        public string FirebaseEditorServiceAccountEmail
+        {
+            get { return firebaseEditorServiceAccountEmail; } // to be sure it can't be modified from the code
+        }
 
         /// <summary>
         /// Add the p12 file to "Editor Default Resources"
         /// Create from https://console.cloud.google.com/iam-admin/serviceaccounts/project?project=[YOUR_OWN_PROJECT_ID]
-        /// The name of the firebase editor p12 file.
+        /// Under Keys, generate P12 file. The name of the firebase editor p12 file.
         /// </summary>
-        public string firebaseEditorP12FileName;
+        [SerializeField] string firebaseEditorP12FileName;
+
+        public string FirebaseEditorP12FileName
+        {
+            get { return firebaseEditorP12FileName; } // to be sure it can't be modified from the code
+        }
 
         /// <summary>
         /// The firebase editor p12 password.
         /// Make sure to record the password after creating the service account as it will not be reachable again
         /// </summary>
-        public string firebaseEditorP12Password = "notasecret";
+        [SerializeField] string firebaseEditorP12Password = "notasecret";
+
+        public string FirebaseEditorP12Password
+        {
+            get { return firebaseEditorP12Password; } // to be sure it can't be modified from the code
+        }
 
         /// <summary>
         /// When you enable Google sign-in on https://console.firebase.google.com/project/[YOUR_OWN_PROJECT_ID]/authentication/providers
+        /// Then you will find this value in the dropdown of the popup
         /// OR https://console.developers.google.com/apis/credentials?pli=1&project=[YOUR_OWN_PROJECT_ID]&authuser=0
         /// OR Copy this value from the google-service.json file, oauth_client with type == 3
         /// </summary>
-        public string firebaseWebClientID;
+        [SerializeField] string firebaseWebClientID;
 
-        public string firebaseWebClientSecret;
+        public string FirebaseWebClientID
+        {
+            get { return firebaseWebClientID; } // to be sure it can't be modified from the code
+        }
+
+        [SerializeField] string firebaseWebClientSecret;
+
+        public string FirebaseWebClientSecret
+        {
+            get { return firebaseWebClientSecret; } // to be sure it can't be modified from the code
+        }
 
         /// <summary>
         /// Gets the firebase storage bucket.
