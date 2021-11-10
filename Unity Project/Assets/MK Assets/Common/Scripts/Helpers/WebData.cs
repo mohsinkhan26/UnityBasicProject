@@ -39,7 +39,7 @@ namespace MK.Common.Helpers
             UnityWebRequest unityWebRequest = UnityWebRequest.Get(_url);
             yield return unityWebRequest.SendWebRequest();
 
-            if (unityWebRequest.isNetworkError)
+            if (unityWebRequest.result == UnityWebRequest.Result.ConnectionError)
             {
                 Debug.Log("GetTextFromURL-Error: <color=red>" + unityWebRequest.error + "</color>\n");
                 if (_callback != null)
@@ -83,11 +83,11 @@ namespace MK.Common.Helpers
             Debug.Log("GetTextFromPostRequest-URL: <color=blue>" + _unityWebRequest.url + "</color>\n");
             yield return _unityWebRequest.SendWebRequest();
 
-            if (_unityWebRequest.isNetworkError)
+            if (_unityWebRequest.result == UnityWebRequest.Result.ConnectionError)
             {
                 Debug.Log("GetTextFromPostRequest-Error: <color=red>" + _unityWebRequest.error + "</color>\n");
                 if (_callback != null)
-                    _callback(false, _unityWebRequest.error);
+                    _callback(false, _unityWebRequest.result.ToString());
             }
             else if (_unityWebRequest.downloadHandler.text.Contains("403 Forbidden")
                      || _unityWebRequest.downloadHandler.text.Contains("\"data\":{\"status\":403}"))

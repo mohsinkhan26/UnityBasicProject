@@ -14,7 +14,7 @@ namespace MK.Common.Extensions
     {
         public Stack<T> Stack;
 
-        public int Count
+        public int CountItems
         {
             get { return Stack.Count; }
         }
@@ -47,7 +47,7 @@ namespace MK.Common.Extensions
             return item;
         }
 
-        public void Clear()
+        public void ClearStack()
         {
             Stack.Clear();
         }

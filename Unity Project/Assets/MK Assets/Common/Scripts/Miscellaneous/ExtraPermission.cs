@@ -10,13 +10,15 @@ using UnityEngine;
 
 namespace MK.Common.Miscellaneous
 {
+    // Reference: https://github.com/yasirkula/UnityNativeCamera.git
+    // Reference: https://github.com/yasirkula/UnityNativeGallery.git
     public class ExtraPermission : MonoBehaviour
     {
-        private bool cameraPermission = true;
-        private bool galleryPermission = true;
         #region Permissions
 
-        /*public void GetCameraPermission(Action _onSuccess, Action _onFailure)
+        /*private bool cameraPermission = true;
+        private bool galleryPermission = true;
+        public void GetCameraPermission(Action _onSuccess, Action _onFailure)
         {
 #if !UNITY_EDITOR
             if (cameraPermission)

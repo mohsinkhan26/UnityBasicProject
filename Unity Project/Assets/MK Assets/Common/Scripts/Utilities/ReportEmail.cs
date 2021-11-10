@@ -234,17 +234,17 @@ namespace MK.Common.Utilities
             str.Append("\nSupports Audio: ").Append(SystemInfo.supportsAudio.ToString());
             str.Append("\nSupports Compute Shaders: ").Append(SystemInfo.supportsComputeShaders.ToString());
             str.Append("\nSupports Gyroscope: ").Append(SystemInfo.supportsGyroscope.ToString());
-            str.Append("\nSupports Image Effects: ").Append(SystemInfo.supportsImageEffects.ToString());
+            // str.Append("\nSupports Image Effects: ").Append(SystemInfo.supportsImageEffects.ToString());
             str.Append("\nSupports Instancing: ").Append(SystemInfo.supportsInstancing.ToString());
             str.Append("\nSupports Location Service: ").Append(SystemInfo.supportsLocationService.ToString());
             str.Append("\nSupports Motion Vectors: ").Append(SystemInfo.supportsMotionVectors.ToString());
             str.Append("\nSupports Raw Shadow Depth Sampling: ")
                 .Append(SystemInfo.supportsRawShadowDepthSampling.ToString());
-            str.Append("\nSupports Render Textures: ").Append(SystemInfo.supportsRenderTextures.ToString());
-            str.Append("\nSupports Render To Cubemap: ").Append(SystemInfo.supportsRenderToCubemap.ToString());
+            // str.Append("\nSupports Render Textures: ").Append(SystemInfo.supportsRenderTextures.ToString());
+            // str.Append("\nSupports Render To Cubemap: ").Append(SystemInfo.supportsRenderToCubemap.ToString());
             str.Append("\nSupports Shadows: ").Append(SystemInfo.supportsShadows.ToString());
             str.Append("\nSupports Sparse Textures: ").Append(SystemInfo.supportsSparseTextures.ToString());
-            str.Append("\nSupports Stencil: ").Append(SystemInfo.supportsStencil.ToString());
+            // str.Append("\nSupports Stencil: ").Append(SystemInfo.supportsStencil.ToString());
             str.Append("\nSupports Vibration: ").Append(SystemInfo.supportsVibration.ToString());
             str.Append("\nUnsupported Identifier: ").Append(SystemInfo.unsupportedIdentifier);
             str.Append("\n*********************************************************");

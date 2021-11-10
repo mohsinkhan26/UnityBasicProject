@@ -22,23 +22,26 @@ namespace MK.Common.Helpers
 {
     public sealed class ResourceHelper : Singleton<ResourceHelper>
     {
-        public static Dictionary<string, UnityEngine.Object> CachedResources =
+        private static Dictionary<string, UnityEngine.Object> CachedResources =
             new Dictionary<string, UnityEngine.Object>();
 
         #region Load Asynchronous
 
-        protected static IEnumerator LoadAsyncInternal(string _path, Action<WWW> _onLoad)
+        private static IEnumerator LoadAsyncInternal(string _path, Action<UnityWebRequest> _onLoad)
         {
-            WWW www = new WWW(LocalToURLPath(_path));
-            yield return www;
-            _onLoad(www);
+            using (UnityWebRequest webRequest = UnityWebRequest.Get(LocalToURLPath(_path)))
+            {
+                // Request and wait for the desired page.
+                yield return webRequest.SendWebRequest();
+                _onLoad(webRequest);
+            }
         }
 
-        protected static IEnumerator LoadAsyncInternal(string _path, Action<string> _onLoad)
+        private static IEnumerator LoadAsyncInternal(string _path, Action<string> _onLoad)
         {
-            UnityWebRequest www = UnityWebRequest.Get(LocalToURLPath(_path));
-            yield return www.SendWebRequest();
-            _onLoad(www.downloadHandler.text);
+            UnityWebRequest webRequest = UnityWebRequest.Get(LocalToURLPath(_path));
+            yield return webRequest.SendWebRequest();
+            _onLoad(webRequest.downloadHandler.text);
         }
 
         public static T LoadCached<T>(string _path) where T : UnityEngine.Object
@@ -48,17 +51,17 @@ namespace MK.Common.Helpers
             return CachedResources[_path] as T;
         }
 
-        public static void LoadAsync(string _path, Action<WWW> _onLoad)
+        public static void LoadAsync(string _path, Action<UnityWebRequest> _onLoad)
         {
             Instance.StartCoroutine(LoadAsyncInternal(_path, _onLoad));
         }
 
-        public static void LoadFromStreamingAssetsAsync(string _file, Action<WWW> _onLoad)
+        public static void LoadFromStreamingAssetsAsync(string _file, Action<UnityWebRequest> _onLoad)
         {
             LoadAsync(GetStreamingAssetsPath(_file), _onLoad);
         }
 
-        public static void LoadFromPersistentDataAsync(string _file, Action<WWW> _onLoad)
+        public static void LoadFromPersistentDataAsync(string _file, Action<UnityWebRequest> _onLoad)
         {
             LoadAsync(GetPersistentDataPath(_file), _onLoad);
         }
@@ -142,11 +145,12 @@ namespace MK.Common.Helpers
         {
             if (_encrypted)
             {
-                LoadAsync(_path, (WWW _www) => { _onRead(DecryptText(_www.text)); });
+                LoadAsync(_path,
+                    (UnityWebRequest webRequest) => { _onRead(DecryptText(webRequest.downloadHandler.text)); });
             }
             else
             {
-                LoadAsync(_path, (WWW _www) => { _onRead(_www.text); });
+                LoadAsync(_path, (UnityWebRequest webRequest) => { _onRead(webRequest.downloadHandler.text); });
             }
         }
 
@@ -302,7 +306,7 @@ namespace MK.Common.Helpers
             LoadFromStreamingAssetsAsync(_file,
                 (_result) =>
                 {
-                    _isFileExists(string.IsNullOrEmpty(_result.error) && _result.isDone && _result.bytes.Length > 0);
+                    _isFileExists(string.IsNullOrEmpty(_result.error) && _result.isDone && _result.downloadedBytes > 0);
                 });
         }
 
@@ -312,7 +316,7 @@ namespace MK.Common.Helpers
             LoadFromPersistentDataAsync(_file,
                 (_result) =>
                 {
-                    _isFileExists(string.IsNullOrEmpty(_result.error) && _result.isDone && _result.bytes.Length > 0);
+                    _isFileExists(string.IsNullOrEmpty(_result.error) && _result.isDone && _result.downloadedBytes > 0);
                 });
         }
 

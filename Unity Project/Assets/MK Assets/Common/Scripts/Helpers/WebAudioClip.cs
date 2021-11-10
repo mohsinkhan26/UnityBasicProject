@@ -8,6 +8,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace MK.Common.Helpers
 {
@@ -23,12 +24,13 @@ namespace MK.Common.Helpers
         /// <param name="_saveFile">If set to <c>true</c> _save file.</param>
         /// <param name="_filePathWithName">_file path with name.</param>
         /// <param name="_progressMessage">_progress message.</param>
-        public static void GetAudioClipFromURL(this MonoBehaviour _mono, string _url, Action<AudioClip> _callback,
-            Action<string> _error, bool _saveFile = false, string _filePathWithName = "",
+        public static void GetAudioClipFromURL(this MonoBehaviour _mono, string _url,
+            Action<AudioClip> _callback, Action<string> _error, AudioType _audioType = AudioType.OGGVORBIS,
+            bool _saveFile = false, string _filePathWithName = "",
             Action<string> _progressMessage = null)
         {
-            _mono.StartCoroutine(_mono.GetAudioClipFromURLCoroutine(_url, _callback, _error, _saveFile,
-                _filePathWithName, _progressMessage));
+            _mono.StartCoroutine(_mono.GetAudioClipFromURLCoroutine(_url, _callback, _error, _audioType,
+                _saveFile, _filePathWithName, _progressMessage));
         }
 
         /// <summary>
@@ -43,50 +45,53 @@ namespace MK.Common.Helpers
         /// <param name="_filePathWithName">_file path with name.</param>
         /// <param name="_progressMessage">_progress message.</param>
         private static IEnumerator GetAudioClipFromURLCoroutine(this MonoBehaviour _mono, string _url,
-            Action<AudioClip> _callback, Action<string> _error, bool _saveFile, string _filePathWithName,
-            Action<string> _progressMessage = null)
+            Action<AudioClip> _callback, Action<string> _error, AudioType _audioType, bool _saveFile,
+            string _filePathWithName, Action<string> _progressMessage = null)
         {
             Debug.Log("GetAudioClipFromURLCoroutine-URL: <color=green>" + _url + "</color>\n");
-            WWW www = new WWW(_url);
-            while (!www.isDone)
+            using (UnityWebRequest unityWebRequest = UnityWebRequestMultimedia.GetAudioClip(_url, _audioType))
             {
-                if (_progressMessage != null)
-                    _progressMessage("Status: Downloading Audio file... " +
-                                     String.Format("{0:N}%", (www.progress * 100)));
-                yield return null;
-            }
-
-            if (string.IsNullOrEmpty(www.error))
-            {
-                if (_callback != null)
-                    _callback(www.GetAudioClip());
-                if (_saveFile && !string.IsNullOrEmpty(_filePathWithName) &&
-                    (_filePathWithName.Contains("\\") || _filePathWithName.Contains("/")))
+                while (!unityWebRequest.isDone)
                 {
-                    Debug.Log("WebAudioClip-GetAudioClipFromURLCoroutine-THREAD----START-FilePath: <color=cyan>" +
-                              _filePathWithName + "\nBytesLength: " + www.bytes.Length + "</color>");
-                    System.IO.File.WriteAllBytes(_filePathWithName, www.bytes);
-                    Debug.Log("WebAudioClip-GetAudioClipFromURLCoroutine-THREAD----DONE-FilePath: <color=cyan>" +
-                              _filePathWithName + "\nBytesLength: " + www.bytes.Length + "</color>");
-                    //System.Threading.Thread timer = new System.Threading.Thread (() =>
-                    //{
-                    //	System.IO.File.WriteAllBytes (_filePathWithName, www.bytes);
-                    //	Debug.Log ("WebAudioClip-GetAudioClipFromURLCoroutine-THREAD----DONE-FilePath: <color=cyan>" + _filePathWithName + "\nBytesLength: " + www.bytes.Length + "</color>");
-                    //	System.Threading.Thread.CurrentThread.Abort ();
-                    //});
-                    //timer.IsBackground = true;
-                    //timer.Start ();
+                    if (_progressMessage != null)
+                        _progressMessage("Status: Downloading Audio file... " +
+                                         String.Format("{0:N}%", (unityWebRequest.downloadProgress * 100)));
+                    yield return unityWebRequest.SendWebRequest();
                 }
 
-                //System.IO.File.WriteAllBytes (pathToAudioData + "/" + "xy.ogg", www.bytes);
-                //_callback (www.GetAudioClip (true));
-            }
-            else
-            {
-                Debug.Log("GetAudioClipFromURLCoroutine-Error: <color=red>" + www.error + "</color>\nSaveFile: " +
-                          _saveFile);
-                if (_error != null)
-                    _error(www.error);
+                if (unityWebRequest.result == UnityWebRequest.Result.ConnectionError)
+                {
+                    Debug.Log("GetAudioClipFromURLCoroutine-Error: <color=red>" + unityWebRequest.result +
+                              "</color>\nSaveFile: " + _saveFile);
+                    if (_error != null)
+                        _error(unityWebRequest.result.ToString());
+                }
+                else
+                {
+                    if (_callback != null)
+                        _callback(DownloadHandlerAudioClip.GetContent(unityWebRequest));
+                    if (_saveFile && !string.IsNullOrEmpty(_filePathWithName) &&
+                        (_filePathWithName.Contains("\\") || _filePathWithName.Contains("/")))
+                    {
+                        Debug.Log("WebAudioClip-GetAudioClipFromURLCoroutine-THREAD----START-FilePath: <color=cyan>" +
+                                  _filePathWithName + "\nBytesLength: " + unityWebRequest.downloadedBytes + "</color>");
+                        System.IO.File.WriteAllBytes(_filePathWithName, unityWebRequest.downloadHandler.data);
+                        Debug.Log("WebAudioClip-GetAudioClipFromURLCoroutine-THREAD----DONE-FilePath: <color=cyan>" +
+                                  _filePathWithName + "\nBytesLength: " + unityWebRequest.downloadHandler.data.Length +
+                                  "</color>");
+                        //System.Threading.Thread timer = new System.Threading.Thread (() =>
+                        //{
+                        //	System.IO.File.WriteAllBytes (_filePathWithName, www.bytes);
+                        //	Debug.Log ("WebAudioClip-GetAudioClipFromURLCoroutine-THREAD----DONE-FilePath: <color=cyan>" + _filePathWithName + "\nBytesLength: " + www.bytes.Length + "</color>");
+                        //	System.Threading.Thread.CurrentThread.Abort ();
+                        //});
+                        //timer.IsBackground = true;
+                        //timer.Start ();
+                    }
+
+                    //System.IO.File.WriteAllBytes (pathToAudioData + "/" + "xy.ogg", www.bytes);
+                    //_callback (www.GetAudioClip (true));
+                }
             }
         }
     }
