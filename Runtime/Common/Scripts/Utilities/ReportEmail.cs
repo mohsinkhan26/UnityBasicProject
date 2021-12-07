@@ -188,7 +188,7 @@ namespace MK.Common.Utilities
             return str.AppendLine();
         }
 
-        StringBuilder GetSystemInformation()
+        public StringBuilder GetSystemInformation()
         {
             StringBuilder str = new StringBuilder("*********************************************************");
             str.Append("\nProduct Name: ").Append(Application.productName);

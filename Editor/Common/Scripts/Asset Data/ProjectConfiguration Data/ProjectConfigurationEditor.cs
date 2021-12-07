@@ -26,7 +26,7 @@ namespace MK.AssetData
             if (projectConfiguration == null)
                 CreateConfiguration();
 
-            // select the .asset fiile
+            // select the .asset file
             EditorGUIUtility.PingObject(projectConfiguration);
             // focus the project window
             EditorUtility.FocusProjectWindow();
