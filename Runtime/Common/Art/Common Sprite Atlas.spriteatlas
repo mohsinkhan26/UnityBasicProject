@@ -28,11 +28,11 @@ SpriteAtlas:
       allowAlphaSplitting: 0
       enableRotation: 0
       enableTightPacking: 0
+      enableAlphaDilation: 0
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: ae7074f52417344f3aae4834e728c567, type: 3}
-    totalSpriteSurfaceArea: 593331
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -47,7 +47,9 @@ SpriteAtlas:
   - {fileID: 21300000, guid: ac6bdaa28a0044c4c9d108cc0dd4a204, type: 3}
   - {fileID: 21300000, guid: 36bcbfc27d99149b78aa0d0e6bdc7cb1, type: 3}
   - {fileID: 21300000, guid: d0d0fc447139149b8bf2f871193b26ab, type: 3}
+  - {fileID: 21300000, guid: e60b43848969b4f96ae9796298e665f2, type: 3}
   - {fileID: 21300000, guid: 14ca8ba9ff31f4e0c9686323f9a27241, type: 3}
+  - {fileID: 21300000, guid: 8e666b8a3ff6c4850b3b04f8e951666a, type: 3}
   - {fileID: 21300000, guid: 26aa687cf30bf4cdb9e7b629cfdee549, type: 3}
   - {fileID: 21300000, guid: 71e914bcd736746b19b0dec45596de95, type: 3}
   - {fileID: 21300000, guid: 2b06f8fcc4f1642e7a2a90a43ea3e67a, type: 3}
@@ -64,7 +66,9 @@ SpriteAtlas:
   - ProfileMask
   - Rounded Filled 64px
   - avatar
+  - Rounded Boundary 64px
   - RoundedRight Filled 64px
+  - Rounded BoundaryBox 64px
   - White
   - Circle Outline 64px - Stroke 3px
   - Basic Filled 10px
