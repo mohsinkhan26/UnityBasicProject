@@ -30,6 +30,18 @@ namespace MK.AssetData
             get { return firebaseProjectID; } // to be sure it can't be modified from the code
         }
 
+        [Tooltip("Firebase Realtime Database URL postfix")]
+        /// <summary>
+        /// The firebase realtime database URL postfix.
+        /// access it from https://console.firebase.google.com/project/[YOUR_OWN_PROJECT_ID]/database/[YOUR_OWN_PROJECT_ID]-default-rtdb/data
+        /// </summary>
+        [SerializeField]
+        // one of these works
+        // .Append(".firebaseio.com/")
+        // .Append("-default-rtdb.firebaseio.com/")
+        // .Append("-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        string firebaseRealtimeDatabaseURLPostfix = "-default-rtdb.asia-southeast1.firebasedatabase.app/";
+
         /// <summary>
         /// Gets the firebase editor database URL.
         /// </summary>
@@ -38,9 +50,8 @@ namespace MK.AssetData
         {
             get
             {
-                return new StringBuilder("https://").Append(firebaseProjectID)
-                    .Append(".firebaseio.com/")
-                    // .Append("-default-rtdb.firebaseio.com/")     // one of these works
+                return new StringBuilder("https://").Append(firebaseProjectID.Trim())
+                    .Append(firebaseRealtimeDatabaseURLPostfix.Trim())
                     .ToString();
             }
         }
@@ -102,6 +113,16 @@ namespace MK.AssetData
             get { return firebaseWebClientSecret; } // to be sure it can't be modified from the code
         }
 
+        [Tooltip("Firebase Storage URL postfix")]
+        /// <summary>
+        /// The firebase storage URL postfix.
+        /// access it from https://console.firebase.google.com/project/[YOUR_OWN_PROJECT_ID]/storage/[YOUR_OWN_PROJECT_ID].appspot.com/files 
+        /// </summary>
+        [SerializeField]
+        // one of these works
+        // .Append(".appspot.com/")
+        string firebaseStorageURLPostfix = ".appspot.com/";
+
         /// <summary>
         /// Gets the firebase storage bucket.
         /// access it from https://console.firebase.google.com/project/[YOUR_OWN_PROJECT_ID]/storage/[YOUR_OWN_PROJECT_ID].appspot.com/files 
@@ -109,7 +130,11 @@ namespace MK.AssetData
         /// <value>The firebase storage bucket.</value>
         public string FirebaseStorageBucket
         {
-            get { return new StringBuilder("gs://").Append(firebaseProjectID).Append(".appspot.com/").ToString(); }
+            get
+            {
+                return new StringBuilder("gs://").Append(firebaseProjectID.Trim())
+                    .Append(firebaseStorageURLPostfix.Trim()).ToString();
+            }
         }
 
         #endregion Firebase
