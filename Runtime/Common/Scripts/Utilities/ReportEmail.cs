@@ -27,6 +27,7 @@ namespace MK.Common.Utilities
         string toEmail = "project.report@gmail.com";
         string password = "12345678"; // password of fromEmail
         StringBuilder logs = new StringBuilder();
+        [SerializeField] private bool showSystemInformationOnEnable = true;
 
         float gameStartTime;
         int maxLimit = Int32.MaxValue - (Int32.MaxValue / 10000);
@@ -38,7 +39,8 @@ namespace MK.Common.Utilities
 
         void OnEnable()
         {
-            //Debug.Log(GetSystemInformation()); // TODO: just for testing
+            if (showSystemInformationOnEnable)
+                Debug.Log(GetSystemInformation());
             gameStartTime = Time.realtimeSinceStartup;
             Application.logMessageReceived += HandleLog;
         }
