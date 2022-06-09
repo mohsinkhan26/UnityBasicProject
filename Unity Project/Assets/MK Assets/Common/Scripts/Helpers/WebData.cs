@@ -1,4 +1,4 @@
-﻿/* 
+/* 
  * Author : Mohsin Khan
  * Portfolio : http://mohsinkhan26.github.io/ 
  * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
@@ -36,25 +36,25 @@ namespace MK.Common.Helpers
             Action<bool, string> _callback)
         {
             Debug.Log("GetTextFromURL-URL: <color=blue>" + _url + "</color>\n");
-            UnityWebRequest unityWebRequest = UnityWebRequest.Get(_url);
-            yield return unityWebRequest.SendWebRequest();
-
-            if (unityWebRequest.result == UnityWebRequest.Result.ConnectionError)
+            using (UnityWebRequest unityWebRequest = UnityWebRequest.Get(_url))
             {
-                Debug.Log("GetTextFromURL-Error: <color=red>" + unityWebRequest.error + "</color>\n");
-                if (_callback != null)
-                    _callback(false, unityWebRequest.error);
-            }
-            else
-            {
-                // Show results as text
-                Debug.Log("GetTextFromURL-Result: " + unityWebRequest.downloadHandler.text + "\n");
+                yield return unityWebRequest.SendWebRequest();
 
-                // Or retrieve results as binary data
-                //byte[] results = www.downloadHandler.data;
+                if (unityWebRequest.result == UnityWebRequest.Result.ConnectionError)
+                {
+                    Debug.Log("GetTextFromURL-Error: <color=red>" + unityWebRequest.error + "</color>\n");
+                    _callback?.Invoke(false, unityWebRequest.error);
+                }
+                else
+                {
+                    // Show results as text
+                    Debug.Log("GetTextFromURL-Result: " + unityWebRequest.downloadHandler.text + "\n");
 
-                if (_callback != null)
-                    _callback(true, unityWebRequest.downloadHandler.text);
+                    // Or retrieve results as binary data
+                    //byte[] results = www.downloadHandler.data;
+
+                    _callback?.Invoke(true, unityWebRequest.downloadHandler.text);
+                }
             }
         }
 
@@ -64,10 +64,10 @@ namespace MK.Common.Helpers
         /// <param name="mono">Monobehavior</param>
         /// <param name="unityWebRequest">UnityWebRequest.</param>
         /// <param name="callback">Callback.</param>
-        public static void GetTextFromPostRequest(this MonoBehaviour _mono, UnityWebRequest _unityWebRequest,
+        public static void GetTextFromPostRequest(this MonoBehaviour _mono, string _url, WWWForm _form,
             Action<bool, string> _callback = null)
         {
-            _mono.StartCoroutine(_mono.GetTextFromPostRequestCoroutine(_unityWebRequest, _callback));
+            _mono.StartCoroutine(_mono.GetTextFromPostRequestCoroutine(_url, _form, _callback));
         }
 
         /// <summary>
@@ -77,37 +77,38 @@ namespace MK.Common.Helpers
         /// <param name="mono">Mono.</param>
         /// <param name="unityWebRequest">UnityWebRequest.</param>
         /// <param name="callback">Callback.</param>
-        private static IEnumerator GetTextFromPostRequestCoroutine(this MonoBehaviour _mono,
-            UnityWebRequest _unityWebRequest, Action<bool, string> _callback)
+        private static IEnumerator GetTextFromPostRequestCoroutine(this MonoBehaviour _mono, string _url,
+            WWWForm _form, Action<bool, string> _callback)
         {
-            Debug.Log("GetTextFromPostRequest-URL: <color=blue>" + _unityWebRequest.url + "</color>\n");
-            yield return _unityWebRequest.SendWebRequest();
+            Debug.Log("GetTextFromPostRequest-URL: <color=blue>" + _url + "</color>\n");
 
-            if (_unityWebRequest.result == UnityWebRequest.Result.ConnectionError)
+            using (UnityWebRequest unityWebRequest = UnityWebRequest.Post(_url, _form))
             {
-                Debug.Log("GetTextFromPostRequest-Error: <color=red>" + _unityWebRequest.error + "</color>\n");
-                if (_callback != null)
-                    _callback(false, _unityWebRequest.result.ToString());
-            }
-            else if (_unityWebRequest.downloadHandler.text.Contains("403 Forbidden")
-                     || _unityWebRequest.downloadHandler.text.Contains("\"data\":{\"status\":403}"))
-            {
-                Debug.Log("GetTextFromPostRequest-Access Error: <color=red>" + _unityWebRequest.downloadHandler.text +
-                          "</color>\n");
-                if (_callback != null) // handle this data carefully
-                    _callback(false, _unityWebRequest.downloadHandler.text);
-                //_callback(false, _unityWebRequest.error);
-            }
-            else
-            {
-                // Show results as text
-                Debug.Log("GetTextFromPostRequest-Result: " + _unityWebRequest.downloadHandler.text + "\n");
+                yield return unityWebRequest.SendWebRequest();
 
-                // Or retrieve results as binary data
-                //byte[] results = www.downloadHandler.data;
+                if (unityWebRequest.result == UnityWebRequest.Result.ConnectionError)
+                {
+                    Debug.Log("GetTextFromPostRequest-Error: <color=red>" + unityWebRequest.error + "</color>\n");
+                    _callback?.Invoke(false, unityWebRequest.result.ToString());
+                }
+                else if (unityWebRequest.downloadHandler.text.Contains("403 Forbidden")
+                         || unityWebRequest.downloadHandler.text.Contains("\"data\":{\"status\":403}"))
+                {
+                    Debug.Log("GetTextFromPostRequest-Access Error: <color=red>" +
+                              unityWebRequest.downloadHandler.text + "</color>\n");
+                    _callback?.Invoke(false, unityWebRequest.downloadHandler.text); // handle this data carefully
+                    //_callback(false, _unityWebRequest.error);
+                }
+                else
+                {
+                    // Show results as text
+                    Debug.Log("GetTextFromPostRequest-Result: " + unityWebRequest.downloadHandler.text + "\n");
 
-                if (_callback != null)
-                    _callback(true, _unityWebRequest.downloadHandler.text);
+                    // Or retrieve results as binary data
+                    //byte[] results = www.downloadHandler.data;
+
+                    _callback?.Invoke(true, unityWebRequest.downloadHandler.text);
+                }
             }
         }
     }
