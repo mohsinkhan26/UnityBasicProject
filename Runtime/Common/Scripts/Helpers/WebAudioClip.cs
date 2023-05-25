@@ -53,9 +53,8 @@ namespace MK.Common.Helpers
             {
                 while (!unityWebRequest.isDone)
                 {
-                    if (_progressMessage != null)
-                        _progressMessage("Status: Downloading Audio file... " +
-                                         String.Format("{0:N}%", (unityWebRequest.downloadProgress * 100)));
+                    _progressMessage?.Invoke("Status: Downloading Audio file... " +
+                                             String.Format("{0:N}%", (unityWebRequest.downloadProgress * 100)));
                     yield return unityWebRequest.SendWebRequest();
                 }
 
@@ -63,13 +62,11 @@ namespace MK.Common.Helpers
                 {
                     Debug.Log("GetAudioClipFromURLCoroutine-Error: <color=red>" + unityWebRequest.result +
                               "</color>\nSaveFile: " + _saveFile);
-                    if (_error != null)
-                        _error(unityWebRequest.result.ToString());
+                    _error?.Invoke(unityWebRequest.result.ToString());
                 }
                 else
                 {
-                    if (_callback != null)
-                        _callback(DownloadHandlerAudioClip.GetContent(unityWebRequest));
+                    _callback?.Invoke(DownloadHandlerAudioClip.GetContent(unityWebRequest));
                     if (_saveFile && !string.IsNullOrEmpty(_filePathWithName) &&
                         (_filePathWithName.Contains("\\") || _filePathWithName.Contains("/")))
                     {
