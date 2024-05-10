@@ -14,7 +14,7 @@ namespace MK.Common.Utilities
     /// <summary>
     /// It's better to use this 
     /// </summary>
-    public class InternetCheck
+    public sealed class InternetCheck
     {
         const bool allowCarrierDataNetwork = true;
         const string pingAddress = "8.8.8.8"; // Google Public DNS server

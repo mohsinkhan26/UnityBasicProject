@@ -12,7 +12,7 @@ namespace MK.Common.Miscellaneous
 {
     // Reference: https://github.com/yasirkula/UnityNativeCamera.git
     // Reference: https://github.com/yasirkula/UnityNativeGallery.git
-    public class ExtraPermission : MonoBehaviour
+    public sealed class ExtraPermission : MonoBehaviour
     {
         #region Permissions
 

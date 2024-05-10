@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace MK.Common.Miscellaneous
 {
-    public class DontDestroyOnLoad : MonoBehaviour
+    public sealed class DontDestroyOnLoad : MonoBehaviour
     {
         void Start()
         {

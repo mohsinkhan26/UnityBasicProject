@@ -1,9 +1,9 @@
-﻿/* 
+﻿/*
  * Author : Mohsin Khan
- * Portfolio : http://mohsinkhan26.github.io/ 
+ * Portfolio : http://mohsinkhan26.github.io/
  * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
  * Github : https://github.com/mohsinkhan26/
-*/
+ */
 
 using System;
 using System.Collections;
@@ -130,12 +130,12 @@ namespace MK.Common.Extensions
         #region Invoke extension method
 
         /* Sample usage is
-    	 * this.InvokeExtension(5f, 
-	  						() => { Debug.Log("After delay...!"); });
-    	 * this.InvokeExtension(5f, 
-		                    () => { Debug.Log("After delay...!"); },
-							() => { Debug.Log("This is callBack"); });
-    	 */
+         * this.InvokeExtension(5f,
+                            () => { Debug.Log("After delay...!"); });
+         * this.InvokeExtension(5f,
+                            () => { Debug.Log("After delay...!"); },
+                            () => { Debug.Log("This is callBack"); });
+         */
         /// <summary>
         /// Invoke extension method.
         /// </summary>
@@ -164,18 +164,18 @@ namespace MK.Common.Extensions
         #region Generic Parameterized Invoke extension method
 
         /* Sample usage is
-    	 * this.InvokeExtension(5f, 
-		                     (parameterValue) => { Debug.Log("After delay: " + parameterValue); }, "This is the parameter");
-    	 * this.InvokeExtension(5f, 
-		                     (parameterValue) => { Debug.Log("After delay: " + parameterValue); }, "This is the parameter", 
-							 () => { Debug.Log("This is callBack"); });
-    	 * this.InvokeExtension(5f, 
-		                     (parameterValue) => { Debug.Log("After delay: " + parameterValue); }, 786, 
-							 () => { Debug.Log("This is callBack"); });
-    	 * this.InvokeExtension<int>(5f, 
-		                     (parameterValue) => { Debug.Log("After delay: " + parameterValue); }, 786, 
-							 () => { Debug.Log("This is callBack"); });
-    	 */
+         * this.InvokeExtension(5f,
+                             (parameterValue) => { Debug.Log("After delay: " + parameterValue); }, "This is the parameter");
+         * this.InvokeExtension(5f,
+                             (parameterValue) => { Debug.Log("After delay: " + parameterValue); }, "This is the parameter",
+                             () => { Debug.Log("This is callBack"); });
+         * this.InvokeExtension(5f,
+                             (parameterValue) => { Debug.Log("After delay: " + parameterValue); }, 786,
+                             () => { Debug.Log("This is callBack"); });
+         * this.InvokeExtension<int>(5f,
+                             (parameterValue) => { Debug.Log("After delay: " + parameterValue); }, 786,
+                             () => { Debug.Log("This is callBack"); });
+         */
         /// <summary>
         /// Generic Parameterized Invoke extension method.
         /// </summary>
@@ -207,16 +207,16 @@ namespace MK.Common.Extensions
         #region Generic Parameterized with Parameterized Callback Invoke extension method
 
         /* Sample usage is
-    	 * this.InvokeExtension(5f,
-		                    (actionParameterValue) => { Debug.Log("After delay: " + actionParameterValue); }, 786, 
-							(callBackParameterValue) => { Debug.Log("This is callBack: " + callBackParameterValue); }, 564478);
-    	 * this.InvokeExtension(5f,
-		                    (actionParameterValue) => { Debug.Log("After delay: " + actionParameterValue); }, "Hello World", 
-							(callBackParameterValue) => { Debug.Log("This is callBack: " + callBackParameterValue); }, "New Year");
-    	 * this.InvokeExtension<string>(5f,
-		                    (actionParameterValue) => { Debug.Log("After delay: " + actionParameterValue); }, "Hello World", 
-							(callBackParameterValue) => { Debug.Log("This is callBack: " + callBackParameterValue); }, "New Year");
-    	 */
+         * this.InvokeExtension(5f,
+                            (actionParameterValue) => { Debug.Log("After delay: " + actionParameterValue); }, 786,
+                            (callBackParameterValue) => { Debug.Log("This is callBack: " + callBackParameterValue); }, 564478);
+         * this.InvokeExtension(5f,
+                            (actionParameterValue) => { Debug.Log("After delay: " + actionParameterValue); }, "Hello World",
+                            (callBackParameterValue) => { Debug.Log("This is callBack: " + callBackParameterValue); }, "New Year");
+         * this.InvokeExtension<string>(5f,
+                            (actionParameterValue) => { Debug.Log("After delay: " + actionParameterValue); }, "Hello World",
+                            (callBackParameterValue) => { Debug.Log("This is callBack: " + callBackParameterValue); }, "New Year");
+         */
         /// <summary>
         /// Generic Parameterized with Parameterized Callback Invoke extension method.
         /// </summary>

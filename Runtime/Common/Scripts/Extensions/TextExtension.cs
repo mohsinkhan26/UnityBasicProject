@@ -13,7 +13,7 @@ namespace UnityEngine.UI
     /// It extends Toggle component makes accesible of its Text component and animator if attached
     /// </summary>
     [AddComponentMenu("UI/Extensions/Text Extended"), RequireComponent(typeof(RectTransform))]
-    public class TextExtension : Text
+    public sealed class TextExtension : Text
     {
         [Header("Extended Properties")] [SerializeField]
         string
@@ -34,15 +34,13 @@ namespace UnityEngine.UI
             {
                 if (m_animator == null)
                     throw new NullReferenceException("Animator component is not set in Inspector on " + name);
-                else
-                    return m_animator;
+                return m_animator;
             }
             set
             {
                 if (m_animator == null)
                     throw new NullReferenceException("Animator component is not set in Inspector on " + name);
-                else
-                    m_animator = value;
+                m_animator = value;
             }
         }
     }

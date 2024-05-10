@@ -13,13 +13,19 @@ MonoBehaviour:
   m_Name: ProjectConfigurations
   m_EditorClassIdentifier: 
   firebaseProjectID: 
+  firebaseProjectNumber: 
+  firebaseRealtimeDatabaseURLPostfix: -default-rtdb.asia-southeast1.firebasedatabase.app/
   firebaseEditorServiceAccountEmail: 
   firebaseEditorP12FileName: 
   firebaseEditorP12Password: notasecret
   firebaseWebClientID: 
   firebaseWebClientSecret: 
-  firebaseError_OnLogin_NoUserFound: 
-  firebaseError_OnCreateUser_AlreadyUserExist: 
+  firebaseStorageURLPostfix: .appspot.com/
+  firebaseCloudFunctionsKey: 
+  firebaseError_OnLogin_NoUserFound: 'Firebase.FirebaseException: There is no user
+    record corresponding to this identifier. The user may have been deleted.'
+  firebaseError_OnCreateUser_AlreadyUserExist: 'Firebase.FirebaseException: The email
+    address is already in use by another account.'
   isProductionBuild: 1
   enableLogging: 1
   language: 

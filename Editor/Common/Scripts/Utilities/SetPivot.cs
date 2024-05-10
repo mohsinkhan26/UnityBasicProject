@@ -2,7 +2,7 @@
  * Version: 1.0
  * Author:  Yilmaz Kiymaz (@VoxelBoy)
  * Purpose: To be able to change the pivot of Game Objects
- * 			without needing to use a separate 3D application. 
+ * 			without needing to use a separate 3D application.
  * License: Free to use and distribute, in both free and commercial projects.
  * 			Do not try to sell as your own work. Simply put, play nice :)
  * Contact: VoxelBoy on Unity Forums

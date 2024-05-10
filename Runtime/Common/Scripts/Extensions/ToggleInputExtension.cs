@@ -13,7 +13,7 @@ namespace UnityEngine.UI
     /// It extends Toggle component makes accesible with InputField component and animator if attached
     /// </summary>
     [AddComponentMenu("UI/Extensions/Toggle Extended"), RequireComponent(typeof(RectTransform))]
-    public class ToggleInputExtension : Toggle
+    public sealed class ToggleInputExtension : Toggle
     {
         [Header("Extended Properties")] [SerializeField]
         InputField
@@ -27,17 +27,15 @@ namespace UnityEngine.UI
             // to get InputField component, you must have to assign
             get
             {
-                if (m_inputFieldComponent != null)
-                    return m_inputFieldComponent.text;
-                else
+                if (m_inputFieldComponent == null)
                     throw new NullReferenceException("InputField component is not set in Inspector on " + name);
+                return m_inputFieldComponent.text;
             }
             set
             {
-                if (m_inputFieldComponent != null)
-                    m_inputFieldComponent.text = value;
-                else
+                if (m_inputFieldComponent == null)
                     throw new NullReferenceException("InputField component is not set in Inspector on " + name);
+                m_inputFieldComponent.text = value;
             }
         }
 
@@ -46,17 +44,15 @@ namespace UnityEngine.UI
             // to get InputField component, you must have to assign
             get
             {
-                if (m_inputFieldComponent != null)
-                    return m_inputFieldComponent.interactable;
-                else
+                if (m_inputFieldComponent == null)
                     throw new NullReferenceException("InputField component is not set in Inspector on " + name);
+                return m_inputFieldComponent.interactable;
             }
             set
             {
-                if (m_inputFieldComponent != null)
-                    m_inputFieldComponent.interactable = value;
-                else
+                if (m_inputFieldComponent == null)
                     throw new NullReferenceException("InputField component is not set in Inspector on " + name);
+                m_inputFieldComponent.interactable = value;
             }
         }
 
@@ -66,15 +62,13 @@ namespace UnityEngine.UI
             {
                 if (m_animator == null)
                     throw new NullReferenceException("Animator component is not set in Inspector on " + name);
-                else
-                    return m_animator;
+                return m_animator;
             }
             set
             {
                 if (m_animator == null)
                     throw new NullReferenceException("Animator component is not set in Inspector on " + name);
-                else
-                    m_animator = value;
+                m_animator = value;
             }
         }
     }

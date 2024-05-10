@@ -1,16 +1,16 @@
-/* 
+/*
  * Author : Mohsin Khan
- * Portfolio : http://mohsinkhan26.github.io/ 
+ * Portfolio : http://mohsinkhan26.github.io/
  * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
  * Github : https://github.com/mohsinkhan26/
-*/
+ */
 
 using UnityEngine;
 
 namespace MK.AssetData
 {
     [CreateAssetMenu(fileName = "ProjectConfigurations", menuName = "Game/Project Configurations", order = 1)]
-    public class ProjectConfiguration : ProjectConfigurationFirebase
+    public sealed class ProjectConfiguration : ProjectConfigurationFirebase
     {
         #region General
 

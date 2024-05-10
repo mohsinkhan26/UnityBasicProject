@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace MK.Common.Miscellaneous
 {
-    public class FPSDisplay : MonoBehaviour
+    public sealed class FPSDisplay : MonoBehaviour
     {
         float deltaTime = 0.0f;
 

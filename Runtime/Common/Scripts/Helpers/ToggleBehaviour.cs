@@ -14,7 +14,7 @@ namespace MK.Common.Helpers
     /// Instead of enable/disable the while gameObject with canvas, make the Canvas component and other custom components enable/disable
     /// as it is a slow process and internally a lot of stuff executes against it
     /// </summary>
-    public class ToggleBehaviour : MonoBehaviour
+    public sealed class ToggleBehaviour : MonoBehaviour
     {
         [Header("Toggle Behaviour")] [SerializeField]
         Behaviour[] behaviours;

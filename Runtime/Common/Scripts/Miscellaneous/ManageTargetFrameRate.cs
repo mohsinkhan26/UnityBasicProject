@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace MK.Common.Miscellaneous
 {
-    public class ManageTargetFrameRate : MonoBehaviour
+    public sealed class ManageTargetFrameRate : MonoBehaviour
     {
         [SerializeField] private bool setOnEnable = true;
         [SerializeField] private int framerate = 60;

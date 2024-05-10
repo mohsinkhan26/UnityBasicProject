@@ -1,9 +1,9 @@
-/* 
+/*
  * Author : Mohsin Khan
- * Portfolio : http://mohsinkhan26.github.io/ 
+ * Portfolio : http://mohsinkhan26.github.io/
  * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
  * Github : https://github.com/mohsinkhan26/
-*/
+ */
 
 using System.Text;
 using UnityEngine;
@@ -28,6 +28,17 @@ namespace MK.AssetData
         public string FirebaseProjectID
         {
             get { return firebaseProjectID; } // to be sure it can't be modified from the code
+        }
+
+        /// <summary>
+        /// The firebase project number.
+        /// access it from https://console.firebase.google.com/project/[YOUR_OWN_PROJECT_ID]/settings/general/[YOUR_PROJECT_PLATFORM]:[YOUR_PROJECT_IDENTIFIER/YOUR_PROJECT_PACKAGE_NAME(com.google.firebase.test)]
+        /// </summary>
+        [SerializeField] string firebaseProjectNumber;
+
+        public string FirebaseProjectNumber
+        {
+            get { return firebaseProjectNumber; } // to be sure it can't be modified from the code
         }
 
         [Tooltip("Firebase Realtime Database URL postfix")]
@@ -62,6 +73,7 @@ namespace MK.AssetData
         /// access it from https://console.cloud.google.com/iam-admin/serviceaccounts/project?project=[YOUR_OWN_PROJECT_ID]
         /// OR https://console.firebase.google.com/project/[YOUR_OWN_PROJECT_ID]/settings/serviceaccounts/adminsdk
         /// OR https://console.firebase.google.com/project/[YOUR_OWN_PROJECT_ID]/settings/cloudmessaging/[YOUR_PROJECT_PLATFORM]:[YOUR_PROJECT_IDENTIFIER/YOUR_PROJECT_PACKAGE_NAME(com.google.firebase.test)]
+        /// For example, firebase-adminsdk-[SOME_RANDOM_STUFF]@[YOUR_OWN_PROJECT_ID].iam.gserviceaccount.com
         /// </summary>
         [SerializeField] string firebaseEditorServiceAccountEmail;
 
@@ -73,7 +85,7 @@ namespace MK.AssetData
         /// <summary>
         /// Add the p12 file to "Editor Default Resources"
         /// Create from https://console.cloud.google.com/iam-admin/serviceaccounts/project?project=[YOUR_OWN_PROJECT_ID]
-        /// Under Keys, generate P12 file. The name of the firebase editor p12 file.
+        /// Under Keys, generate P12 file. The name of the firebase editor p12 file with file extension (.p12).
         /// </summary>
         [SerializeField] string firebaseEditorP12FileName;
 
@@ -137,14 +149,33 @@ namespace MK.AssetData
             }
         }
 
+        [SerializeField] string firebaseCloudFunctionsKey;
+
+        /// <summary>
+        /// For HTTPS onRequest cloud functions to be called as GET, e.g.
+        /// https://[FUNCTION_NAME]-[FUNCTIONS_GENERATED_KEY_BY_FIREBASE]-uc.a.run.app
+        /// you can find it under Function name inside the Functions module on Firebase portal
+        /// </summary>
+        public string FirebaseCloudFunctionsURL
+        {
+            get
+            {
+                // to be sure it can't be modified from the code
+                return new StringBuilder("https://").Append("{0}-") // respective function name will go here
+                    .Append(firebaseCloudFunctionsKey.Trim()).Append("-uc.a.run.app").ToString();
+            }
+        }
+
         #endregion Firebase
 
         #region Error Messages
 
         [Header("Firebase Error Messages")] // just add main message from Inspector
-        public string firebaseError_OnLogin_NoUserFound;
+        public string firebaseError_OnLogin_NoUserFound =
+            "Firebase.FirebaseException: There is no user record corresponding to this identifier. The user may have been deleted.";
 
-        public string firebaseError_OnCreateUser_AlreadyUserExist;
+        public string firebaseError_OnCreateUser_AlreadyUserExist =
+            "Firebase.FirebaseException: The email address is already in use by another account.";
 
         #endregion Error Messages
 

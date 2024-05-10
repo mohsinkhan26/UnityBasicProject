@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace MK.Common.Miscellaneous
 {
-    public class DeactivateOnAwake : MonoBehaviour
+    public sealed class DeactivateOnAwake : MonoBehaviour
     {
         void Awake()
         {

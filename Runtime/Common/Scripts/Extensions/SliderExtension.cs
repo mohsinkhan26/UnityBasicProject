@@ -1,9 +1,9 @@
-﻿/* 
+﻿/*
  * Author : Mohsin Khan
- * Portfolio : http://mohsinkhan26.github.io/ 
+ * Portfolio : http://mohsinkhan26.github.io/
  * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
  * Github : https://github.com/mohsinkhan26/
-*/
+ */
 
 using System;
 
@@ -13,7 +13,7 @@ namespace UnityEngine.UI
     /// It extends Button component makes accesible of its Text component and animator if attached
     /// </summary>
     [AddComponentMenu("UI/Extensions/Slider Extended"), RequireComponent(typeof(RectTransform))]
-    public class SliderExtension : Slider
+    public sealed class SliderExtension : Slider
     {
         [Header("Extended Properties")] [SerializeField]
         Text m_labelComponent;
@@ -27,15 +27,13 @@ namespace UnityEngine.UI
             {
                 if (m_labelComponent == null)
                     throw new NullReferenceException("Label Text component is not set in Inspector on " + name);
-                else
-                    return m_labelComponent;
+                return m_labelComponent;
             }
             set
             {
                 if (m_labelComponent == null)
                     throw new NullReferenceException("Label Text component is not set in Inspector on " + name);
-                else
-                    m_labelComponent = value;
+                m_labelComponent = value;
             }
         }
 
@@ -45,15 +43,13 @@ namespace UnityEngine.UI
             {
                 if (m_labelComponent == null)
                     throw new NullReferenceException("Label Text component is not set in Inspector on " + name);
-                else
-                    return m_labelComponent.text;
+                return m_labelComponent.text;
             }
             set
             {
                 if (m_labelComponent == null)
                     throw new NullReferenceException("Label Text component is not set in Inspector on " + name);
-                else
-                    m_labelComponent.text = value;
+                m_labelComponent.text = value;
             }
         }
 
@@ -73,8 +69,7 @@ namespace UnityEngine.UI
             {
                 if (m_valueComponent == null)
                     throw new NullReferenceException("Value Text component is not set in Inspector on " + name);
-                else
-                    return m_Value.ToString("##0.##");
+                return m_Value.ToString("##0.##");
             }
         }
 
@@ -84,15 +79,13 @@ namespace UnityEngine.UI
             {
                 if (m_animator == null)
                     throw new NullReferenceException("Animator component is not set in Inspector on " + name);
-                else
-                    return m_animator;
+                return m_animator;
             }
             set
             {
                 if (m_animator == null)
                     throw new NullReferenceException("Animator component is not set in Inspector on " + name);
-                else
-                    m_animator = value;
+                m_animator = value;
             }
         }
     }

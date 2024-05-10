@@ -13,7 +13,7 @@ namespace MK.Common.Utilities
     /// <summary>
     /// Task queue. As if you want to perform actions in FIFO method without disturbing the execution flow of the old task
     /// </summary>
-    public class TaskQueue
+    public sealed class TaskQueue
     {
         /// <summary>
         /// The Task queue.

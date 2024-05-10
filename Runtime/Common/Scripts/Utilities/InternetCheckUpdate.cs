@@ -14,7 +14,7 @@ namespace MK.Common.Utilities
     /// The only drawback is Update will keep calling, even when you are done
     /// It's better to remove/delete this component as you are done with checking the Internet
     /// </summary>
-    public class InternetCheckUpdate : MonoBehaviour
+    public sealed class InternetCheckUpdate : MonoBehaviour
     {
         [SerializeField] bool allowCarrierDataNetwork = true;
         const string pingAddress = "8.8.8.8"; // Google Public DNS server

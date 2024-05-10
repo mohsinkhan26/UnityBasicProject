@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace MK.Common.Extensions
 {
-    public class StackExtension<T> : Stack<T>
+    public sealed class StackExtension<T> : Stack<T>
     {
         public Stack<T> Stack;
 

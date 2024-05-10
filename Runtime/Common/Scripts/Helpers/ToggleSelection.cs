@@ -16,7 +16,7 @@ namespace MK.Common.Helpers
     /// Helper for toggle buttons to manage as group
     /// Attach this script to the parent GameObject containing many toggle buttons.
     /// </summary>
-    public class ToggleSelection : MonoBehaviour
+    public sealed class ToggleSelection : MonoBehaviour
     {
         [SerializeField] private Toggle[] toggles;
         [SerializeField] private Text[] toggleTexts;

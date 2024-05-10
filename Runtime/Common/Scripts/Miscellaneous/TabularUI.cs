@@ -12,7 +12,7 @@ using UnityEngine.Events;
 
 namespace MK.Common.Miscellaneous
 {
-    public class TabularUI : MonoBehaviour
+    public sealed class TabularUI : MonoBehaviour
     {
         [SerializeField] Toggle[] tabs;
         [SerializeField] GameObject[] tabPanels;

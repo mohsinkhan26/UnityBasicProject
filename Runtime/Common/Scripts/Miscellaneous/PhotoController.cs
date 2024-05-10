@@ -10,7 +10,7 @@ using MK.Common.Helpers;
 
 namespace MK.Common.Miscellaneous
 {
-    public class PhotoController : MonoBehaviour
+    public sealed class PhotoController : MonoBehaviour
     {
         const string IMAGE_EXTENSION = ".jpg";
 
