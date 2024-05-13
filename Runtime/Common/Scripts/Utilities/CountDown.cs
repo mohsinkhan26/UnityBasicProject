@@ -12,8 +12,9 @@ using UnityEngine.UI;
 using TMPro;
 
 namespace MK.Common.Utilities
-{ // NOTE: Performance wise, it is better than the IEnumerator solution, but result wise might have few seconds difference in case of bigger time.
-    public class CountDown
+{
+    // NOTE: Performance wise, it is better than the IEnumerator solution, but result wise might have few seconds difference in case of bigger time.
+    public sealed class CountDown
     {
         IEnumerator countDownCoroutine;
         double count;
@@ -52,7 +53,7 @@ namespace MK.Common.Utilities
             keepCounting = true;
             onDone = _onDone;
             countDownCoroutine = CountingCoroutine(_mono, _increasing, 1f);
-            if (onDone != null) onDone.Invoke(keepCounting, TimeInText);
+            onDone?.Invoke(keepCounting, TimeInText);
             SetDisplayTimer();
             _mono.StartCoroutine(countDownCoroutine);
         }
@@ -96,7 +97,7 @@ namespace MK.Common.Utilities
                     keepCounting = false;
                 }
 
-                if (onDone != null) onDone.Invoke(keepCounting, TimeInText);
+                onDone?.Invoke(keepCounting, TimeInText);
             }
         }
 

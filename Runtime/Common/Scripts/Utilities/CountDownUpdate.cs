@@ -11,16 +11,17 @@ using UnityEngine.UI;
 using TMPro;
 
 namespace MK.Common.Utilities
-{ // NOTE: Performance wise, it is slow, but result wise might be better than the IEnumerator solution.
+{
+    // NOTE: Performance wise, it is slow, but result wise might be better than the IEnumerator solution.
     // As the Update function is called via Reflection and it will be called even when the countDown is complete
-    public class CountDownUpdate : MonoBehaviour
+    public sealed class CountDownUpdate : MonoBehaviour
     {
         // Remember: MonoBehaviour is just to use its Update function, but still it should be on attached on some GameObject
         double count;
         double limit;
         bool increasing;
         bool keepCounting;
-        Action<bool, string> onDone;
+        Action<bool, double, string> onDone;
 
         [SerializeField] Text display;
         [SerializeField] TMP_Text displayTMP;
@@ -31,20 +32,20 @@ namespace MK.Common.Utilities
         }
 
         public void StartCounting(double _count, double _limit, bool _increasing, Text _text,
-            Action<bool, string> _onDone)
+            Action<bool, double, string> _onDone)
         {
             display = _text;
             StartCounting(_count, _limit, _increasing, _onDone);
         }
 
         public void StartCounting(double _count, double _limit, bool _increasing, TMP_Text _tmpText,
-            Action<bool, string> _onDone)
+            Action<bool, double, string> _onDone)
         {
             displayTMP = _tmpText;
             StartCounting(_count, _limit, _increasing, _onDone);
         }
 
-        public void StartCounting(double _count, double _limit, bool _increasing, Action<bool, string> _onDone)
+        public void StartCounting(double _count, double _limit, bool _increasing, Action<bool, double, string> _onDone)
         {
             ResetCounting(); // reset previous one first, just in case
             count = _count;
@@ -52,7 +53,7 @@ namespace MK.Common.Utilities
             increasing = _increasing;
             keepCounting = true;
             onDone = _onDone;
-            if (onDone != null) onDone.Invoke(keepCounting, TimeInText);
+            onDone?.Invoke(keepCounting, count, TimeInText);
             SetDisplayTimer();
         }
 
@@ -90,7 +91,7 @@ namespace MK.Common.Utilities
                     keepCounting = false;
                 }
 
-                if (onDone != null) onDone.Invoke(keepCounting, TimeInText);
+                onDone?.Invoke(keepCounting, count, TimeInText);
             }
         }
 

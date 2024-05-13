@@ -13,7 +13,7 @@ namespace MK.Common
 {
     public static class GameLogger
     {
-        public static string StackTraceColor = Colors.yellow.ToString();
+        private static readonly string StackTraceColor = Colors.yellow.ToString();
 
         private static bool isLogging = true;
 
@@ -298,6 +298,18 @@ namespace MK.Common
         {
             sender.LogException(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff] "))
                 .Append(string.Format(message, args))
+                .Append("\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
+                .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
+        }
+
+        /// <summary>
+        /// Logs the exception with TimeStamp and Stack Traces.
+        /// </summary>
+        /// <param name="message">Message.</param>
+        public static void LogExceptionTT<T>(this T sender, string message) where T : class
+        {
+            sender.LogException(new StringBuilder(DateTime.Now.ToString("[hh:mm:ss.fff] "))
+                .Append(message)
                 .Append("\n<color=").Append(StackTraceColor).Append(">Stack Traces: ")
                 .Append(StackTraceUtility.ExtractStackTrace()).Append("</color>\n").ToString());
         }

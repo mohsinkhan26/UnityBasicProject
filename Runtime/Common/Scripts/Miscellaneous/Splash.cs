@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace MK.Common.Miscellaneous
 {
-    public class Splash : MonoBehaviour
+    public sealed class Splash : MonoBehaviour
     {
         [SerializeField] float delay = 4f;
         [SerializeField] Image image;
@@ -27,14 +27,14 @@ namespace MK.Common.Miscellaneous
             image.CrossFadeAlpha(0f, delay / 20f, true);
             Debug.Log("Splash Start");
             image.CrossFadeAlpha(1f, delay / 6f, true);
-            Invoke("FadeImage", delay);
+            Invoke(nameof(FadeImage), delay);
             flag = false;
         }
 
         void FadeImage()
         {
             image.CrossFadeAlpha(0f, delay / 4f, true);
-            Invoke("Deactivate", delay / 3f);
+            Invoke(nameof(Deactivate), delay / 3f);
         }
 
         void Deactivate()

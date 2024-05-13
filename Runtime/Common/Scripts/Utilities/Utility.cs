@@ -1,9 +1,9 @@
-/* 
+/*
  * Author : Mohsin Khan
- * Portfolio : http://mohsinkhan26.github.io/ 
+ * Portfolio : http://mohsinkhan26.github.io/
  * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
  * Github : https://github.com/mohsinkhan26/
-*/
+ */
 
 using System;
 using System.Collections.Generic;
@@ -111,9 +111,14 @@ namespace MK.Common.Utilities
         public const string DATE_TIME_FORMAT = "yyyyMMddHHmmss";
         static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-        public static ulong GetCurrentUnixTimestampMilliseconds()
+        public static ulong GetUtcNowUnixTimestampMilliseconds()
         {
             return (ulong) (DateTime.UtcNow - UnixEpoch).TotalMilliseconds;
+        }
+
+        public static ulong GetCurrentUnixTimestampMilliseconds()
+        {
+            return GetUnixTimestampMilliseconds(DateTime.Now);
         }
 
         public static ulong GetUnixTimestampMilliseconds(DateTime _dateTime)
@@ -252,6 +257,21 @@ namespace MK.Common.Utilities
             return (_milliseconds + (_secondsToAdd * 1000.0));
         }
 
+        public static ulong InMilliseconds(this ulong _seconds) // in seconds, 60 seconds = 1 minute
+        {
+            return _seconds * 1000; // convert to milliseconds
+        }
+
+        public static ulong InMilliseconds(this int _seconds) // in seconds, 60 seconds = 1 minute
+        {
+            return (ulong) _seconds * 1000; // convert to milliseconds
+        }
+
+        public static int InSeconds(this ulong _milliseconds) // in seconds, 60 seconds = 1 minute
+        {
+            return (int) _milliseconds / 1000; // convert to seconds
+        }
+
         #endregion Unix Millisecond Timer
 
         #region UnixTime
@@ -300,7 +320,7 @@ namespace MK.Common.Utilities
         public static string GetCurrentTimeStampWithRandomness(bool flag = false)
         {
             //string timeStampNow = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-            string timeStampNow = DateTime.Now.ToString("yyyyMMddHHmmss"); // makes the string of length 14
+            string timeStampNow = DateTime.Now.ToString(DATE_TIME_FORMAT); // makes the string of length 14
             if (flag)
             {
                 // adds 4 random digits to the end and total length becomes 18
@@ -313,7 +333,7 @@ namespace MK.Common.Utilities
 
         public static bool DateIsAlreadyPassed(DateTime _dateTime)
         {
-            if (GetUnixTimestampMilliseconds(_dateTime) <= GetUnixTimestampMilliseconds(DateTime.Now))
+            if (GetUnixTimestampMilliseconds(_dateTime) <= GetCurrentUnixTimestampMilliseconds())
                 return true; // past
             //Debug.LogError("Date selected is in Future!");
             return false; // future
@@ -434,26 +454,6 @@ namespace MK.Common.Utilities
 
         #endregion Data Path
 
-        #region Text Highlight
-
-        public static string HighlightTextGreen(string _highlightedText, string _data)
-        {
-            return HighlightText("green", _highlightedText, _data);
-        }
-
-        public static string HighlightTextRed(string _highlightedText, string _data)
-        {
-            return HighlightText("red", _highlightedText, _data);
-        }
-
-        public static string HighlightText(string _color, string _highlightedText, string _data)
-        {
-            return (new StringBuilder("<color=").Append(_color).Append(">").Append(_highlightedText)
-                .Append(":</color> ").Append(_data).ToString());
-        }
-
-        #endregion Text Highlight
-
         #region Children GameObjects
 
         public static void RemoveChildren(Transform _transform)
@@ -513,7 +513,8 @@ namespace MK.Common.Utilities
                 _maintainingLst.Where(ti => !ti.gameObject.activeInHierarchy).ToList().Count == 0 ||
                 _maintainingLst.Where(tItem =>
                         !tItem.gameObject.activeInHierarchy &&
-                        tItem.name.Equals((_prefabToInstantiate.name + "(Clone)")))
+                        tItem.name.IndexOf((_prefabToInstantiate.name + "(Clone)"),
+                            StringComparison.OrdinalIgnoreCase) >= 0)
                     .ToList().Count == 0)
             {
                 GameObject itemClone =
@@ -528,14 +529,16 @@ namespace MK.Common.Utilities
             else if (_prefabToInstantiate != null)
             {
                 _item = _maintainingLst.First(tItem =>
-                    !tItem.gameObject.activeInHierarchy && tItem.name.Equals((_prefabToInstantiate.name + "(Clone)")));
+                    !tItem.gameObject.activeInHierarchy &&
+                    tItem.name.IndexOf((_prefabToInstantiate.name + "(Clone)"),
+                        StringComparison.OrdinalIgnoreCase) >= 0);
                 if (setParent && _parentObject != null)
                     _item.transform.SetParent(_parentObject, false);
             }
             else
             {
-                Debug.LogError("Utility-GetActiveObjectCreateIfNone: " + _prefabToInstantiate.name + "   Path: " +
-                               prefabPath + "\nSomething wierd happened");
+                Debug.LogError("Utility-GetActiveObjectCreateIfNone: " + _prefabToInstantiate.name +
+                               "   Path: " + prefabPath + "\nSomething wierd happened");
                 _item = _maintainingLst.First(ti => !ti.gameObject.activeInHierarchy);
                 if (setParent && _parentObject != null)
                     _item.transform.SetParent(_parentObject, false);
@@ -547,32 +550,6 @@ namespace MK.Common.Utilities
 
         #endregion Get Active Object
 
-        #region String Functions
-
-        public static string Reverse(string s)
-        {
-            char[] charArray = s.ToCharArray();
-            Array.Reverse(charArray);
-            return new string(charArray);
-        }
-
-        public static bool StringIsNew(List<string> _list, string _newString)
-        {
-            if (_list.Count == 0)
-                return true;
-            return !_list.Exists(str => str.Equals(_newString));
-        }
-
-        public static List<string> AddPrefixToList(List<string> _stringList, string _prefixToAdd)
-        {
-            List<string> temp = new List<string>();
-            for (int i = _stringList.Count - 1; i >= 0; --i)
-                temp.Add(_prefixToAdd + _stringList[i]);
-            return temp;
-        }
-
-        #endregion String Functions
-
         public static Sprite GetSpriteFromTexture2D(Texture2D _texture)
         {
             return Sprite.Create(_texture, new Rect(0.0f, 0.0f, _texture.width, _texture.height),
@@ -580,14 +557,30 @@ namespace MK.Common.Utilities
         }
 
         /// <summary>
-        /// Rotates the increment. If max is 3, then the return values would be 0, 1, 2, 0, 1, 2,...
+        /// Rotates the increment. If max is 3, then the return values would be 1, 2, 0, 1, 2,...
+        /// NOTE: first value would be 1 and after Max-1 value, the next would be 0 and then 1, 2, ... so on
         /// </summary>
         /// <returns>The increment.</returns>
-        /// <param name="_max">Max.</param>
+        /// <param name="_max">Max. [Exclusive]</param>
         /// <param name="_current">Current.</param>
         public static int RotateIncrement(this int _max, int _current)
         {
             return (_current + 1) % _max;
+        }
+
+        public static bool IsValidEmail_MA(string _emailaddress)
+        {
+            // http://stackoverflow.com/questions/5342375/regex-email-validation
+            try
+            {
+                MailAddress m = new MailAddress(_emailaddress);
+
+                return true;
+            }
+            catch (System.FormatException)
+            {
+                return false;
+            }
         }
 
         public static bool IsValidEmail(string _email)
