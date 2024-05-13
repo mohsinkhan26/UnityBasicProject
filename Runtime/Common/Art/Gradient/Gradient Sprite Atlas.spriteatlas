@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Gradient Sprite Atlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 256
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 4
+      m_TextureCompression: 2
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 36dcaa0ebd28aa7439488ec8ee7b7f0e, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - c99c01503eb03f944a581ef7053c4926: 21300000
+    - d7b9a221741042d468cc047415ccf2ef: 21300000
+    - 68f107f4357bb044e9656dbb8430ccf2: 21300000
+    - 7ef4fb474fac5644a9177dae84bde192: 21300000
+    - ba2523b75f7256a4a87c84b0671d5b35: 21300000
+    - 5215ec789b314fe439e96ac493c588b2: 21300000
+    - 8b6568a8ec6b66d49b69340cadf75ebd: 21300000
+    - 91ae2cfa8da08e540a27b2b318cf3f2e: 21300000
+    - 7e51ce7b7f7e3f34ba23c24c071c22a9: 21300000
+    - f9f77fcb600ef864b82d0d3144434f9f: 21300000
+    - 45d4d7adcfe3ff14b9828c8e31e6714c: 21300000
+    - adb0111f6f4d8534bb6931946b43f25b: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: c99c01503eb03f944a581ef7053c4926, type: 3}
+  - {fileID: 21300000, guid: d7b9a221741042d468cc047415ccf2ef, type: 3}
+  - {fileID: 21300000, guid: 68f107f4357bb044e9656dbb8430ccf2, type: 3}
+  - {fileID: 21300000, guid: 7ef4fb474fac5644a9177dae84bde192, type: 3}
+  - {fileID: 21300000, guid: ba2523b75f7256a4a87c84b0671d5b35, type: 3}
+  - {fileID: 21300000, guid: 5215ec789b314fe439e96ac493c588b2, type: 3}
+  - {fileID: 21300000, guid: 8b6568a8ec6b66d49b69340cadf75ebd, type: 3}
+  - {fileID: 21300000, guid: 91ae2cfa8da08e540a27b2b318cf3f2e, type: 3}
+  - {fileID: 21300000, guid: 7e51ce7b7f7e3f34ba23c24c071c22a9, type: 3}
+  - {fileID: 21300000, guid: f9f77fcb600ef864b82d0d3144434f9f, type: 3}
+  - {fileID: 21300000, guid: 45d4d7adcfe3ff14b9828c8e31e6714c, type: 3}
+  - {fileID: 21300000, guid: adb0111f6f4d8534bb6931946b43f25b, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Gradient Pixel-07p32
+  - Gradient Pixel-08p32
+  - Gradient Pixel-05p32
+  - Gradient Pixel-08p
+  - Gradient Pixel-09p
+  - Gradient Pixel-00
+  - Gradient Pixel-07p
+  - Gradient Pixel-06p32
+  - Gradient Pixel-01
+  - Gradient Pixel-05p
+  - Gradient Pixel-09p32
+  - Gradient Pixel-06p
+  m_RenderDataMap: {}
+  m_Tag: Gradient Sprite Atlas
+  m_IsVariant: 0
