@@ -1,9 +1,9 @@
-/* 
+/*
  * Author : Mohsin Khan
- * Portfolio : http://mohsinkhan26.github.io/ 
+ * Portfolio : http://mohsinkhan26.github.io/
  * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
  * Github : https://github.com/mohsinkhan26/
-*/
+ */
 
 using System;
 using System.Net.Mail;
@@ -13,13 +13,13 @@ using System.Net.Security;
 using System.Text;
 using UnityEngine;
 
-/* NOTE: Make the FROM email less secure (Turn On) on 
+/* NOTE: Make the FROM email less secure (Turn On) on
  * https://www.google.com/settings/security/lesssecureapps otherwise, it won't work. DEPRECATED!
  *
  * For Gmail, you need to generate App Password after 2-Step Verification https://support.google.com/accounts/answer/185833
- * 
- * For Microsoft Outlook, you need to generate App Password https://www.youtube.com/watch?v=0gjsIDNJx3M&t=74s 
-*/
+ *
+ * For Microsoft Outlook, you need to generate App Password https://www.youtube.com/watch?v=0gjsIDNJx3M&t=74s
+ */
 
 namespace MK.Common.Utilities
 {
@@ -27,11 +27,11 @@ namespace MK.Common.Utilities
     {
         [SerializeField] string projectName = "PROJECT_NAME";
         [SerializeField] string subjectOfEmail = "Verify your login with OTP";
-        [SerializeField] string fromEmail = "mkhan@hksyu.edu"; // "fromEmail@gmail.com";
-        [SerializeField] string password = "zdsncmrnzjczssmn"; // "12345678"; // App password generated for fromEmail
+        [SerializeField] string fromEmail = "fromEmail@gmail.com";
+        [SerializeField] string password = "0123456789123456"; // App password generated for fromEmail
 
         [Header("For Testing")] [SerializeField]
-        string toEmailForTesting = "mkhan@hksyu.edu"; // "toEmail@gmail.com";
+        private string toEmailForTesting = "toEmail@gmail.com";
 
         [SerializeField] string otpForTesting = "123456";
 
