@@ -13,7 +13,7 @@ namespace MK.Common.Miscellaneous
 {
     public sealed class ShowAppVersion : MonoBehaviour
     {
-        [SerializeField] private string bundleNumber;
+        [SerializeField] private string bundleNumber = "0.0.1";
         [SerializeField] private TMP_Text versionText;
 
         private void Awake()
@@ -24,7 +24,7 @@ namespace MK.Common.Miscellaneous
         void OnEnable()
         {
 #if UNITY_IPHONE
-            versionText.text = this.ConcatenateString("v", bundleNumber);
+            versionText.text = this.ConcatenateString("v", bundleNumber.Trim());
                 // Application.version); // doesn't work in iOS
 #else // for Editor & Android
             versionText.text = this.ConcatenateString("v", Application.version);
