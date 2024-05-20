@@ -11,9 +11,9 @@ using MK.Common.Extensions;
 
 namespace MK.Common.Miscellaneous
 {
-    [RequireComponent(typeof(TMP_Text))]
     public sealed class ShowAppVersion : MonoBehaviour
     {
+        [SerializeField] private string bundleNumber;
         [SerializeField] private TMP_Text versionText;
 
         private void Awake()
@@ -23,13 +23,17 @@ namespace MK.Common.Miscellaneous
 
         void OnEnable()
         {
-            versionText.text = this.ConcatenateString("v",
-                Application.version);
+#if UNITY_IPHONE
+            versionText.text = this.ConcatenateString("v", bundleNumber);
+                // Application.version); // doesn't work in iOS
+#else // for Editor & Android
+            versionText.text = this.ConcatenateString("v", Application.version);
+#endif
         }
 
         public void HideVersion()
         {
-            versionText.transform.parent.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
 
         // runs only in editor automatically, when you apply this script

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4063377554309572267}
   - component: {fileID: 262055499047465770}
   - component: {fileID: 2051382108363918259}
-  - component: {fileID: 3510449690695436923}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -137,19 +136,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &3510449690695436923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 665779451642563748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21e06f1d995683a4385b8e468a282638, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  versionText: {fileID: 2051382108363918259}
 --- !u!1 &6993237871290877314
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,6 +148,7 @@ GameObject:
   - component: {fileID: 8963742229647564811}
   - component: {fileID: 1603489001108281955}
   - component: {fileID: 3286094970561776591}
+  - component: {fileID: 433797634402709983}
   m_Layer: 5
   m_Name: AppVersion Button (TMP)
   m_TagString: Untagged
@@ -271,7 +258,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3510449690695436923}
+      - m_Target: {fileID: 433797634402709983}
         m_TargetAssemblyTypeName: MK.Common.Miscellaneous.ShowAppVersion, mkassets.basics.runtime
         m_MethodName: HideVersion
         m_Mode: 1
@@ -283,3 +270,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &433797634402709983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6993237871290877314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21e06f1d995683a4385b8e468a282638, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bundleNumber: 0.25.25
+  versionText: {fileID: 2051382108363918259}
