@@ -15,6 +15,7 @@ namespace MK.Common.Miscellaneous
     {
         [SerializeField] private string bundleNumber = "0.0.1";
         [SerializeField] private TMP_Text versionText;
+        [SerializeField] private TMP_Text genuineCheckAvailableText;
 
         private void Awake()
         {
@@ -29,6 +30,9 @@ namespace MK.Common.Miscellaneous
 #else // for Editor & Android
             versionText.text = this.ConcatenateString("v", Application.version);
 #endif
+            genuineCheckAvailableText.text = this.ConcatenateString(
+                // "IsGenuine: ",
+                Application.genuineCheckAvailable.ToString());
         }
 
         public void HideVersion()
