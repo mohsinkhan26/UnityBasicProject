@@ -108,18 +108,14 @@ namespace MK.Common.Utilities
             return _timeInMilliseconds / 1000;
         }
 
-        public const string DATE_TIME_FORMAT = "yyyyMMddHHmmss";
+        public const string DATE_TIME_FORMAT = "yyyyMMddHHmmss"; // makes the string of length 14
         static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-        public static ulong GetUtcNowUnixTimestampMilliseconds()
-        {
-            return (ulong) (DateTime.UtcNow - UnixEpoch).TotalMilliseconds;
-        }
+        public static string DateTimeNow => DateTime.Now.ToString(DATE_TIME_FORMAT);
 
-        public static ulong GetCurrentUnixTimestampMilliseconds()
-        {
-            return GetUnixTimestampMilliseconds(DateTime.Now);
-        }
+        public static ulong UtcNowUnixTimestampMilliseconds => (ulong) (DateTime.UtcNow - UnixEpoch).TotalMilliseconds;
+
+        public static ulong CurrentUnixTimestampMilliseconds => GetUnixTimestampMilliseconds(DateTime.Now);
 
         public static ulong GetUnixTimestampMilliseconds(DateTime _dateTime)
         {
@@ -139,7 +135,7 @@ namespace MK.Common.Utilities
 
         public static string DateTimeCurrentInFormat(string _format = "yyyy-MM-dd HH:mm:ss")
         {
-            return DateTimeFromUnixTimestampMilliseconds(GetCurrentUnixTimestampMilliseconds()).ToString(_format);
+            return DateTimeFromUnixTimestampMilliseconds(CurrentUnixTimestampMilliseconds).ToString(_format);
         }
 
         //public static ulong GetCurrentUnixTimestampSeconds()
@@ -320,7 +316,7 @@ namespace MK.Common.Utilities
         public static string GetCurrentTimeStampWithRandomness(bool flag = false)
         {
             //string timeStampNow = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-            string timeStampNow = DateTime.Now.ToString(DATE_TIME_FORMAT); // makes the string of length 14
+            string timeStampNow = DateTimeNow; // makes the string of length 14
             if (flag)
             {
                 // adds 4 random digits to the end and total length becomes 18
@@ -333,7 +329,7 @@ namespace MK.Common.Utilities
 
         public static bool DateIsAlreadyPassed(DateTime _dateTime)
         {
-            if (GetUnixTimestampMilliseconds(_dateTime) <= GetCurrentUnixTimestampMilliseconds())
+            if (GetUnixTimestampMilliseconds(_dateTime) <= CurrentUnixTimestampMilliseconds)
                 return true; // past
             //Debug.LogError("Date selected is in Future!");
             return false; // future
