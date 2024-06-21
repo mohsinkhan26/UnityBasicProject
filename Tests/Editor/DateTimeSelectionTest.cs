@@ -1,9 +1,9 @@
-﻿/* 
+﻿/*
  * Author : Mohsin Khan
- * Portfolio : http://mohsinkhan26.github.io/ 
+ * Portfolio : http://mohsinkhan26.github.io/
  * LinkedIn : http://pk.linkedin.com/in/mohsinkhan26/
  * Github : https://github.com/mohsinkhan26/
-*/
+ */
 
 using System;
 using NUnit.Framework;
@@ -11,7 +11,7 @@ using MK.Common.Utilities;
 
 namespace Game.Common
 {
-    public class DateTimeSelectionTest
+    public sealed class DateTimeSelectionTest
     {
         [TestCase(true, true)]
         [TestCase(true, false)]
@@ -53,7 +53,7 @@ namespace Game.Common
                 null, null, null, null);
 
             Assert.LessOrEqual(Utility.GetUnixTimestampMilliseconds(selectedDateTime),
-                Utility.GetUnixTimestampMilliseconds(DateTime.Now),
+                Utility.CurrentUnixTimestampMilliseconds,
                 "Selected time is greater than current time. Time is in future");
         }
 
@@ -86,7 +86,7 @@ namespace Game.Common
                 null, null, null, null);
 
             Assert.LessOrEqual(Utility.GetUnixTimestampMilliseconds(selectedDateTime),
-                Utility.GetUnixTimestampMilliseconds(DateTime.Now),
+                Utility.CurrentUnixTimestampMilliseconds,
                 "Selected time is greater than current time. Time is in future");
         }
     }
