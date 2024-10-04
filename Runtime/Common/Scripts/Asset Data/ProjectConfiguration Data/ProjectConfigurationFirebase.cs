@@ -166,6 +166,8 @@ namespace MK.AssetData
             }
         }
 
+        public bool sendVerificationEmailToNewUser = true;
+
         #endregion Firebase
 
         #region Error Messages
