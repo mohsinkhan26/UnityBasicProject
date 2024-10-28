@@ -33,6 +33,33 @@ namespace MK.Common.Utilities
 
         #endregion Enum
 
+        public static float FindMidPoint(float num1, float num2)
+        {
+            if (num2 == num1) return num1; // are equal
+            if (num2 < num1) // num2 should be bigger than num1, always
+            {
+                (num1, num2) = (num2, num1); // value swapped
+            }
+
+            if (num1 > 0 && num2 > 0) // all +ve
+            {
+                return num2 - ((num2 - num1) / 2f);
+            }
+
+            if (num1 < 0 && num2 < 0) // all -ve
+            {
+                return num2 - ((num2 - (num1)) / 2f);
+            }
+
+            // num1 is -ve, num2 is +ve
+            // if (num1 < 0 && num2 > 0) {
+            return num2 - ((num2 - (num1)) / 2f);
+            // }
+
+            // num1 is +ve, num2 is -ve
+            // return num2 - ((num2 - (num1)) / 2f);
+        }
+
         public static Vector3 FindMidPoint(Vector3 v1, Vector3 v2)
         {
             // midpoint between v1 and v2

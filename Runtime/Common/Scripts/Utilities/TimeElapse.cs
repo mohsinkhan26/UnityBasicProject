@@ -134,7 +134,7 @@ namespace MK.Common.Utilities
         public void UpdateTimer()
         {
             // startTime = Time.realtimeSinceStartup; // get_realtimeSinceStartup can only be called from the main thread
-            UnityMainThreadDispatcher.Instance().Enqueue(() => { startTime = Time.realtimeSinceStartup; });
+            UnityMainThreadDispatcher.Instance()?.Enqueue(() => { startTime = Time.realtimeSinceStartup; });
         }
 
         public void UpdateAction(Action _action)
